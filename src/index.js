@@ -1,15 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './NewMap';
+import App from './App';
+import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import {rootReducer} from './redux/reducers/rootReducer';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 import reportWebVitals from './reportWebVitals';
+import WebMap from './Maps/WebMap';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const loggerMiddleware = createLogger();
+
+//store
+const store = createStore(rootReducer,
+    applyMiddleware(
+        thunkMiddleware,
+        loggerMiddleware
+    ));
+//Pake store bisa
+//PAke history juga bisa
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import './index.css';
+// import App from './NewMap';
+// import reportWebVitals from './reportWebVitals';
+
+//ReactDOM.render(<React.StrictMode><WebMap /></React.StrictMode>,document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
