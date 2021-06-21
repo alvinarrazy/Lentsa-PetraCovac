@@ -6,7 +6,7 @@ import {history} from '../src/redux/helpers/history';
 //Pages
 
 //Testing
-import HomePage from './Maps/WebMap';
+import HomePage from './Pages/Tryout';
 
 
 

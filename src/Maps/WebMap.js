@@ -5,7 +5,6 @@ import DictionaryRenderer from "@arcgis/core/renderers/DictionaryRenderer";
 import MapView from "@arcgis/core/views/MapView";
 import WebMap from "@arcgis/core/WebMap";
 
-import "./App.css";
 
 function App() {
   const mapDiv = useRef(null);
@@ -18,7 +17,7 @@ function App() {
 
       const webmap = new WebMap({
         portalItem: {
-          id: "974c6641665a42bf8a57da08e607bb6f"
+          id: "cf951094cb3f48b29b5f37ed9592ced2"
         }
       });
       const view = new MapView({

@@ -4,7 +4,6 @@ import ArcGISMap from "@arcgis/core/Map";
 import DictionaryRenderer from "@arcgis/core/renderers/DictionaryRenderer";
 import MapView from "@arcgis/core/views/MapView";
 
-import "./App.css";
 
 function App() {
   const mapDiv = useRef(null);
