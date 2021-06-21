@@ -3,6 +3,7 @@ import axios from 'axios';
 import MapView from '../Maps/MapView';
 import WebMap from '../Maps/WebMap';
 import Navbar from './Components/Navbar';
+import HeroSection from './Components/HeroSection';
 
 class Tryout extends React.Component {
 	constructor(props) {
@@ -14,9 +15,10 @@ class Tryout extends React.Component {
 	}
 
 	componentDidMount() {
-		axios.get('https://corona.semarangkab.go.id/covid/data_desa?id_kecamatan=5')
+		axios.get('https://corona.semarangkab.go.id/')
 		.then(response => {
 			const data = response.data
+			console.log(response)
 			this.setState({data})
 		});
 
@@ -40,6 +42,7 @@ class Tryout extends React.Component {
 		return (
 			<>
 			<Navbar/>
+			<HeroSection/>
 			<div dangerouslySetInnerHTML={{ __html: this.state.data }} />
 				<div style={{width:'40%',height: '500px', float: 'left'}}>
 					{/* <MapView/> */}
