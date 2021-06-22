@@ -3,7 +3,9 @@ import axios from 'axios';
 import MapView from '../Maps/MapView';
 import WebMap from '../Maps/WebMap';
 import Navbar from './Components/Navbar';
-import HeroSection from './Components/HeroSection';
+import WelcomeSection from './Components/WelcomeSection';
+import DescriptionSection from './Components/DescriptionSection';
+import Cards from './Components/Cards';
 
 class Tryout extends React.Component {
 	constructor(props) {
@@ -15,12 +17,12 @@ class Tryout extends React.Component {
 	}
 
 	componentDidMount() {
-		axios.get('https://corona.semarangkab.go.id/')
-		.then(response => {
-			const data = response.data
-			console.log(response)
-			this.setState({data})
-		});
+		// axios.get('https://corona.semarangkab.go.id/')
+		// .then(response => {
+		// 	const data = response.data
+		// 	console.log(response)
+		// 	this.setState({data})
+		// });
 
 		// axios({
 		// 	method: 'get',
@@ -42,15 +44,18 @@ class Tryout extends React.Component {
 		return (
 			<>
 			<Navbar/>
-			<HeroSection/>
-			<div dangerouslySetInnerHTML={{ __html: this.state.data }} />
-				<div style={{width:'40%',height: '500px', float: 'left'}}>
-					{/* <MapView/> */}
+			<WelcomeSection/>
+			<DescriptionSection/>
+			<Cards/>
+			{/* <div dangerouslySetInnerHTML={{ __html: this.state.data }} /> */}
+				{/* <div style={{width:'40%',height: '500px', float: 'left'}}>
+					<MapView/>
 
 				</div>
 				<div style={{width:'40%',height: '500px', float: 'right'}}>
-					{/* <WebMap/> */}
-				</div>
+					<WebMap/> 
+				</div> */}
+			
 			</>
 		)
 
