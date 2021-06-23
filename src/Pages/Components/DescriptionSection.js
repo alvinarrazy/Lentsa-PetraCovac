@@ -4,7 +4,7 @@ import '../Styles/DescriptionSection.css';
 
 function DescriptionSection() {
   return (
-    <div className='hero-container' style={{
+    <div className='desc-wrap' style={{
       backgroundImage: `url(${process.env.PUBLIC_URL + '/images/nyepeda.png'})`
     }}>
       <h1>Sandays Program Nyepeda Sekejap</h1>

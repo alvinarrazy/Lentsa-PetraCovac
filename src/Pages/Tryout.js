@@ -45,8 +45,8 @@ class Tryout extends React.Component {
 			<>
 			<Navbar/>
 			<WelcomeSection/>
-			<DescriptionSection/>
 			<Cards/>
+			<DescriptionSection/>
 			{/* <div dangerouslySetInnerHTML={{ __html: this.state.data }} /> */}
 				{/* <div style={{width:'40%',height: '500px', float: 'left'}}>
 					<MapView/>
