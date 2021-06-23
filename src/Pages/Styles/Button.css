@@ -1,5 +1,6 @@
 :root {
     --primary: #ff7f50;
+    background: linear-gradient(#fef5e6 0%, #fff 100%);
 }
 
 .btn {
