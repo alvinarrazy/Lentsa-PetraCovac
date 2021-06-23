@@ -5,6 +5,7 @@ import WebMap from '../Maps/WebMap';
 import Navbar from './Components/Navbar';
 import WelcomeSection from './Components/WelcomeSection';
 import DescriptionSection from './Components/DescriptionSection';
+import NyepedaSection from './Components/NyepedaSection';
 import Cards from './Components/Cards';
 
 class Tryout extends React.Component {
@@ -46,6 +47,9 @@ class Tryout extends React.Component {
 			<Navbar/>
 			<WelcomeSection/>
 			<Cards/>
+			<NyepedaSection/>
+			<br/>
+			<br/>
 			<DescriptionSection/>
 			{/* <div dangerouslySetInnerHTML={{ __html: this.state.data }} /> */}
 				{/* <div style={{width:'40%',height: '500px', float: 'left'}}>

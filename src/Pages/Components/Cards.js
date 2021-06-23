@@ -5,35 +5,35 @@ import CardItem from './CardItem';
 function Cards() {
   return (
     <div className='cards'>
-      <h1>Check out these EPIC Destinations!</h1>
+      <h1>LENTSA PETRACOVAC FEATURES</h1>
       <div className='cards__container'>
         <div className='cards__wrapper'>
           <ul className='cards__items'>
             <CardItem
-              src='images/rumah-sakit.png'
-              text='Set Sail in the Atlantic Ocean visiting Uncharted Waters'
-              label='Mystery'
+              src='images/trek.png'
+              text='Fitur tracking distribusi vaksin Covid-19 dengan beberapa zona '
+              label='Vaccine Tracking'
               path='/services'
             />
             <CardItem
-              src='images/tracking.png'
-              text='Explore the hidden waterfall deep inside the Amazon Jungle'
-              label='Adventure'
+              src='images/statistik.png'
+              text='Data statistik mengenai Covid-19 di Kabupaten Semarang serta daerah penyebarannya'
+              label='Covid-19 Stats'
               path='/services'
             />
           </ul>
           <ul className='cards__items'>
             <CardItem
-              src='images/statsz.png'
-              text='Travel through the Islands of Bali in a Private Cruise'
-              label='Luxury'
+              src='images/olahraga.png'
+              text='Anjuran serta panduan pola hidup sehat di era New Normal'
+              label='Healthy Life'
               path='/services'
             />
             <CardItem
-              src='images/olahraga.png'
-              text='Experience Football on Top of the Himilayan Mountains'
-              label='Adventure'
-              path='/products'
+              src='images/rumasakit.png'
+              text='Informasi terkait lokasi dan fasilitas tenaga medis rumah sakit'
+              label='Hospital Locator'
+              path='/services'
             />
           </ul>
         </div>
