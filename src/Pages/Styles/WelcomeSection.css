@@ -58,6 +58,16 @@ video {
 }
 
 @media screen and (max-width: 960px) {
+  .header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin-left: 0;
+  }
+  
   .hero-container > h1 {
     font-size: 70px;
     margin-top: -150px;
