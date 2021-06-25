@@ -35,7 +35,7 @@ video {
 
 .header-container > h1 {
   color: #1b0605;
-  font-size: 50px;
+  font-size: 3.5vw;
   margin-top: -100px;
 }
 
@@ -43,6 +43,7 @@ video {
   margin-top: 8px;
   color: #1b0605;
   font-size: 17px;
+  text-align: center;
 }
 
 .hero-btns {

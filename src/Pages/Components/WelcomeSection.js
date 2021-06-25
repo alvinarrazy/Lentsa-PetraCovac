@@ -28,7 +28,7 @@ class WelcomeSection extends Component {
 
   render() {
     const isMobile = this.state.isMobile;
-    console.log(isMobile)
+    // console.log(isMobile)
     return (
       <div className='hero-container' style={isMobile ?
         {} :
