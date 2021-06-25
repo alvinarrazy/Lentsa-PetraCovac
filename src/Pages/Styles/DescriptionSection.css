@@ -27,7 +27,7 @@ video {
   /* justify-content: center; */
   align-items: center;
   height: 70%;
-  width: 60%;
+  width: 45vw;
 }
 
 .desc-wrap>h1 {
@@ -39,7 +39,7 @@ video {
 .desc-container>p {
   margin-top: 8px;
   color: #1b0605;
-  font-size: 17px;
+  font-size: 15px;
   padding-right: 10px;
   text-align: justify;
 
