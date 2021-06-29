@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import axios from 'axios';
 import MapView from '../Maps/MapView';
 import WebMap from '../Maps/WebMap';
@@ -16,6 +16,7 @@ class Tryout extends React.Component {
 		this.state = {
 			desas: {
 				nama_desa: '',
+				nama_kecamatan: '',
 				suspek: '',
 				discharded: '',
 				meninggal: '',
@@ -24,27 +25,27 @@ class Tryout extends React.Component {
 				konfirmasi_sembuh: '',
 				konfirmasi_meninggal: '',
 			},
-			desa: '',
+			desa: [],
 			submitted: false
 		}
 	}
 
 	componentDidMount() {
-		axios.get('https://corona.semarangkab.go.id/covid/data_desa?id_kecamatan=5')
-		 .then(response => {
-		 	const desa = response.data
-		 	console.log(response.desa)
-		 	this.setState({
-				...this.state, 
-				desa
-			})
-		 });
+		axios.get('http://localhost:3001/api/covid/get-desa-in-kecamatan/60db2a49faf1e81950b593b6')
+			.then(response => {
+				const desa = response.data.semua_desa
+				console.log(response.data.semua_desa[0].nama_desa)
+				this.setState({
+					...this.state,
+					desa
+				})
+			});
 
 		//  axios({
 		//  	method: 'get',
 		//  	url: 'https://corona.semarangkab.go.id/covid/data_desa',
 		//  	desa: "id_kecamatan="+5
-		//    });	
+		//    });
 
 		// axios.get('https://api.github.com/users/mapbox')
 		// .then((response) => {
@@ -56,32 +57,34 @@ class Tryout extends React.Component {
 		// });
 	}
 
-	handleChange(event){
-		const{name, value} = event.target;
-		const{desas} = this.state;
+	handleChange(event) {
+		const { name, value } = event.target;
+		const { desas } = this.state;
 		this.setState({
-			desas:{
+			desas: {
 				...desas,
 				[name]: value //name dan value component dari <input> tag
 			}
 		});
 	}
 
-	handleSubmit(event){
+	handleSubmit(event) {
 		event.preventDefault();
-		const {desas} = this.state
+		const { desas } = this.state
 		console.log(desas)
 		axios.post('http://localhost:3001/api/covid/tambah-desa', desas)
 	}
 
 	render() {
-		const { desas } = this.state
+		const { desas, desa } = this.state
+
 		return (
 			<>
 				<div className="login-form">
 					<h1>Log in</h1>
 					<form onSubmit={this.handleSubmit}>
 						<input type="text" onChange={this.handleChange} name="nama_desa" value={desas.nama_desa} placeholder="nama_desa" required />
+						<input type="text" onChange={this.handleChange} name="nama_kecamatan" value={desas.nama_kecamatan} placeholder="nama_kecamatan" required />
 						<input type="text" onChange={this.handleChange} name="suspek" value={desas.suspek} placeholder="suspek" required />
 						<input type="text" onChange={this.handleChange} name="discharded" value={desas.discharded} placeholder="discharded" required />
 						<input type="text" onChange={this.handleChange} name="meninggal" value={desas.meninggal} placeholder="meninggal" required />
@@ -99,13 +102,45 @@ class Tryout extends React.Component {
 			<br/>
 			<br/>
 			<DescriptionSection/> */}
-				<div dangerouslySetInnerHTML={{ __html: this.state.desa }} />
+				<table className="data-covid">
+					<tr>
+						<th>Nama Desa</th>
+						<th>Nama Kecamatan</th>
+						<th>Suspek</th>
+						<th>Discharded</th>
+						<th>Meninggal</th>
+						<th>Konfirmasi Symptomatik</th>
+						<th>Konfirmasi Asymptomatik</th>
+						<th>Konfirmasi Sembuh</th>
+						<th>Konfirmasi Meninggal</th>
+					</tr>
+					<Fragment>
+						{
+							desa.map(satuDesa => {
+								return (
+									<tr>
+										<th>{satuDesa.nama_desa}</th>
+										<th>{satuDesa.nama_kecamatan}</th>
+										<th>{satuDesa.suspek}</th>
+										<th>{satuDesa.discharded}</th>
+										<th>{satuDesa.meninggal}</th>
+										<th>{satuDesa.konfirmasi_symptomatik}</th>
+										<th>{satuDesa.konfirmasi_asymptomatik}</th>
+										<th>{satuDesa.konfirmasi_sembuh}</th>
+										<th>{satuDesa.konfirmasi_meninggal}</th>
+									</tr>
+								)
+							})
+						}
+					</Fragment>
+				</table>
+				{/* <div dangerouslySetInnerHTML={{ __html: this.state.desa }} /> */}
 				{/* <div style={{width:'40%',height: '500px', float: 'left'}}>
 					<MapView/>
 
 				</div>
 				<div style={{width:'40%',height: '500px', float: 'right'}}>
-					<WebMap/> 
+					<WebMap/>
 				</div> */}
 
 			</>
