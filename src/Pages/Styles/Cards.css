@@ -112,8 +112,20 @@ h1 {
   }
 }
 
-@media only screen and (max-width: 1024px) {
-  .cards__item {
-    margin-bottom: 2rem;
+@media only screen and (max-width: 960px) {
+ .cards__container{
+   padding-bottom: 100px;
+ }
+}
+
+@media only screen and (max-width: 720px) {
+  .cards__container{
+    padding-bottom: 80px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .cards__container{
+    padding-bottom: 60px;
   }
 }

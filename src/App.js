@@ -4,9 +4,10 @@ import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom
 import {history} from '../src/redux/helpers/history';
 
 //Pages
+import HomePage from "./Pages/HomePage";
 
 //Testing
-import HomePage from './Pages/Tryout';
+import Tryout from './Pages/Tryout';
 
 
 

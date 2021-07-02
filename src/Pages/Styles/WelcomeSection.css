@@ -31,15 +31,13 @@ video {
   margin-left: 15vw;
 }
 
-
-
-.header-container > h1 {
+.header-container>h1 {
   color: #1b0605;
   font-size: 3.5vw;
   margin-top: -100px;
 }
 
-.header-container > p {
+.header-container>p {
   margin-top: 8px;
   color: #1b0605;
   font-size: 17px;
@@ -68,28 +66,48 @@ video {
     width: 100%;
     margin-left: 0;
   }
-  
-  .hero-container > h1 {
-    font-size: 70px;
+  .hero-container {
+    background-position: top;
+    height: 110vw;
+    width: 100%;
+  }
+  .header-container>h1 {
+    font-size: 40px;
     margin-top: -150px;
+  }  .header-container>p {
+    font-size: 30px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .hero-container > h1 {
-    font-size: 50px;
+  .header-container>h1 {
+    font-size: 30px;
     margin-top: -100px;
   }
-
-  .hero-container > p {
-    font-size: 30px;
+  .header-container>p {
+    font-size: 20px;
   }
-
   .btn-mobile {
     display: block;
     text-decoration: none;
   }
+  .btn {
+    width: 100%;
+  }
+}
 
+@media screen and (max-width: 360px) {
+  .header-container>h1 {
+    font-size: 25px;
+    margin-top: -100px;
+  }
+  .header-container>p {
+    font-size: 15px;
+  }
+  .btn-mobile {
+    display: block;
+    text-decoration: none;
+  }
   .btn {
     width: 100%;
   }

@@ -31,9 +31,10 @@ class WelcomeSection extends Component {
     // console.log(isMobile)
     return (
       <div className='hero-container' style={isMobile ?
-        {} :
+        { backgroundImage: `url(${process.env.PUBLIC_URL + '/images/viruz.png'})` } :
         { backgroundImage: `url(${process.env.PUBLIC_URL + '/images/viruz.png'})` }
       }>
+
         <div className='header-container'>
           <h1>Selamat Datang di Lentsa Petracovac</h1>
           <p>Siaga dalam satu visi, selamatkan sejuta jiwa negeri</p>
