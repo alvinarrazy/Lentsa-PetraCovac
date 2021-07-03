@@ -31,15 +31,15 @@ class Tryout extends React.Component {
 	}
 
 	componentDidMount() {
-		axios.get('http://localhost:3001/api/covid/get-desa-in-kecamatan/60db2a49faf1e81950b593b6')
-			.then(response => {
-				const desa = response.data.semua_desa
-				console.log(response.data.semua_desa[0].nama_desa)
-				this.setState({
-					...this.state,
-					desa
-				})
-			});
+		// axios.get('http://localhost:3002/api/covid/get-desa-in-kecamatan/60db2a49faf1e81950b593b6')
+		// 	.then(response => {
+		// 		const desa = response.data.semua_desa
+		// 		console.log(response.data.semua_desa[0].nama_desa)
+		// 		this.setState({
+		// 			...this.state,
+		// 			desa
+		// 		})
+		// 	});
 
 		//  axios({
 		//  	method: 'get',
@@ -72,7 +72,7 @@ class Tryout extends React.Component {
 		event.preventDefault();
 		const { desas } = this.state
 		console.log(desas)
-		axios.post('http://localhost:3001/api/covid/tambah-desa', desas)
+		axios.post('http://localhost:3002/api/covid/tambah-desa', desas)
 	}
 
 	render() {

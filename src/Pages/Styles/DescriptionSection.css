@@ -60,6 +60,7 @@ video {
   .desc-wrap>h1 {
     font-size: 70px;
     margin-top: -150px;
+    color: #20212c;
   }
   .desc-wrap {
     width: auto;
@@ -76,6 +77,7 @@ video {
 
   .desc-container>p{
 margin: 0 10px 0 10px;
+color: #20212c;
   }
 }
 

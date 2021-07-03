@@ -69,9 +69,11 @@ video {
   .nyepeda-wrap>h1 {
     font-size: 40px;
     margin-top: -150px;
+    color: #20212c;
   }
   .nyepeda-container>p {
     padding-bottom: 10px;
+    color: #20212c;
   }
 
   .nyepeda-container{
