@@ -17,7 +17,8 @@ function App() {
     <>
     <Router>
       <Switch  history={history}>
-        <Route path='/' exact component={Tryout}/>
+        <Route path='/' exact component={HomePage}/>
+        <Route path='/testing' exact component={Tryout}/>
         <Redirect from="*" to="/" />
       </Switch>
     </Router>
