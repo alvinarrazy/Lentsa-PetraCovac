@@ -4,17 +4,20 @@ import { connect } from 'react-redux';
 import {
 	getAllKecamatan,
 	addDesaCSV,
-	getDesaInURL
+	getDesaInURL,
+	editDataDesa,
+	editDataDesaURL
 } from '../redux/actions/CovidAction';
 
 
-class Tryout extends React.Component {
+class UpdateDataPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleSubmitFile = this.handleSubmitFile.bind(this);
 		this.state = {
-			desas: {
+			desa: {
 				nama_desa: '',
 				nama_kecamatan: '',
 				suspek: '',
@@ -25,13 +28,11 @@ class Tryout extends React.Component {
 				konfirmasi_sembuh: '',
 				konfirmasi_meninggal: '',
 			},
-			desa: [],
 			submitted: false
 		}
 	}
 
 	async componentDidMount() {
-		this.props.getAllKecamatan();
 		try {
 			var html = await axios.get("https://corona.semarangkab.go.id/covid/data_desa?id_kecamatan=5")
 			var temp = document.createElement('div');
@@ -47,10 +48,10 @@ class Tryout extends React.Component {
 
 	handleChange(event) {
 		const { name, value } = event.target;
-		const { desas } = this.state;
+		const { desa } = this.state;
 		this.setState({
-			desas: {
-				...desas,
+			desa: {
+				...desa,
 				[name]: value //name dan value component dari <input> tag
 			}
 		});
@@ -132,7 +133,7 @@ class Tryout extends React.Component {
 		// You can set content in state and show it in render.
 	}
 
-	handleChangeFile = (file) => {
+	handleSubmitFile = (file) => {
 		let fileData = new FileReader();
 		fileData.onloadend = this.handleFile;
 		fileData.readAsText(file);
@@ -141,73 +142,31 @@ class Tryout extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const { desas } = this.state
-		console.log(desas)
-		axios.post('http://localhost:3002/api/covid/tambah-desa', desas)
+		const { desa } = this.state
+		this.props.editDataDesa(desa)
 	}
 
 	render() {
-		const { desas, desa } = this.state
+		const { desa } = this.state
 		return (
 			<>
-				<div className="login-form">
-					<h1>Log in</h1>
+				<div className="">
 					<form onSubmit={this.handleSubmit}>
-						<input type="text" onChange={this.handleChange} name="nama_desa" value={desas.nama_desa} placeholder="nama_desa" required />
-						<input type="text" onChange={this.handleChange} name="nama_kecamatan" value={desas.nama_kecamatan} placeholder="nama_kecamatan" required />
-						<input type="text" onChange={this.handleChange} name="suspek" value={desas.suspek} placeholder="suspek" required />
-						<input type="text" onChange={this.handleChange} name="discharded" value={desas.discharded} placeholder="discharded" required />
-						<input type="text" onChange={this.handleChange} name="meninggal" value={desas.meninggal} placeholder="meninggal" required />
-						<input type="text" onChange={this.handleChange} name="konfirmasi_symptomatik" value={desas.konfirmasi_symptomatik} placeholder="konfirmasi_symptomatik" required />
-						<input type="text" onChange={this.handleChange} name="konfirmasi_asymptomatik" value={desas.konfirmasi_asymptomatik} placeholder="konfirmasi_asymptomatik" required />
-						<input type="text" onChange={this.handleChange} name="konfirmasi_sembuh" value={desas.konfirmasi_sembuh} placeholder="konfirmasi_sembuh" required />
-						<input type="text" onChange={this.handleChange} name="konfirmasi_meninggal" value={desas.konfirmasi_meninggal} placeholder="konfirmasi_meninggal" required />
-						<input type="submit" value="Log in" />
+						<input type="text" onChange={this.handleChange} name="nama_desa" value={desa.nama_desa} placeholder="nama_desa" required />
+						<input type="text" onChange={this.handleChange} name="suspek" value={desa.suspek} placeholder="suspek" required />
+						<input type="text" onChange={this.handleChange} name="discharded" value={desa.discharded} placeholder="discharded" required />
+						<input type="text" onChange={this.handleChange} name="meninggal" value={desa.meninggal} placeholder="meninggal" required />
+						<input type="text" onChange={this.handleChange} name="konfirmasi_symptomatik" value={desa.konfirmasi_symptomatik} placeholder="konfirmasi_symptomatik" required />
+						<input type="text" onChange={this.handleChange} name="konfirmasi_asymptomatik" value={desa.konfirmasi_asymptomatik} placeholder="konfirmasi_asymptomatik" required />
+						<input type="text" onChange={this.handleChange} name="konfirmasi_sembuh" value={desa.konfirmasi_sembuh} placeholder="konfirmasi_sembuh" required />
+						<input type="text" onChange={this.handleChange} name="konfirmasi_meninggal" value={desa.konfirmasi_meninggal} placeholder="konfirmasi_meninggal" required />
+						<input type="submit" value="Update" />
 					</form>
 				</div>
-				{/* <table className="data-covid">
-					<tr>
-						<th>Nama Desa</th>
-						<th>Nama Kecamatan</th>
-						<th>Suspek</th>
-						<th>Discharded</th>
-						<th>Meninggal</th>
-						<th>Konfirmasi Symptomatik</th>
-						<th>Konfirmasi Asymptomatik</th>
-						<th>Konfirmasi Sembuh</th>
-						<th>Konfirmasi Meninggal</th>
-					</tr>
-					<Fragment>
-						{
-							desa.map(satuDesa => {
-								return (
-									<tr>
-										<th>{satuDesa.nama_desa}</th>
-										<th>{satuDesa.nama_kecamatan}</th>
-										<th>{satuDesa.suspek}</th>
-										<th>{satuDesa.discharded}</th>
-										<th>{satuDesa.meninggal}</th>
-										<th>{satuDesa.konfirmasi_symptomatik}</th>
-										<th>{satuDesa.konfirmasi_asymptomatik}</th>
-										<th>{satuDesa.konfirmasi_sembuh}</th>
-										<th>{satuDesa.konfirmasi_meninggal}</th>
-									</tr>
-								)
-							})
-						}
-					</Fragment>
-				</table> */}
-
-				<input type="file" onChange={e => { this.handleChangeFile(e.target.files[0]) }} />
-				{/* <div dangerouslySetInnerHTML={{ __html: this.state.desa }} /> */}
-				{/* <div style={{width:'40%',height: '500px', float: 'left'}}>
-					<MapView/>
-
-				</div>
-				<div style={{width:'40%',height: '500px', float: 'right'}}>
-					<WebMap/>
-				</div> */}
-
+				<form onSubmit={e => { this.handleSubmitFile(e.target.files[0]) }}>
+					<input type="file" onChange={e => { this.handleSubmitFile(e.target.files[0]) }} />
+					<input type="submit" value="Update"/>
+				</form>
 			</>
 		)
 
@@ -225,8 +184,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		getAllKecamatan: () => dispatch(getAllKecamatan()),
 		addDesaCSV: (jsonData) => dispatch(addDesaCSV(jsonData)),
-		getDesaInURL: (id_desa) => dispatch(getDesaInURL(id_desa))
+		getDesaInURL: (id_desa) => dispatch(getDesaInURL(id_desa)),
+		editDataDesa: (data) => dispatch(editDataDesa(data))
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tryout);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateDataPage);

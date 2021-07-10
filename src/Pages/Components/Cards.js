@@ -19,7 +19,7 @@ function Cards() {
               src='images/statistik.png'
               text='Data statistik mengenai Covid-19 di Kabupaten Semarang serta daerah penyebarannya'
               label='Covid-19 Stats'
-              path='/services'
+              path='/statsdata'
             />
           </ul>
           <ul className='cards__items'>
