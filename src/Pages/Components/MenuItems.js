@@ -6,12 +6,12 @@ export const MenuItems = [
     },
     {
         title: 'Data Covid',
-        url: '/statsdata',
+        url: '/stats-data',
         cName: 'nav-links'
     },
     {
-        title: 'Fitur',
-        url: '#',
+        title: 'Peta Covid',
+        url: '/covid-map',
         cName: 'nav-links'
     },
     {

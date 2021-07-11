@@ -21,14 +21,21 @@ const data =
 ,17,Ujung-ujung,0,1,0,,0,27,43,2,
 `
 lines = data.split("\n");
-lines.splice(0, 1)
+lines.splice(0, 1)//hapus Rincian data sebaran di Desa (hapus baris 1)
 
-lines[0] = lines[0] + "," + lines[1];
-lines.splice(1,1)
+lines[0] = lines[0] + "," + lines[1];//naikin baris 3 ke 2 (sekarang 2 ke 1 setelah splice pertama)
+lines.splice(1,1)//hapus baris 2
 
 var firstLine = lines[0].split(",")
 
-firstLine.splice(2,2)
+firstLine.splice(3,3)
+
+for(var i=0; i<firstLine.length; i++){
+    firstLine[i] = firstLine[i].replace(" ", "_")
+    firstLine[i] = firstLine[i].toLowerCase()
+}
+firstLine[firstLine.length-1] = "keterangan_konfirmasi"
+
 lines[0]=""
 for (var i = 0; i<firstLine.length; i++){
     lines[0] += firstLine[i]

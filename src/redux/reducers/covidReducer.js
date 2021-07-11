@@ -5,7 +5,7 @@ const initialState = {
   desaDariKecamatan: [{}],
   kecamatanDipilih: {},
   sumDataKecamatan: [{}],
-  addedData: [{}]
+  addedData: []
 }
 
 export function covidDataReducer(state = initialState, action) {
@@ -43,7 +43,7 @@ export function covidDataReducer(state = initialState, action) {
     case covidConstant.EDIT_DESA_URL:
       return {
         ...state,
-        addedData: action.data
+        addedData: [state.addedData, action.data]
       }
     default:
       return state

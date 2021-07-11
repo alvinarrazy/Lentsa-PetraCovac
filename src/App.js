@@ -6,6 +6,7 @@ import {history} from '../src/redux/helpers/history';
 //Pages
 import HomePage from "./Pages/HomePage";
 import UpdateDataPage from "./Pages/UpdateDataPage";
+import MapPage from './Pages/MapPage';
 import StatsPage from "./Pages/StatsPage";
 
 //Testing
@@ -22,7 +23,9 @@ function App() {
         <Route path='/' exact component={HomePage}/>
         <Route path='/home' exact component={HomePage}/>
         <Route path='/testing' exact component={Tryout}/>
-        <Route path='/statsdata' exact component={StatsPage}/>
+        <Route path='/stats-data' exact component={StatsPage}/>
+        <Route path='/covid-map' exact component={MapPage}/>
+        <Route path='/update-data' exact component={UpdateDataPage}/>
         <Redirect from="*" to="/" />
       </Switch>
     </Router>

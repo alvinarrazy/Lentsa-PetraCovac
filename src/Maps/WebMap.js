@@ -27,7 +27,7 @@ function App() {
     }
   }, []);
 
-  return <div className="mapDiv" ref={mapDiv}></div>;
+  return <div className="mapDiv" style={{height: '350px'}} ref={mapDiv}></div>;
 }
 
 export default App;

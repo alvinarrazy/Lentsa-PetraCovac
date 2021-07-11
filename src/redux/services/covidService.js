@@ -111,7 +111,7 @@ async function getDataFromURL(id_desa){
 
 async function updateDataDesa(data){
     try{
-        let result = await axios.post(`${API}${covidConstant.EDIT_DESA}`, data)
+        let result = await axios.put(`${API}${covidConstant.EDIT_DESA}`, data)
         return result
     }catch(error){
         console.log(error)
@@ -120,7 +120,7 @@ async function updateDataDesa(data){
 
 async function updateDataDesaURL(data){
     try{
-        let result = await axios.post(`${API}${covidConstant.EDIT_DESA_URL}`, data)
+        let result = await axios.put(`${API}${covidConstant.EDIT_DESA_URL}`, data)
         return result
     }catch(error){
         console.log(error)
