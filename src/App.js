@@ -8,6 +8,7 @@ import HomePage from "./Pages/HomePage";
 import UpdateDataPage from "./Pages/UpdateDataPage";
 import MapPage from './Pages/MapPage';
 import StatsPage from "./Pages/StatsPage";
+import DesaStatsPage from './Pages/DesaStatsPage';
 
 //Testing
 import Tryout from './Pages/Tryout';
@@ -24,6 +25,7 @@ function App() {
         <Route path='/home' exact component={HomePage}/>
         <Route path='/testing' exact component={Tryout}/>
         <Route path='/stats-data' exact component={StatsPage}/>
+        <Route path='/stats-data/data-desa/:idKecamatan' exact component={DesaStatsPage}/>
         <Route path='/covid-map' exact component={MapPage}/>
         <Route path='/update-data' exact component={UpdateDataPage}/>
         <Redirect from="*" to="/" />
