@@ -1,3 +1,3 @@
 module.exports = {
-    API: 'http://localhost:3002/api'
+    API: 'https://lentsa-petracovac-server.herokuapp.com/api'
 };
