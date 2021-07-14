@@ -2,46 +2,28 @@ import React, { Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {
-	getAllKecamatan,
 	addDesaCSV,
-	getDesaInURL
+	editDataDesa,
+	editDataDesaURL
 } from '../redux/actions/CovidAction';
-
+import { Button } from './Components/Button';
+import Navbar from './Components/Navbar';
 
 class Tryout extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleSubmitFile = this.handleSubmitFile.bind(this);
+		this.handleLoadURL = this.handleLoadURL.bind(this)
 		this.state = {
-			desas: {
-				nama_desa: '',
-				nama_kecamatan: '',
-				suspek: '',
-				discharded: '',
-				meninggal: '',
-				konfirmasi_symptomatik: '',
-				konfirmasi_asymptomatik: '',
-				konfirmasi_sembuh: '',
-				konfirmasi_meninggal: '',
-			},
-			desa: [],
-			submitted: false
+			updateData: [],
+			dataLoadCount: 0,
+			desas: {nama_desa: ''}
 		}
 	}
 
 	async componentDidMount() {
-		this.props.getAllKecamatan();
-		try {
-			var html = await axios.get("https://corona.semarangkab.go.id/covid/data_desa?id_kecamatan=5")
-			var temp = document.createElement('div');
-			temp.innerHTML = html.data;
-			var htmlObject = temp.firstChild;
-			this.exportTableToCSV(htmlObject)
-			console.log(htmlObject)
-		} catch (error) {
-			console.log(error)
-		}
 
 	}
 
@@ -54,8 +36,23 @@ class Tryout extends React.Component {
 				[name]: value //name dan value component dari <input> tag
 			}
 		});
+		console.log(desas)
 	}
 
+	async handleLoadURL() {
+		try {
+			for (var i = 1; i < 20; i++) {
+				var html = await axios.get(`https://corona.semarangkab.go.id/covid/data_desa?id_kecamatan=${i}`)
+				var temp = document.createElement('div');
+				temp.innerHTML = html.data;
+				var htmlObject = temp.firstChild;
+				this.setState({ dataLoadCount: this.state.dataLoadCount + 1 })
+				this.exportTableToCSV(htmlObject)
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
 	exportTableToCSV(html) {
 		var csv = [];
 		var rows = html.querySelectorAll("table tr");
@@ -66,52 +63,77 @@ class Tryout extends React.Component {
 			for (var j = 0; j < cols.length; j++)
 				row.push(cols[j].innerText);
 
-			csv.push(row.join(","));
+			csv.push(row.join(";"));
 		}
-		for(var i = 0; i<csv.length;i++){
+		for (var i = 0; i < csv.length; i++) {
 			csv[i] = csv[i].replace(/\t/g, "")
 			csv[i] = csv[i].replace(/\n/g, "")
 			csv[i] += "\n"
 		}
-		this.fixingHTML(csv.toString())
+		console.log(csv.join(";"))
+		this.fixingHTMLandSend(csv.join(";"))
 	}
 
-	fixingHTML(data) {
+	fixingHTMLandSend(data) {
 		var lines
 		lines = data.split("\n");
-		lines.splice(0, 1)
+		lines.splice(0, 1)//hapus Rincian data sebaran di Desa (hapus baris 1)
 		
-		lines[0] = lines[0] + "," + lines[1];
-		lines.splice(1,1)
+		lines[0] = lines[0] + ";" + lines[1];//naikin baris 3 ke 2 (sekarang 2 ke 1 setelah splice pertama)
+		lines.splice(1,1)//hapus baris 2
 		
-		var firstLine = lines[0].split(",")
+		var firstLine = lines[0].split(";")
 		
-		firstLine.splice(2,2)
+		firstLine.splice(3,3)
+		
+		for(var i=0; i<firstLine.length; i++){
+			firstLine[i] = firstLine[i].replace(" ", "_")
+			firstLine[i] = firstLine[i].toLowerCase()
+		}
+		firstLine[firstLine.length-1] = "keterangan_konfirmasi"
+		
 		lines[0]=""
 		for (var i = 0; i<firstLine.length; i++){
 			lines[0] += firstLine[i]
 			if(i===firstLine.length - 1){
 		
-			}else lines[0] += ","
+			}else lines[0] += ";"
 		}
 		for(var i = 0; i<lines.length; i++){
-			lines[i] = lines[i].replace(",", "")
+			lines[i] = lines[i].replace(";", "")
 		}
-		var result = lines.join("\n")
-		return result//next masukin ke csvJSON
+		var result = lines.join('\n')
+		console.log(result)
+		this.setState({ updateData: [...this.state.updateData, result] })//next masukin ke csvJSON
+		if (this.state.dataLoadCount === 19) {
+			for(var i = 0; i<this.state.updateData.length;i++){
+				var eachData = this.state.updateData[i]
+				var dataArray = this.csvJSON(eachData,";")
+				dataArray.splice(dataArray.length-1, 1)
+				// console.log(i, eachData)
+				console.log(dataArray)
+				dataArray.map(data => {
+					this.props.editDataDesaURL(data)
+				})
+			}
+			this.setState({
+				updateData: [],
+				dataLoadCount: 0
+			})
+		}
 	}
 
-	csvJSON(csv) {
+	csvJSON(csv, splitter) {
 
 		var lines = csv.split("\n");
 
 		var result = [];
-		var headers = lines[0].split(";");
+		var headers = lines[0].split(splitter);
 
 		for (var i = 1; i < lines.length; i++) {
 
 			var obj = {};
-			var currentline = lines[i].split(";");
+			var currentline = lines[i].split(splitter);
 
 			for (var j = 0; j < headers.length; j++) {
 				obj[headers[j]] = currentline[j];
@@ -127,12 +149,12 @@ class Tryout extends React.Component {
 
 	handleFile = (e) => {
 		const content = e.target.result;
-		console.log(this.csvJSON(content))
+		console.log(this.csvJSON(content, ";"))
 		this.props.addDesaCSV(this.csvJSON(content))
 		// You can set content in state and show it in render.
 	}
 
-	handleChangeFile = (file) => {
+	handleSubmitFile = (file) => {
 		let fileData = new FileReader();
 		fileData.onloadend = this.handleFile;
 		fileData.readAsText(file);
@@ -141,72 +163,21 @@ class Tryout extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const { desas } = this.state
-		console.log(desas)
-		axios.post('http://localhost:3002/api/covid/tambah-desa', desas)
+		const { desa } = this.state
+		this.props.editDataDesa(desa)
 	}
 
 	render() {
-		const { desas, desa } = this.state
+		const { desas } = this.state
 		return (
 			<>
-				<div className="login-form">
-					<h1>Log in</h1>
-					<form onSubmit={this.handleSubmit}>
+				<Navbar />
+
+				<Button onClick={this.handleLoadURL}>Update by URL</Button>
+				<form onSubmit={this.handleSubmit}>
 						<input type="text" onChange={this.handleChange} name="nama_desa" value={desas.nama_desa} placeholder="nama_desa" required />
-						<input type="text" onChange={this.handleChange} name="nama_kecamatan" value={desas.nama_kecamatan} placeholder="nama_kecamatan" required />
-						<input type="text" onChange={this.handleChange} name="suspek" value={desas.suspek} placeholder="suspek" required />
-						<input type="text" onChange={this.handleChange} name="discharded" value={desas.discharded} placeholder="discharded" required />
-						<input type="text" onChange={this.handleChange} name="meninggal" value={desas.meninggal} placeholder="meninggal" required />
-						<input type="text" onChange={this.handleChange} name="konfirmasi_symptomatik" value={desas.konfirmasi_symptomatik} placeholder="konfirmasi_symptomatik" required />
-						<input type="text" onChange={this.handleChange} name="konfirmasi_asymptomatik" value={desas.konfirmasi_asymptomatik} placeholder="konfirmasi_asymptomatik" required />
-						<input type="text" onChange={this.handleChange} name="konfirmasi_sembuh" value={desas.konfirmasi_sembuh} placeholder="konfirmasi_sembuh" required />
-						<input type="text" onChange={this.handleChange} name="konfirmasi_meninggal" value={desas.konfirmasi_meninggal} placeholder="konfirmasi_meninggal" required />
 						<input type="submit" value="Log in" />
 					</form>
-				</div>
-				{/* <table className="data-covid">
-					<tr>
-						<th>Nama Desa</th>
-						<th>Nama Kecamatan</th>
-						<th>Suspek</th>
-						<th>Discharded</th>
-						<th>Meninggal</th>
-						<th>Konfirmasi Symptomatik</th>
-						<th>Konfirmasi Asymptomatik</th>
-						<th>Konfirmasi Sembuh</th>
-						<th>Konfirmasi Meninggal</th>
-					</tr>
-					<Fragment>
-						{
-							desa.map(satuDesa => {
-								return (
-									<tr>
-										<th>{satuDesa.nama_desa}</th>
-										<th>{satuDesa.nama_kecamatan}</th>
-										<th>{satuDesa.suspek}</th>
-										<th>{satuDesa.discharded}</th>
-										<th>{satuDesa.meninggal}</th>
-										<th>{satuDesa.konfirmasi_symptomatik}</th>
-										<th>{satuDesa.konfirmasi_asymptomatik}</th>
-										<th>{satuDesa.konfirmasi_sembuh}</th>
-										<th>{satuDesa.konfirmasi_meninggal}</th>
-									</tr>
-								)
-							})
-						}
-					</Fragment>
-				</table> */}
-
-				<input type="file" onChange={e => { this.handleChangeFile(e.target.files[0]) }} />
-				{/* <div dangerouslySetInnerHTML={{ __html: this.state.desa }} /> */}
-				{/* <div style={{width:'40%',height: '500px', float: 'left'}}>
-					<MapView/>
-
-				</div>
-				<div style={{width:'40%',height: '500px', float: 'right'}}>
-					<WebMap/>
-				</div> */}
 
 			</>
 		)
@@ -223,9 +194,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getAllKecamatan: () => dispatch(getAllKecamatan()),
 		addDesaCSV: (jsonData) => dispatch(addDesaCSV(jsonData)),
-		getDesaInURL: (id_desa) => dispatch(getDesaInURL(id_desa))
+		editDataDesa: (data) => dispatch(editDataDesa(data)),
+		editDataDesaURL: (data) => dispatch(editDataDesaURL(data))
 	}
 }
 

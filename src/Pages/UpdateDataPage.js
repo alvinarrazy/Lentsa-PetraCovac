@@ -7,34 +7,36 @@ import {
 	editDataDesaURL
 } from '../redux/actions/CovidAction';
 import { Button } from './Components/Button';
+import { API } from '../config'
 import Navbar from './Components/Navbar';
+import './Styles/Form.css'
 
 class UpdateDataPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
+		this.handleChangeKecamatan = this.handleChangeKecamatan.bind(this);
+		this.handleChangeDesa = this.handleChangeDesa.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleSubmitFile = this.handleSubmitFile.bind(this);
-		this.handleLoadURL = this.handleLoadURL.bind(this)
+		this.handleLoadURL = this.handleLoadURL.bind(this);
 		this.state = {
+			desa: {},
+			kecamatan: {},
+			chosenDesa: {
+				nama_desa: '',
+				suspek: '',
+				discharded: '',
+				meninggal: '',
+				keterangan: '',
+				konfirmasi_asymptomatik: '',
+				konfirmasi_symptomatik: '',
+				konfirmasi_sembuh: '',
+				konfirmasi_meninggal: '',
+				keterangan_konfirmasi: ''
+			},			
 			updateData: [],
-			dataLoadCount: 0
+			dataLoadCount: 0,
 		}
-	}
-
-	async componentDidMount() {
-
-	}
-
-	handleChange(event) {
-		const { name, value } = event.target;
-		const { desa } = this.state;
-		this.setState({
-			desa: {
-				...desa,
-				[name]: value //name dan value component dari <input> tag
-			}
-		});
 	}
 
 	async handleLoadURL() {
@@ -152,27 +154,220 @@ class UpdateDataPage extends React.Component {
 		// You can set content in state and show it in render.
 	}
 
-	handleSubmitFile = (file) => {
-		let fileData = new FileReader();
-		fileData.onloadend = this.handleFile;
-		fileData.readAsText(file);
+
+	async componentWillMount() {
+		try {
+
+
+			let resultKecamatan = await axios.get(`${API}/covid/get-all-kecamatan`)
+			this.setState({
+				kecamatan: resultKecamatan.data.semua_kecamatan
+			})
+		}
+		catch (error) {
+			console.log(error.message)
+		}
+
+	}
+
+	async handleChangeKecamatan(event) {
+		try {
+			const { name, value } = event.target;
+			let resultDesa = await axios.get(`${API}/covid/get-desa-in-kecamatan/${value}`)
+			this.setState({
+				desa: resultDesa.data.semua_desa
+			});
+		} catch (error) {
+			console.log(error.message)
+		}
+	}
+
+	searchDataDesa(nameKey, myArray) {
+		for (var i = 0; i < myArray.length; i++) {
+			if (myArray[i].nama_desa === nameKey) {
+				return myArray[i];
+			}
+		}
+	}
+
+	async handleChangeDesa(event) {
+		try {
+			const { name, value } = event.target;
+			if (value === 'null') {
+				this.setState({
+					chosenDesa: {
+						nama_desa: '',
+						suspek: '',
+						discharded: '',
+						meninggal: '',
+						keterangan: '',
+						konfirmasi_asymptomatik: '',
+						konfirmasi_symptomatik: '',
+						konfirmasi_sembuh: '',
+						konfirmasi_meninggal: '',
+						keterangan_konfirmasi: ''
+					},
+				});
+			}
+			else {
+				const dataDesa = await this.searchDataDesa(value, this.state.desa)
+				this.setState({
+					chosenDesa: dataDesa
+				});
+			}
+		} catch (error) {
+			console.log(error.message)
+		}
+	}
+
+	handleChange(event) {
+		const { name, value } = event.target;
+		const {chosenDesa} = this.state
+		this.setState({
+			chosenDesa: {
+				...chosenDesa,
+				[name]: value //name dan value component dari <input> tag
+			}
+		});
 	}
 
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const { desa } = this.state
-		this.props.editDataDesa(desa)
+		const { chosenDesa } = this.state
+		this.props.editDataDesaURL(chosenDesa)
 	}
 
 	render() {
-		const { desa } = this.state
+		const { kecamatan, desa, chosenDesa } = this.state
+		var semuaKecamatan, semuaDesa;
+		if (kecamatan.length == 19) {
+			semuaKecamatan = kecamatan
+		} else semuaKecamatan = [{ _id: "none", nama_kecamatan: "Data tidak ditemukan" }]
+		if (desa.length >= 1) {
+			semuaDesa = desa
+		} else semuaDesa = [{ _id: "none", nama_desa: "Data tidak ditemukan" }]
 		return (
 			<>
 				<Navbar />
+				<form onSubmit={this.handleSubmit}>
 
+					<div className='container'>
+						<div className='row'>
+							<div className='col-25'>
+								<label>Kecamatan</label>
+							</div>
+							<div className='col-75'>
+								<select onChange={this.handleChangeKecamatan} name='nama_kecamatan' placeholder='Kecamatan' required>
+									<option value='null'>Pilih Kecamatan</option>
+									<Fragment>
+										{
+											semuaKecamatan.map(result => {
+												return (
+													<option value={result._id}>{result.nama_kecamatan}</option>
+												)
+											})
+										}
+									</Fragment>
+								</select>
+							</div>
+						</div>
+						<div className='row'>
+							<div className='col-25'>
+								<label>Desa</label>
+							</div>
+							<div className='col-75'>
+								<select onChange={this.handleChangeDesa} name='nama_desa' placeholder='Desa' required>
+									<option value='null'>Pilih Desa</option>
+
+									<Fragment>
+										{
+											semuaDesa.map(result => {
+												return (
+													<option value={result.nama_desa}>{result.nama_desa}</option>
+												)
+											})
+										}
+									</Fragment>
+								</select>
+							</div>
+						</div>
+						<div className='row'>
+							<div className='col-25'>
+								<label>Suspek</label>
+							</div>
+							<div className='col-75'>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.suspek} name='suspek' required/>
+							</div>
+						</div>
+						<div className='row'>
+							<div className='col-25'>
+								<label>Discharded
+								</label>
+							</div>
+							<div className='col-75'>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.discharded} name='discharded' required />
+							</div>
+						</div>
+						<div className='row'>
+							<div className='col-25'>
+								<label>Meninggal
+								</label>
+							</div>
+							<div className='col-75'>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.meninggal} name='meninggal' required/>
+							</div>
+						</div>
+
+						<div className='row'>
+							<div className='col-25'>
+								<label>Konfirmasi Asymptomatik</label>
+							</div>
+							<div className='col-75'>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_asymptomatik} name='konfirmasi_asymptomatik' required />
+
+							</div>
+						</div>
+						<div className='row'>
+							<div className='col-25'>
+								<label>Konfirmasi Symptomatik</label>
+							</div>
+							<div className='col-75'>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_symptomatik} name='konfirmasi_symptomatik' required/>
+
+							</div>
+						</div>
+						<div className='row'>
+							<div className='col-25'>
+								<label>Konfirmasi Sembuh</label>
+							</div>
+							<div className='col-75'>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_sembuh} name='konfirmasi_sembuh' required/>
+
+							</div>
+						</div>
+						<div className='row'>
+							<div className='col-25'>
+								<label>Konfirmasi Meninggal</label>
+							</div>
+							<div className='col-75'>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_meninggal} name='konfirmasi_meninggal' required />
+							</div>
+						</div>
+						<div className='row'>
+							<div className='col-25'>
+								<label>Keterangan</label>
+							</div>
+							<div className='col-75'>
+								<input onChange={this.handleChange} type='text' value={chosenDesa.keterangan} name='keterangan' required />
+							</div>
+						</div>
+					</div>
+					<div className='row'>
+						<input type='submit' value='Submit' />
+					</div>
+				</form>
 				<Button onClick={this.handleLoadURL}>Update by URL</Button>
-
 			</>
 		)
 
@@ -188,7 +383,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		addDesaCSV: (jsonData) => dispatch(addDesaCSV(jsonData)),
 		editDataDesa: (data) => dispatch(editDataDesa(data)),
 		editDataDesaURL: (data) => dispatch(editDataDesaURL(data))
 	}
