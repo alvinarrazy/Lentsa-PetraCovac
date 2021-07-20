@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { history } from '../redux/helpers/history';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {
@@ -23,8 +24,7 @@ class Tryout extends React.Component {
 		}
 	}
 
-	async componentDidMount() {
-
+	async componentWillMount() {
 	}
 
 	handleChange(event) {

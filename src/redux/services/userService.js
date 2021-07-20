@@ -7,7 +7,7 @@ import {authHeader} from '../helpers/auth-header';
 export const userService = {    
     logout,
     register,
-    login
+    adminLogin
 };
 
 // axios.interceptors.request.use(
@@ -28,7 +28,7 @@ export const userService = {
   //tambahin fitur logout
 function logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('user');
+    localStorage.removeItem('profile');
     console.log("user udah dibuang");
 }
 
@@ -38,13 +38,13 @@ function register(newUser) {
 
 
 //Udah bisa login, tambah fitur logout
-async function login(user){
-    const data = await axios.post(`${API}/${userConstants.LOGIN_REQUEST}`, user)
-    console.log(data);
-    console.log(data.data);
-    localStorage.setItem('user', JSON.stringify(data.data));
-    return data.data;
-    //console.log(localStorage.getItem('user'));
+async function adminLogin(user){
+    try{
+        const data = await axios.post(`${API}/${userConstants.ADMIN_LOGIN_REQUEST}`, user)
+        return JSON.stringify(data.data);//kalau mau dipanggil JSONparse dulu biar bisa dipake
+    }catch(err){
+        console.log(err.message)
+    }
 }
 
 

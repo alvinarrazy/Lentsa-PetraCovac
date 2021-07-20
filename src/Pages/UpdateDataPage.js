@@ -157,11 +157,9 @@ class UpdateDataPage extends React.Component {
 
 	async componentWillMount() {
 		try {
-
-
 			let resultKecamatan = await axios.get(`${API}/covid/get-all-kecamatan`)
 			this.setState({
-				kecamatan: resultKecamatan.data.semua_kecamatan
+				kecamatan: resultKecamatan.data.semua_kecamatan,
 			})
 		}
 		catch (error) {
@@ -377,7 +375,7 @@ class UpdateDataPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		covidDataState: state.covidDataReducer //call by this.props.covidDataState.*
+		authentication: state.authentication //call by this.props.user.*
 	}
 }
 

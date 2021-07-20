@@ -118,9 +118,18 @@ async function updateDataDesa(data){
     }
 }
 
-async function updateDataDesaURL(data){
+async function updateDataDesaURL(data, token){
     try{
-        let result = await axios.put(`${API}${covidConstant.EDIT_DESA_URL}`, data)
+        // let result = await axios.put(`${API}${covidConstant.EDIT_DESA_URL}`, data)
+        // console.log(token)
+        let result = await axios({
+            method: 'put', //you can set what request you want to be
+            url: `${API}${covidConstant.EDIT_DESA_URL}`,
+            data: data,
+            headers: {
+              Authorization: token
+            }
+          })
         return result
     }catch(error){
         console.log(error)

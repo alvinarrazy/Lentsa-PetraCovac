@@ -91,7 +91,7 @@
 
     .nav-links {
         text-align: center;
-        padding: 2rem;
+        padding: 2rem 0;
         width: 100%;
         display: table;
     }

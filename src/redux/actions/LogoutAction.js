@@ -7,6 +7,6 @@ export const logout = () => {
         dispatch({
             type: userConstants.LOGOUT //Reducernya di login reducer
         })
-        userService.logout();
+        userService.logout()
     }   
 }

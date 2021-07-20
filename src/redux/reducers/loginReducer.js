@@ -1,20 +1,20 @@
 import { userConstants } from '../types';
 
-let user = JSON.parse(localStorage.getItem('user'));
+let user = JSON.parse(localStorage.getItem('profile'));
 const initialState = user ? 
     { loggedIn: true, user } : {loggedIn: false};
 
 export function authentication(state = initialState, action) {
   switch (action.type) {
-    case userConstants.LOGIN_REQUEST:
+    case userConstants.ADMIN_LOGIN_REQUEST:
       return {
         loggingIn: true,//state yang dikirim ke global, bisa diganti jg di reducer kalo dibutuhin di component lain
-        user: action.user
+        user: action.data
       };
     case userConstants.LOGIN_SUCCESS:
       return {
         loggedIn:true,
-        user: action.user
+        user: action.data
       };
     case userConstants.LOGIN_FAILURE:
       return {};

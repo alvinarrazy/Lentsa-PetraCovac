@@ -203,7 +203,8 @@ export const editDataDesa = (data) => {
 
 export const editDataDesaURL = (data) => {
     return dispatch => {
-        covidService.updateDataDesaURL(data)
+        let token = JSON.parse(localStorage.getItem('profile')).token
+        covidService.updateDataDesaURL(data, token)
         .then(
             results => {
                 dispatch({
