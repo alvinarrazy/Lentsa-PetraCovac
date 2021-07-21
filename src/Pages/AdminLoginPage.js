@@ -53,8 +53,14 @@ class AdminLoginPage extends React.Component {
 		event.preventDefault();
 		const {admin} = this.state
 		this.props.adminLogin(admin)
-		this.props.history.push('/')
+	
 	}	
+
+	componentDidUpdate(){
+		if(this.props.authentication.loggingIn === true){
+			this.props.history.push('/')
+		}
+	}
 
 	render() {
 		const {admin} = this.state
@@ -95,7 +101,8 @@ class AdminLoginPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		covidDataState: state.covidDataReducer //call by this.props.covidDataState.*
+		covidDataState: state.covidDataReducer, //call by this.props.covidDataState.*
+		authentication: state.authentication
 	}
 }
 

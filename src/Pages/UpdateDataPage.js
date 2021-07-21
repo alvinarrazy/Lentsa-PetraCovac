@@ -10,6 +10,7 @@ import { Button } from './Components/Button';
 import { API } from '../config'
 import Navbar from './Components/Navbar';
 import './Styles/Form.css'
+import { RingLoader } from './Components/RingLoader';
 
 class UpdateDataPage extends React.Component {
 	constructor(props) {
@@ -33,14 +34,18 @@ class UpdateDataPage extends React.Component {
 				konfirmasi_sembuh: '',
 				konfirmasi_meninggal: '',
 				keterangan_konfirmasi: ''
-			},			
+			},
 			updateData: [],
 			dataLoadCount: 0,
+			updating: false
 		}
 	}
 
 	async handleLoadURL() {
 		try {
+			this.setState({
+				updating: true
+			})
 			for (var i = 1; i < 20; i++) {
 				var html = await axios.get(`https://corona.semarangkab.go.id/covid/data_desa?id_kecamatan=${i}`)
 				var temp = document.createElement('div');
@@ -78,38 +83,38 @@ class UpdateDataPage extends React.Component {
 		var lines
 		lines = data.split("\n");
 		lines.splice(0, 1)//hapus Rincian data sebaran di Desa (hapus baris 1)
-		
+
 		lines[0] = lines[0] + ";" + lines[1];//naikin baris 3 ke 2 (sekarang 2 ke 1 setelah splice pertama)
-		lines.splice(1,1)//hapus baris 2
-		
+		lines.splice(1, 1)//hapus baris 2
+
 		var firstLine = lines[0].split(";")
-		
-		firstLine.splice(3,3)
-		
-		for(var i=0; i<firstLine.length; i++){
+
+		firstLine.splice(3, 3)
+
+		for (var i = 0; i < firstLine.length; i++) {
 			firstLine[i] = firstLine[i].replace(" ", "_")
 			firstLine[i] = firstLine[i].toLowerCase()
 		}
-		firstLine[firstLine.length-1] = "keterangan_konfirmasi"
-		
-		lines[0]=""
-		for (var i = 0; i<firstLine.length; i++){
+		firstLine[firstLine.length - 1] = "keterangan_konfirmasi"
+
+		lines[0] = ""
+		for (var i = 0; i < firstLine.length; i++) {
 			lines[0] += firstLine[i]
-			if(i===firstLine.length - 1){
-		
-			}else lines[0] += ";"
+			if (i === firstLine.length - 1) {
+
+			} else lines[0] += ";"
 		}
-		for(var i = 0; i<lines.length; i++){
+		for (var i = 0; i < lines.length; i++) {
 			lines[i] = lines[i].replace(";", "")
 		}
 		var result = lines.join('\n')
 		console.log(result)
 		this.setState({ updateData: [...this.state.updateData, result] })//next masukin ke csvJSON
 		if (this.state.dataLoadCount === 19) {
-			for(var i = 0; i<this.state.updateData.length;i++){
+			for (var i = 0; i < this.state.updateData.length; i++) {
 				var eachData = this.state.updateData[i]
-				var dataArray = this.csvJSON(eachData,";")
-				dataArray.splice(dataArray.length-1, 1)
+				var dataArray = this.csvJSON(eachData, ";")
+				dataArray.splice(dataArray.length - 1, 1)
 				// console.log(i, eachData)
 				console.log(dataArray)
 				dataArray.map(data => {
@@ -118,7 +123,8 @@ class UpdateDataPage extends React.Component {
 			}
 			this.setState({
 				updateData: [],
-				dataLoadCount: 0
+				dataLoadCount: 0,
+				updating: false
 			})
 		}
 	}
@@ -220,7 +226,7 @@ class UpdateDataPage extends React.Component {
 
 	handleChange(event) {
 		const { name, value } = event.target;
-		const {chosenDesa} = this.state
+		const { chosenDesa } = this.state
 		this.setState({
 			chosenDesa: {
 				...chosenDesa,
@@ -236,8 +242,14 @@ class UpdateDataPage extends React.Component {
 		this.props.editDataDesaURL(chosenDesa)
 	}
 
+	componentDidUpdate() {
+		if (this.props.authentication.loggedIn === false) {
+			this.props.history.push('/error-auth')
+		}
+	}
+
 	render() {
-		const { kecamatan, desa, chosenDesa } = this.state
+		const { kecamatan, desa, chosenDesa, updating } = this.state
 		var semuaKecamatan, semuaDesa;
 		if (kecamatan.length == 19) {
 			semuaKecamatan = kecamatan
@@ -295,7 +307,7 @@ class UpdateDataPage extends React.Component {
 								<label>Suspek</label>
 							</div>
 							<div className='col-75'>
-								<input onChange={this.handleChange} type='number' value={chosenDesa.suspek} name='suspek' required/>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.suspek} name='suspek' required />
 							</div>
 						</div>
 						<div className='row'>
@@ -313,7 +325,7 @@ class UpdateDataPage extends React.Component {
 								</label>
 							</div>
 							<div className='col-75'>
-								<input onChange={this.handleChange} type='number' value={chosenDesa.meninggal} name='meninggal' required/>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.meninggal} name='meninggal' required />
 							</div>
 						</div>
 
@@ -331,7 +343,7 @@ class UpdateDataPage extends React.Component {
 								<label>Konfirmasi Symptomatik</label>
 							</div>
 							<div className='col-75'>
-								<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_symptomatik} name='konfirmasi_symptomatik' required/>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_symptomatik} name='konfirmasi_symptomatik' required />
 
 							</div>
 						</div>
@@ -340,7 +352,7 @@ class UpdateDataPage extends React.Component {
 								<label>Konfirmasi Sembuh</label>
 							</div>
 							<div className='col-75'>
-								<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_sembuh} name='konfirmasi_sembuh' required/>
+								<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_sembuh} name='konfirmasi_sembuh' required />
 
 							</div>
 						</div>
@@ -366,6 +378,13 @@ class UpdateDataPage extends React.Component {
 					</div>
 				</form>
 				<Button onClick={this.handleLoadURL}>Update by URL</Button>
+				{updating ?
+					<>
+						<div className='ring-container'>
+							<RingLoader />
+						</div>
+					</> : <></>}
+
 			</>
 		)
 

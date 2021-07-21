@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import {history} from '../src/redux/helpers/history';
-import {checkAuthentication} from './redux/helpers/checkAuth';
+import {authHeader} from './redux/helpers/auth-header';
 
 //Pages
 import HomePage from "./Pages/HomePage";
@@ -15,6 +15,7 @@ import AdminLoginPage from './Pages/AdminLoginPage';
 //Testing
 import Tryout from './Pages/Tryout';
 import ErrorPage from './Pages/ErrorPage';
+import AuthFailedPage from './Pages/AuthFailedPage';
 
 
 
@@ -29,10 +30,10 @@ function App() {
         <Route path='/stats-data' exact component={StatsPage}/>
         <Route path='/stats-data/data-desa/:idKecamatan' exact component={DesaStatsPage}/>
         <Route path='/covid-map' exact component={MapPage}/>
-        <Route path='/admin/testing' exact component={checkAuthentication() ? Tryout : ErrorPage}/>
-        <Route path='/admin/update-data' exact component={checkAuthentication() ? UpdateDataPage : ErrorPage}/>
+        <Route path='/admin/testing' exact component={authHeader() ? Tryout : ErrorPage}/>
+        <Route path='/admin/update-data' exact component={authHeader() ? UpdateDataPage : ErrorPage}/>
         <Route path='/admin/login' exact component={AdminLoginPage}/>
-        <Route path='/error' exact component={ErrorPage}/>
+        <Route path='/error-auth' exact component={AuthFailedPage}/>
         <Redirect from="*" to="/" />
       </Switch>
     </Router>

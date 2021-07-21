@@ -1,6 +1,9 @@
-import { covidConstant } from '../types';
+import { covidConstant, userConstants} from '../types';
 import { covidService } from '../services/covidService';
+import { userService } from '../services/userService';
 import { history } from '../helpers/history';
+import { authHeader } from '../helpers/auth-header';
+import { logout } from './LogoutAction';
 
 export const getAllKecamatan = () => {
     return dispatch => {
@@ -124,100 +127,116 @@ export const getSumDataKecamatan = (idKecamatan) => {
 export const addKecamatan = () => {
     return dispatch => {
         covidService.getDesaInKecamatan()
-        .then(
-            results => {
-                let mapsArray = results.semua_desa.map(result => {
-                    return{
+            .then(
+                results => {
+                    let mapsArray = results.semua_desa.map(result => {
+                        return {
 
-                    }
-                })
-                dispatch({
-                    type: covidConstant.GET_DESA_IN_KECAMATAN,
-                    data: mapsArray
-                })
-            },
-            error => {
-                // userService.logout(); //auto logout kalo error
-                dispatch(failure(error.toString()));
-            }
-        );
+                        }
+                    })
+                    dispatch({
+                        type: covidConstant.GET_DESA_IN_KECAMATAN,
+                        data: mapsArray
+                    })
+                },
+                error => {
+                    // userService.logout(); //auto logout kalo error
+                    dispatch(failure(error.toString()));
+                }
+            );
     }
-    function failure(error) { return {error: error } }
+    function failure(error) { return { error: error } }
 }
 export const addDesaCSV = (fileCSV) => {
     return dispatch => {
         covidService.addDesaCSV(fileCSV)
-        .then(
-            results => {
-                dispatch({
-                    type: covidConstant.TAMBAH_DESA_CSV,
-                    data: results
-                })
-            },
-            error => {
-                // userService.logout(); //auto logout kalo error
-                dispatch(failure(error.toString()));
-            }
-        );
+            .then(
+                results => {
+                    dispatch({
+                        type: covidConstant.TAMBAH_DESA_CSV,
+                        data: results
+                    })
+                },
+                error => {
+                    // userService.logout(); //auto logout kalo error
+                    dispatch(failure(error.toString()));
+                }
+            );
     }
-    function failure(error) { return {error: error } }
+    function failure(error) { return { error: error } }
 }
 
 export const getDesaInURL = (idKecamatan) => {
     return dispatch => {
         covidService.getDesaInKecamatan(idKecamatan)
-        .then(
-            results => {
-                dispatch({
-                    type: "testing",
-                    data: results
-                })
-            },
-            error => {
-                // userService.logout(); //auto logout kalo error
-                dispatch(failure(error.toString()));
-            }
-        );
+            .then(
+                results => {
+                    dispatch({
+                        type: "testing",
+                        data: results
+                    })
+                },
+                error => {
+                    // userService.logout(); //auto logout kalo error
+                    dispatch(failure(error.toString()));
+                }
+            );
     }
-    function failure(error) { return {error: error } }
+    function failure(error) { return { error: error } }
 }
 
 export const editDataDesa = (data) => {
     return dispatch => {
         covidService.updateDataDesa(data)
-        .then(
-            results => {
-                dispatch({
-                    type: covidConstant.EDIT_DESA,
-                    data: results
-                })
-            },
-            error => {
-                // userService.logout(); //auto logout kalo error
-                dispatch(failure(error.toString()));
-            }
-        );
+            .then(
+                results => {
+                    dispatch({
+                        type: covidConstant.EDIT_DESA,
+                        data: results
+                    })
+                },
+                error => {
+                    // userService.logout(); //auto logout kalo error
+                    dispatch(failure(error.toString()));
+                }
+            );
     }
-    function failure(error) { return {error: error } }
+    function failure(error) { return { error: error } }
 }
 
 export const editDataDesaURL = (data) => {
     return dispatch => {
-        let token = JSON.parse(localStorage.getItem('profile')).token
+        let token = authHeader()
+        if (!token) {
+            dispatch({
+                type: userConstants.LOGOUT //Reducernya di login reducer
+            })
+            userService.logout()
+            // throw "Auth Failed"
+        }
         covidService.updateDataDesaURL(data, token)
-        .then(
-            results => {
-                dispatch({
-                    type: covidConstant.EDIT_DESA_URL,
-                    data: results
-                })
-            },
-            error => {
-                // userService.logout(); //auto logout kalo error
-                dispatch(failure(error.toString()));
-            }
-        );
+            .then(
+                results => {
+                    if(!results){
+                        dispatch({
+                            type: userConstants.LOGOUT //Reducernya di login reducer
+                        })
+                        userService.logout()
+                        throw "Auth Failed"
+                    }
+                    dispatch({
+                        type: covidConstant.EDIT_DESA_URL,
+                        data: results
+                    })
+                    return results
+                },
+                error => {
+                    // userService.logout(); //auto logout kalo error
+                    dispatch(failure(error.toString()));
+                    return error.message
+                }
+            );
     }
-    function failure(error) { return {error: error } }
+    function failure(error) { return { error: error } }
 }
 

@@ -6,7 +6,7 @@ import { compose } from 'redux';
 import {Link} from 'react-router-dom';
 import { Button } from "./Button"
 import '../Styles/Navbar.css'
-import { checkAuthentication } from '../../redux/helpers/checkAuth';
+import { authHeader } from '../../redux/helpers/auth-header';
 
 import { logout } from '../../redux/actions/LogoutAction';
 
@@ -53,11 +53,11 @@ class Navbar extends Component {
                     })}
                 </ul>
                 <Button
-                    onClick={() /*biar gk auto run pas render*/ => checkAuthentication() ?
+                    onClick={() /*biar gk auto run pas render*/ => authHeader() ?
                     this.props.logout() :
                     console.log('belum login')
                     }
-                >{checkAuthentication() ? 'Logout' : 'Pendaftaran'}</Button>
+                >{authHeader() ? 'Logout' : 'Pendaftaran'}</Button>
             </nav>
         )
     }
