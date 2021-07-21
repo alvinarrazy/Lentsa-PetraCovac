@@ -9,6 +9,7 @@ import {
 import './Styles/Table.css'
 import Navbar from './Components/Navbar';
 import {API} from '../config';
+import Footer from './Components/Footer'
 
 class StatsPage extends React.Component {
 	constructor(props) {
@@ -46,14 +47,14 @@ class StatsPage extends React.Component {
 			<Navbar/>
 				<table className="data-kecamatan">
 					<tr>
-						<td>Nama Kecamatan</td>
-						<td>Suspek</td>
-						<td>Discharded</td>
-						<td>Meninggal</td>
-						<td>Konfirmasi Symptomatik</td>
-						<td>Konfirmasi Asymptomatik</td>
-						<td>Konfirmasi Sembuh</td>
-						<td>Konfirmasi Meninggal</td>
+						<th>Nama Kecamatan</th>
+						<th>Suspek</th>
+						<th>Discharded</th>
+						<th>Meninggal</th>
+						<th>Konfirmasi Symptomatik</th>
+						<th>Konfirmasi Asymptomatik</th>
+						<th>Konfirmasi Sembuh</th>
+						<th>Konfirmasi Meninggal</th>
 					</tr>
 					<Fragment>
 						{
@@ -74,6 +75,7 @@ class StatsPage extends React.Component {
 						}
 					</Fragment>
 				</table>
+				<Footer/>
 			</>
 		)
 

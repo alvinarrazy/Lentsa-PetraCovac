@@ -10,6 +10,7 @@ import {
 import './Styles/Table.css'
 import Navbar from './Components/Navbar';
 import {API} from '../config';
+import Footer from './Components/Footer';
 class StatsPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -43,18 +44,17 @@ class StatsPage extends React.Component {
 			<>
 			<Navbar src={window.location.origin + "/images/lentsa.png"}/>
 				<h1>{namaKecamatan}</h1>
-				<table className="data-kecamatan">
+				<table className="data-kecamatan" style={{tableLayout: 'fixed'}}>
 					<tr>
-						<td>Nama Desa</td>
-						<td>Suspek</td>
-						<td>Discharded</td>
-						<td>Meninggal</td>
-						<td>Keterangan</td>
-						<td>Konfirmasi Symptomatik</td>
-						<td>Konfirmasi Asymptomatik</td>
-						<td>Konfirmasi Sembuh</td>
-						<td>Konfirmasi Meninggal</td>
-						<td>Keterangan</td>
+						<th>Nama Desa</th>
+						<th>Suspek</th>
+						<th>Discharded</th>
+						<th>Meninggal</th>
+						<th>Konfirmasi Symptomatik</th>
+						<th>Konfirmasi Asymptomatik</th>
+						<th>Konfirmasi Sembuh</th>
+						<th>Konfirmasi Meninggal</th>
+						<th>Keterangan</th>
 					</tr>
 					<Fragment>
 						{
@@ -62,21 +62,21 @@ class StatsPage extends React.Component {
 								return (
 									<tr>
 										<td>{satuDesa.nama_desa}</td>
-										<td>{satuDesa.suspek}</td>
-										<td>{satuDesa.discharded}</td>
-										<td>{satuDesa.meninggal}</td>
+										<td className='number-data'>{satuDesa.suspek}</td>
+										<td className='number-data'>{satuDesa.discharded}</td>
+										<td className='number-data'>{satuDesa.meninggal}</td>
+										<td className='number-data'>{satuDesa.konfirmasi_symptomatik}</td>
+										<td className='number-data'>{satuDesa.konfirmasi_asymptomatik}</td>
+										<td className='number-data'>{satuDesa.konfirmasi_sembuh}</td>
+										<td className='number-data'>{satuDesa.konfirmasi_meninggal}</td>
 										<td>{satuDesa.keterangan}</td>
-										<td>{satuDesa.konfirmasi_symptomatik}</td>
-										<td>{satuDesa.konfirmasi_asymptomatik}</td>
-										<td>{satuDesa.konfirmasi_sembuh}</td>
-										<td>{satuDesa.konfirmasi_meninggal}</td>
-										<td>{satuDesa.keterangan_konfirmasi}</td>
 									</tr>
 								)
 							})
 						}
 					</Fragment>
 				</table>
+				<Footer/>
 			</>
 		)
 

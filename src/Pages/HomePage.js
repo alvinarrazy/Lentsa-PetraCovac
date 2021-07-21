@@ -4,6 +4,7 @@ import WelcomeSection from './Components/WelcomeSection';
 import DescriptionSection from './Components/DescriptionSection';
 import NyepedaSection from './Components/NyepedaSection';
 import Cards from './Components/Cards';
+import Footer from './Components/Footer';
 
 class HomePage extends React.Component {
 	constructor(props) {
@@ -40,6 +41,7 @@ class HomePage extends React.Component {
 			{isMobile ? <></> : <><br/><br/></>}
 
 			<DescriptionSection/>
+			<Footer/>
 			</>
 		)
 

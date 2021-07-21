@@ -64,6 +64,7 @@ video {
   }
   .desc-wrap {
     width: auto;
+    height: auto;
   }
   .desc-container{
     float:none;

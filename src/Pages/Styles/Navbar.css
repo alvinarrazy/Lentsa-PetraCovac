@@ -5,6 +5,8 @@
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
+    box-shadow: 0 4px 10px -4px grey;
+    position: relative;
 }
 
 .navbar-logo {
@@ -14,7 +16,7 @@
     cursor: pointer;
 }
 
-.navbar-logo img{
+.navbar-logo img {
     height: 50px;
     width: auto;
 }
@@ -63,12 +65,10 @@
     .NavbarItems {
         position: relative;
     }
-
-    .navbar-logo img{
+    .navbar-logo img {
         height: 33px;
         width: auto;
     }
-
     .nav-menu {
         display: flex;
         flex-direction: column;
@@ -80,7 +80,6 @@
         opacity: 1;
         transition: all 0.5s ease;
     }
-
     .nav-menu.active {
         background: #ff7f50;
         left: 0;
@@ -88,26 +87,22 @@
         transition: all 0.5s ease;
         z-index: 1;
     }
-
     .nav-links {
         text-align: center;
         padding: 2rem 0;
         width: 100%;
         display: table;
     }
-
     .nav-links:hover {
         background-color: #e5e07f;
         border-radius: 0;
     }
-
     .navbar-logo {
         position: absolute;
         top: 0;
         left: 0;
         transform: translate(25%, 50%);
     }
-
     .menu-icon {
         display: block;
         position: absolute;
@@ -117,12 +112,10 @@
         font-size: 1.8rem;
         cursor: pointer;
     }
-
     .fa-times {
         color: #ff7f50;
         font-size: 2rem;
     }
-
     .nav-links-mobile {
         display: block;
         text-align: center;
@@ -135,15 +128,12 @@
         color: #fff;
         font-size: 1.5rem;
     }
-
     .nav-links-mobile:hover {
         background: #fff;
         color: #6568F4;
         transition: 250ms;
     }
-
     Button {
         display: none;
     }
 }
-
