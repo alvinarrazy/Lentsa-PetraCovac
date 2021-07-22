@@ -1,6 +1,6 @@
 .footer-container {
-    background: linear-gradient(90deg, #fbfffc 0%, #fbfffc 100%);
     height: 100px;
+    padding-top: 15px;
     margin-top: 20px;
     font-size: 1.2rem;
     left: 0;

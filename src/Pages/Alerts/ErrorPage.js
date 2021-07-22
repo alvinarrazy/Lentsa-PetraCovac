@@ -1,6 +1,6 @@
 import React from 'react';
-import { RingLoader } from './Components/RingLoader';
-import './Styles/Error.css';
+import { RingLoader } from '../Components/RingLoader';
+import '../Styles/Error.css';
 
 class ErrorPage extends React.Component {
 	constructor(props) {

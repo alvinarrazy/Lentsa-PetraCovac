@@ -14,8 +14,11 @@ import AdminLoginPage from './Pages/AdminLoginPage';
 
 //Testing
 import Tryout from './Pages/Tryout';
-import ErrorPage from './Pages/ErrorPage';
-import AuthFailedPage from './Pages/AuthFailedPage';
+
+//Alerts
+import ErrorPage from './Pages/Alerts/ErrorPage';
+import AuthFailedPage from './Pages/Alerts/AuthFailedPage';
+import AlreadyLoginPage from './Pages/Alerts/AlreadyLoginPage';
 
 
 
@@ -25,16 +28,23 @@ function App() {
     <>
     <Router>
       <Switch  history={history}>
+        {/*Global*/}
         <Route path='/' exact component={HomePage}/>
         <Route path='/home' exact component={HomePage}/>
         <Route path='/stats-data' exact component={StatsPage}/>
         <Route path='/stats-data/data-desa/:idKecamatan' exact component={DesaStatsPage}/>
         <Route path='/covid-map' exact component={MapPage}/>
+
+        {/*Admin*/}
+        <Route path='/admin/login' exact component={authHeader() ? AlreadyLoginPage : AdminLoginPage}/>
         <Route path='/admin/testing' exact component={authHeader() ? Tryout : ErrorPage}/>
         <Route path='/admin/update-data' exact component={authHeader() ? UpdateDataPage : ErrorPage}/>
-        <Route path='/admin/login' exact component={AdminLoginPage}/>
+
+        {/*Alerts*/}
         <Route path='/error-auth' exact component={AuthFailedPage}/>
-        <Redirect from="*" to="/" />
+        <Route path='/already-logged-in' exact component={AlreadyLoginPage}/>
+        <Route path='/error' exact component={ErrorPage}/>
+        <Redirect from="*" to="/error" />
       </Switch>
     </Router>
     </>

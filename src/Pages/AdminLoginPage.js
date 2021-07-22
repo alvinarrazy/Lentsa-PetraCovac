@@ -8,6 +8,7 @@ import { Button } from './Components/Button';
 import { API } from '../config'
 import Navbar from './Components/Navbar';
 import './Styles/LoginForm.css'
+import { authHeader } from '../redux/helpers/auth-header';
 
 class AdminLoginPage extends React.Component {
 	constructor(props) {
@@ -57,8 +58,10 @@ class AdminLoginPage extends React.Component {
 	}	
 
 	componentDidUpdate(){
-		if(this.props.authentication.loggingIn === true){
-			this.props.history.push('/')
+		if(this.props.authentication.loggedIn === true){
+			if(authHeader()){
+                this.props.history.push('/already-logged-in')
+            }
 		}
 	}
 

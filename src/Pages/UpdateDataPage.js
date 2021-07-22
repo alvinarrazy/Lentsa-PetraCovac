@@ -11,6 +11,7 @@ import { API } from '../config'
 import Navbar from './Components/Navbar';
 import './Styles/Form.css'
 import { RingLoader } from './Components/RingLoader';
+import CheckIfAccessAllowed from './Components/CheckIfAccessAllowed';
 
 class UpdateDataPage extends React.Component {
 	constructor(props) {
@@ -242,11 +243,6 @@ class UpdateDataPage extends React.Component {
 		this.props.editDataDesaURL(chosenDesa)
 	}
 
-	componentDidUpdate() {
-		if (this.props.authentication.loggedIn === false) {
-			this.props.history.push('/error-auth')
-		}
-	}
 
 	render() {
 		const { kecamatan, desa, chosenDesa, updating } = this.state
@@ -259,6 +255,7 @@ class UpdateDataPage extends React.Component {
 		} else semuaDesa = [{ _id: "none", nama_desa: "Data tidak ditemukan" }]
 		return (
 			<>
+				<CheckIfAccessAllowed />
 				<Navbar />
 				<form onSubmit={this.handleSubmit}>
 

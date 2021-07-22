@@ -1,8 +1,8 @@
 import React from 'react';
-import { RingLoader } from './Components/RingLoader';
-import './Styles/Error.css';
+import { RingLoader } from '../Components/RingLoader';
+import '../Styles/Error.css';
 
-class AuthFailedPage extends React.Component {
+class AlreadyLoginPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,7 +13,7 @@ class AuthFailedPage extends React.Component {
 	async componentDidMount() {
 		const delay = ms => new Promise(res => setTimeout(res, ms));
 		await delay(5000)
-		this.props.history.push('/admin/login')
+		this.props.history.push('/')
 	}
 
 
@@ -22,8 +22,8 @@ class AuthFailedPage extends React.Component {
 			<>
 				<div className='error-container'>
 					<div>
-						<h1>Administrator Authentication Failed</h1>
-						<p style={{ textAlign: 'center' }}>redirecting to login admin</p>
+						<h1>Already Logged In</h1>
+						<p style={{ textAlign: 'center' }}>redirecting to homepage</p>
 						<div className='ring-container'>
 							<RingLoader />
 						</div>
@@ -38,4 +38,4 @@ class AuthFailedPage extends React.Component {
 }
 
 
-export default (AuthFailedPage);
+export default (AlreadyLoginPage);
