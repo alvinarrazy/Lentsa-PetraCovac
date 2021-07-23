@@ -171,7 +171,7 @@ class Tryout extends React.Component {
 		const { desas } = this.state
 		return (
 			<>
-				<Navbar />
+				
 
 				<Button onClick={this.handleLoadURL}>Update by URL</Button>
 				<form onSubmit={this.handleSubmit}>

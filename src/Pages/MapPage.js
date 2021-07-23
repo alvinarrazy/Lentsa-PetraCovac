@@ -15,7 +15,7 @@ class MapPage extends React.Component {
 	render() {
 		return (
 			<>
-				<Navbar />
+				
 				<div style={{display: "flex", alignItems: "center", justifyContent: "center" }}>
 					
 					<div style={

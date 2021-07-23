@@ -30,7 +30,7 @@ class StatsPage extends React.Component {
 			})).then(() => {
 				this.setState({ isLoaded: true });
 				console.log(this.state.isLoaded)
-			}) 
+			})
 		}
 		catch (error) {
 			console.log(error)
@@ -43,38 +43,40 @@ class StatsPage extends React.Component {
 		const { kecamatan, isLoaded } = this.state
 		return (
 			<>
-				<Navbar />
+				
 				{isLoaded ? <>
-					<table className="data-kecamatan">
-						<tr>
-							<th>Nama Kecamatan</th>
-							<th>Suspek</th>
-							<th>Discharded</th>
-							<th>Meninggal</th>
-							<th>Konfirmasi Symptomatik</th>
-							<th>Konfirmasi Asymptomatik</th>
-							<th>Konfirmasi Sembuh</th>
-							<th>Konfirmasi Meninggal</th>
-						</tr>
-						<Fragment>
-							{
-								kecamatan.map(satuKecamatan => {
-									return (
-										<tr>
-											<td><Link to={`/stats-data/data-desa/:?${satuKecamatan.id_kecamatan}`}>{satuKecamatan.nama_kecamatan}</Link></td>
-											<td>{satuKecamatan.suspek}</td>
-											<td>{satuKecamatan.discharded}</td>
-											<td>{satuKecamatan.meninggal}</td>
-											<td>{satuKecamatan.konfirmasi_symptomatik}</td>
-											<td>{satuKecamatan.konfirmasi_asymptomatik}</td>
-											<td>{satuKecamatan.konfirmasi_sembuh}</td>
-											<td>{satuKecamatan.konfirmasi_meninggal}</td>
-										</tr>
-									)
-								})
-							}
-						</Fragment>
-					</table>
+					<div className='table-wrap'>
+						<table className="data-kecamatan">
+							<tr>
+								<th>Nama Kecamatan</th>
+								<th>Suspek</th>
+								<th>Discharded</th>
+								<th>Meninggal</th>
+								<th>Konfirmasi Symptomatik</th>
+								<th>Konfirmasi Asymptomatik</th>
+								<th>Konfirmasi Sembuh</th>
+								<th>Konfirmasi Meninggal</th>
+							</tr>
+							<Fragment>
+								{
+									kecamatan.map(satuKecamatan => {
+										return (
+											<tr>
+												<td><Link to={`/stats-data/data-desa/:?${satuKecamatan.id_kecamatan}`}>{satuKecamatan.nama_kecamatan}</Link></td>
+												<td>{satuKecamatan.suspek}</td>
+												<td>{satuKecamatan.discharded}</td>
+												<td>{satuKecamatan.meninggal}</td>
+												<td>{satuKecamatan.konfirmasi_symptomatik}</td>
+												<td>{satuKecamatan.konfirmasi_asymptomatik}</td>
+												<td>{satuKecamatan.konfirmasi_sembuh}</td>
+												<td>{satuKecamatan.konfirmasi_meninggal}</td>
+											</tr>
+										)
+									})
+								}
+							</Fragment>
+						</table>
+					</div>
 					<Footer />
 				</> : <></>}
 			</>

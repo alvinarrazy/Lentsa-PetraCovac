@@ -44,41 +44,42 @@ class StatsPage extends React.Component {
 		const { desa, namaKecamatan, isLoaded } = this.state
 		return (
 			<>
-				<Navbar src={window.location.origin + "/images/lentsa.png"} />
 				{isLoaded ? <>
 					<h1>{namaKecamatan}</h1>
-					<table className="data-kecamatan" style={{ tableLayout: 'fixed' }}>
-						<tr>
-							<th>Nama Desa</th>
-							<th>Suspek</th>
-							<th>Discharded</th>
-							<th>Meninggal</th>
-							<th>Konfirmasi Symptomatik</th>
-							<th>Konfirmasi Asymptomatik</th>
-							<th>Konfirmasi Sembuh</th>
-							<th>Konfirmasi Meninggal</th>
-							<th>Keterangan</th>
-						</tr>
-						<Fragment>
-							{
-								desa.map(satuDesa => {
-									return (
-										<tr>
-											<td>{satuDesa.nama_desa}</td>
-											<td className='number-data'>{satuDesa.suspek}</td>
-											<td className='number-data'>{satuDesa.discharded}</td>
-											<td className='number-data'>{satuDesa.meninggal}</td>
-											<td className='number-data'>{satuDesa.konfirmasi_symptomatik}</td>
-											<td className='number-data'>{satuDesa.konfirmasi_asymptomatik}</td>
-											<td className='number-data'>{satuDesa.konfirmasi_sembuh}</td>
-											<td className='number-data'>{satuDesa.konfirmasi_meninggal}</td>
-											<td>{satuDesa.keterangan}</td>
-										</tr>
-									)
-								})
-							}
-						</Fragment>
-					</table>
+					<div className='table-wrap'>
+						<table className="data-kecamatan" style={{ tableLayout: 'fixed' }}>
+							<tr>
+								<th>Nama Desa</th>
+								<th>Suspek</th>
+								<th>Discharded</th>
+								<th>Meninggal</th>
+								<th>Konfirmasi Symptomatik</th>
+								<th>Konfirmasi Asymptomatik</th>
+								<th>Konfirmasi Sembuh</th>
+								<th>Konfirmasi Meninggal</th>
+								<th>Keterangan</th>
+							</tr>
+							<Fragment>
+								{
+									desa.map(satuDesa => {
+										return (
+											<tr>
+												<td>{satuDesa.nama_desa}</td>
+												<td className='number-data'>{satuDesa.suspek}</td>
+												<td className='number-data'>{satuDesa.discharded}</td>
+												<td className='number-data'>{satuDesa.meninggal}</td>
+												<td className='number-data'>{satuDesa.konfirmasi_symptomatik}</td>
+												<td className='number-data'>{satuDesa.konfirmasi_asymptomatik}</td>
+												<td className='number-data'>{satuDesa.konfirmasi_sembuh}</td>
+												<td className='number-data'>{satuDesa.konfirmasi_meninggal}</td>
+												<td>{satuDesa.keterangan}</td>
+											</tr>
+										)
+									})
+								}
+							</Fragment>
+						</table>
+					</div>
 					<Footer />
 				</> : <></>}
 			</>

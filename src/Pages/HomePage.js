@@ -34,7 +34,6 @@ class HomePage extends React.Component {
 		const {isMobile} = this.state;
 		return (
 			<>
-			<Navbar/>
 			<WelcomeSection/>
 			<Cards/>
 			<NyepedaSection/>

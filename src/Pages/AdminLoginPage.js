@@ -69,7 +69,6 @@ class AdminLoginPage extends React.Component {
 		const {admin} = this.state
 		return (
 			<>
-				<Navbar />
 				<div className='wrapper'>
 					<form onSubmit={this.handleSubmit}>
 						<div className='form'>

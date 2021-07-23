@@ -257,7 +257,7 @@ class AdminUpdateDataPage extends React.Component {
 		return (
 			<>
 				<CheckIfAccessAllowed />
-				<Navbar />
+				
 				<div className='container'>
 					<div className='form-left'>
 						<form onSubmit={this.handleSubmit}>
