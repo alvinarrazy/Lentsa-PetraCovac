@@ -6,7 +6,7 @@ import {authHeader} from './redux/helpers/auth-header';
 
 //Pages
 import HomePage from "./Pages/HomePage";
-import UpdateDataPage from "./Pages/UpdateDataPage";
+import AdminUpdateDataPage from "./Pages/AdminUpdateDataPage";
 import MapPage from './Pages/MapPage';
 import StatsPage from "./Pages/StatsPage";
 import DesaStatsPage from './Pages/DesaStatsPage';
@@ -38,7 +38,7 @@ function App() {
         {/*Admin*/}
         <Route path='/admin/login' exact component={authHeader() ? AlreadyLoginPage : AdminLoginPage}/>
         <Route path='/admin/testing' exact component={authHeader() ? Tryout : ErrorPage}/>
-        <Route path='/admin/update-data' exact component={authHeader() ? UpdateDataPage : ErrorPage}/>
+        <Route path='/admin/update-data' exact component={authHeader() ? AdminUpdateDataPage : ErrorPage}/>
 
         {/*Alerts*/}
         <Route path='/error-auth' exact component={AuthFailedPage}/>

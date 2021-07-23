@@ -7,7 +7,6 @@
 }
 
 .btn:hover {
-    padding: 8px 20px;
     transition: all 0.3s ease-out;
     background: #a9a6d5;
     color: #6568F4;
@@ -34,7 +33,7 @@
     color: #fff;
 }
 
-.btn-large {
+.btn--large {
     padding: 12px 26px;
     border-radius: 4px;
     font-size: 20px;
