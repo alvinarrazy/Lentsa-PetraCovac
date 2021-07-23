@@ -2,13 +2,13 @@
   --primary: #ff7f50;
   height: 100%;
   width: 100%;
-  background: #fef5e6;
 }
 
 * {
   margin: 0;
   padding: 0;
   font-family: 'HK Grotesk', sans-serif;
+  font-weight: bold;
 }
 
 .fade-appear,

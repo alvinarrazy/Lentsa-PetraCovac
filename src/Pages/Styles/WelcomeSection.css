@@ -9,6 +9,7 @@ video {
 .hero-container {
   background-size: contain;
   background-repeat: no-repeat;
+  background-image: url('viruz.png');
   /* background-attachment: fixed; */
   background-position: top right;
   height: 100vh;
@@ -70,6 +71,7 @@ video {
     background-position: top;
     height: 110vw;
     width: 100%;
+    background-image: none;
   }
   .header-container>h1 {
     font-size: 40px;

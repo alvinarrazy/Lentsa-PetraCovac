@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import {
 	adminLogin
 } from '../redux/actions/LoginAction';
-import { Button } from './Components/Button';
 import { API } from '../config'
-import Navbar from './Components/Navbar';
+import { Link } from 'react-router-dom'
 import './Styles/LoginForm.css'
 import { authHeader } from '../redux/helpers/auth-header';
 
@@ -19,7 +18,8 @@ class AdminLoginPage extends React.Component {
 			admin: {
 				username: '',
 				password: ''
-			}
+			},
+			isMobile: false
 		}
 	}
 
@@ -52,47 +52,46 @@ class AdminLoginPage extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const {admin} = this.state
+		const { admin } = this.state
 		this.props.adminLogin(admin)
-	
-	}	
 
-	componentDidUpdate(){
-		if(this.props.authentication.loggedIn === true){
-			if(authHeader()){
-                this.props.history.push('/already-logged-in')
-            }
+	}
+
+	componentDidUpdate() {
+		if (this.props.authentication.loggedIn === true) {
+			if (authHeader()) {
+				this.props.history.push('/already-logged-in')
+			}
 		}
 	}
 
 	render() {
-		const {admin} = this.state
+		const { admin, isMobile } = this.state
 		return (
 			<>
-				<div className='wrapper'>
-					<form onSubmit={this.handleSubmit}>
-						<div className='form'>
-							<div className='title'>Welcome</div>
-							<div className='subtitle'>Let's create your account!</div>
-							<div className='input-container ic1'>
-								<input onChange={this.handleChange} value={admin.username} name='username' className='input' placeholder=' ' />
-								<div className='cut' />
-								<label  className='placeholder'>
-									Username
-								</label>
+				<div className='form-container'>
+					<div className='form-wrapper'>
+						<img src="https://img.icons8.com/ios-glyphs/90/000000/administrator-male.png" />
+						<h1>Administrator Login </h1>
+						<p>Bersama melawan Covid-19</p>
+						<form onSubmit={this.handleSubmit}>
+							<label>Username</label>
+							<input type='text' onChange={this.handleChange} value={admin.username} name='username' />
+							<label>Password</label>
+							<input type='password' onChange={this.handleChange} value={admin.password} name='password' />
+							<div className='col-wrap'>
+								<div className='col30'>
+									<input type='checkbox' />
+									<label style={{ marginLeft: '10px' }}>Remember me</label>
+								</div>
+								<div className='col30'>
+									<Link to='#forgot'>Forgot Password?</Link>
+								</div>
 							</div>
-							<div className='input-container ic2'>
-								<input type='password' onChange={this.handleChange} value={admin.password} name='password' className='input' placeholder=' ' />
-								<div className='cut' />
-								<label className='placeholder'>
-									Password
-								</label>
-							</div>
-							<button type='text' className='submit'>
-								Submit
-							</button>
-						</div>
-					</form>
+							<input placeholder='Login' type='submit' />
+							<Link to='#create'>Create Account</Link>
+						</form>
+					</div>
 				</div>
 			</>
 		)

@@ -5,36 +5,13 @@ import '../Styles/WelcomeSection.css';
 class WelcomeSection extends Component {
 
   constructor(props) {
-    super(props);
-    this.state = {
-      isMobile: false
-    };
-
-    this.updatePredicate = this.updatePredicate.bind(this);
+    super(props)
   }
-  componentDidMount() {
-    this.updatePredicate();
-    window.addEventListener("resize", this.updatePredicate);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updatePredicate);
-  }
-
-  updatePredicate() {
-    this.setState({ isMobile: window.innerWidth < 960 });
-  }
-
 
   render() {
-    const isMobile = this.state.isMobile;
     // console.log(isMobile)
     return (
-      <div className='hero-container' style={isMobile ?
-        { backgroundImage: `url(${process.env.PUBLIC_URL + '/images/viruz.png'})` } :
-        { backgroundImage: `url(${process.env.PUBLIC_URL + '/images/viruz.png'})` }
-      }>
-
+      <div className='hero-container'>
         <div className='header-container'>
           <h1>Selamat Datang di Lentsa Petracovac</h1>
           <p>Siaga dalam satu visi, selamatkan sejuta jiwa negeri</p>
@@ -49,7 +26,6 @@ class WelcomeSection extends Component {
           </div>
         </div>
         <div className='dummy-right' style={{ float: 'right' }}></div>
-
       </div>
     );
   }
