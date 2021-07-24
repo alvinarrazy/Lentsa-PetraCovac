@@ -74,6 +74,7 @@
 @media screen and (max-width: 960px) {
   .form-container{
     background: none;
+    height:auto;
   }
 
   .form-wrapper {
