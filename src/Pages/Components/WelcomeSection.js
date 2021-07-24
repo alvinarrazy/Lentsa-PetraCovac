@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from './Button';
+import { authHeader, checkIfAdmin } from '../../redux/helpers/auth-header';
 import '../Styles/WelcomeSection.css';
 
 class WelcomeSection extends Component {
@@ -13,8 +14,12 @@ class WelcomeSection extends Component {
     return (
       <div className='hero-container'>
         <div className='header-container'>
-          <h1>Selamat Datang di Lentsa Petracovac</h1>
-          <p>Siaga dalam satu visi, selamatkan sejuta jiwa negeri</p>
+          {authHeader() && checkIfAdmin ?
+            <><div><img src="https://img.icons8.com/ios-glyphs/90/000000/administrator-male.png" /></div>
+              <div><h1>Administrator Mode</h1></div></> :
+            <><h1>Selamat Datang di Lentsa Petracovac</h1>
+              <p>Siaga dalam satu visi, selamatkan sejuta jiwa negeri</p></>
+          }
           <div className='hero-btns'>
             <Button
               className='btns'

@@ -2,20 +2,20 @@ import React, { Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {
-	adminLogin
+	login
 } from '../redux/actions/LoginAction';
 import { API } from '../config'
 import { Link } from 'react-router-dom'
 import './Styles/LoginForm.css'
 import { authHeader } from '../redux/helpers/auth-header';
 
-class AdminLoginPage extends React.Component {
+class LoginPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.state = {
-			admin: {
+			user: {
 				username: '',
 				password: ''
 			},
@@ -40,10 +40,10 @@ class AdminLoginPage extends React.Component {
 
 	handleChange(event) {
 		const { name, value } = event.target;
-		const { admin } = this.state
+		const { user } = this.state
 		this.setState({
-			admin: {
-				...admin,
+			user: {
+				...user,
 				[name]: value //name dan value component dari <input> tag
 			}
 		});
@@ -52,33 +52,25 @@ class AdminLoginPage extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const { admin } = this.state
-		this.props.adminLogin(admin)
-
+		const { user } = this.state
+		this.props.login(user)
+		this.props.history.push('logging-in')
 	}
 
-	componentDidUpdate() {
-		if (this.props.authentication.loggedIn === true) {
-			if (authHeader()) {
-				this.props.history.push('/already-logged-in')
-			}
-		}
-	}
 
 	render() {
-		const { admin, isMobile } = this.state
+		const { user, isMobile } = this.state
 		return (
 			<>
 				<div className='form-container'>
 					<div className='form-wrapper'>
-						<img src="https://img.icons8.com/ios-glyphs/90/000000/administrator-male.png" />
-						<h1>Administrator Login </h1>
+						<h1>Login </h1>
 						<p>Bersama melawan Covid-19</p>
 						<form onSubmit={this.handleSubmit}>
 							<label>Username</label>
-							<input type='text' onChange={this.handleChange} value={admin.username} name='username' />
+							<input type='text' onChange={this.handleChange} value={user.username} name='username' />
 							<label>Password</label>
-							<input type='password' onChange={this.handleChange} value={admin.password} name='password' />
+							<input type='password' onChange={this.handleChange} value={user.password} name='password' />
 							<div className='col-wrap'>
 								<div className='col30'>
 									<input type='checkbox' />
@@ -109,8 +101,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		adminLogin: (data) => dispatch(adminLogin(data))
+		login: (data) => dispatch(login(data))
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminLoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

@@ -2,13 +2,11 @@ import React, { Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {
-	addDesaCSV,
 	editDataDesa,
 	editDataDesaURL
 } from '../redux/actions/CovidAction';
 import { Button } from './Components/Button';
 import { API } from '../config'
-import Navbar from './Components/Navbar';
 import './Styles/Form.css'
 import { RingLoader } from './Components/RingLoader';
 import CheckIfAccessAllowed from './Components/CheckIfAccessAllowed';
@@ -257,131 +255,139 @@ class AdminUpdateDataPage extends React.Component {
 		return (
 			<>
 				<CheckIfAccessAllowed />
-				
 				<div className='container'>
-					<div className='form-left'>
-						<form onSubmit={this.handleSubmit}>
-							<div className='row'>
-								<div className='col-30'>
-									<label>Kecamatan</label>
-								</div>
-								<div className='col-60'>
-									<select onChange={this.handleChangeKecamatan} name='nama_kecamatan' placeholder='Kecamatan' required>
-										<option value='null'>Pilih Kecamatan</option>
-										<Fragment>
-											{
-												semuaKecamatan.map(result => {
-													return (
-														<option value={result._id}>{result.nama_kecamatan}</option>
-													)
-												})
-											}
-										</Fragment>
-									</select>
-								</div>
-							</div>
-							<div className='row'>
-								<div className='col-30'>
-									<label>Desa</label>
-								</div>
-								<div className='col-60'>
-									<select onChange={this.handleChangeDesa} name='nama_desa' placeholder='Desa' required>
-										<option value='null'>Pilih Desa</option>
+					<form style={{
+						 width: '60%',
+						 display: 'flex',
+						 alignItems: 'center',
+						 flexDirection: 'column' 
+						 }} onSubmit={this.handleSubmit}>
 
-										<Fragment>
-											{
-												semuaDesa.map(result => {
-													return (
-														<option value={result.nama_desa}>{result.nama_desa}</option>
-													)
-												})
-											}
-										</Fragment>
-									</select>
+						<div className='form-left'>
+							<div className='column-form'>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Kecamatan</label>
+									</div>
+									<div className='col-row-form'>
+										<select onChange={this.handleChangeKecamatan} name='nama_kecamatan' placeholder='Kecamatan' required>
+											<option value='null'>Pilih Kecamatan</option>
+											<Fragment>
+												{
+													semuaKecamatan.map(result => {
+														return (
+															<option value={result._id}>{result.nama_kecamatan}</option>
+														)
+													})
+												}
+											</Fragment>
+										</select>
+									</div>
 								</div>
-							</div>
-							<div className='row'>
-								<div className='col-30'>
-									<label>Suspek</label>
-								</div>
-								<div className='col-60'>
-									<input onChange={this.handleChange} type='number' value={chosenDesa.suspek} name='suspek' required />
-								</div>
-							</div>
-							<div className='row'>
-								<div className='col-30'>
-									<label>Discharded
-									</label>
-								</div>
-								<div className='col-60'>
-									<input onChange={this.handleChange} type='number' value={chosenDesa.discharded} name='discharded' required />
-								</div>
-							</div>
-							<div className='row'>
-								<div className='col-30'>
-									<label>Meninggal
-									</label>
-								</div>
-								<div className='col-60'>
-									<input onChange={this.handleChange} type='number' value={chosenDesa.meninggal} name='meninggal' required />
-								</div>
-							</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Desa</label>
+									</div>
+									<div className='col-row-form'>
+										<select onChange={this.handleChangeDesa} name='nama_desa' placeholder='Desa' required>
+											<option value='null'>Pilih Desa</option>
 
-							<div className='row'>
-								<div className='col-30'>
-									<label>Konfirmasi Asymptomatik</label>
+											<Fragment>
+												{
+													semuaDesa.map(result => {
+														return (
+															<option value={result.nama_desa}>{result.nama_desa}</option>
+														)
+													})
+												}
+											</Fragment>
+										</select>
+									</div>
 								</div>
-								<div className='col-60'>
-									<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_asymptomatik} name='konfirmasi_asymptomatik' required />
+							</div>
+							<div className='column-form'>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Suspek</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='number' value={chosenDesa.suspek} name='suspek' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Discharded
+										</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='number' value={chosenDesa.discharded} name='discharded' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Meninggal
+										</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='number' value={chosenDesa.meninggal} name='meninggal' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Konfirmasi Asymptomatik</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_asymptomatik} name='konfirmasi_asymptomatik' required />
 
+									</div>
 								</div>
 							</div>
-							<div className='row'>
-								<div className='col-30'>
-									<label>Konfirmasi Symptomatik</label>
-								</div>
-								<div className='col-60'>
-									<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_symptomatik} name='konfirmasi_symptomatik' required />
+							<div className='column-form'>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Konfirmasi Symptomatik</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_symptomatik} name='konfirmasi_symptomatik' required />
 
+									</div>
 								</div>
-							</div>
-							<div className='row'>
-								<div className='col-30'>
-									<label>Konfirmasi Sembuh</label>
-								</div>
-								<div className='col-60'>
-									<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_sembuh} name='konfirmasi_sembuh' required />
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Konfirmasi Sembuh</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_sembuh} name='konfirmasi_sembuh' required />
 
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Konfirmasi Meninggal</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_meninggal} name='konfirmasi_meninggal' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Keterangan</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={chosenDesa.keterangan} name='keterangan' />
+									</div>
 								</div>
 							</div>
-							<div className='row'>
-								<div className='col-30'>
-									<label>Konfirmasi Meninggal</label>
-								</div>
-								<div className='col-60'>
-									<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_meninggal} name='konfirmasi_meninggal' required />
-								</div>
-							</div>
-							<div className='row'>
-								<div className='col-30'>
-									<label>Keterangan</label>
-								</div>
-								<div className='col-60'>
-									<input onChange={this.handleChange} type='text' value={chosenDesa.keterangan} name='keterangan' />
-								</div>
-							</div>
-							<div className='row'>
-								<div className='col-100'>
-									<input type='submit' value='Submit' />
-								</div>
-							</div>
-						</form>
-					</div>
+						</div>
+						<div style={{width: '80%'}} className='col-80'>
+							<input type='submit' value='Submit' />
+						</div>
+					</form>
 					<div className='form-right'>
 						<div>
 							<Button buttonSize='btn--large' buttonStyle='btn--primary' onClick={this.handleLoadURL}>Update by URL</Button>
 						</div>
-						<div className='ring-container' style={{flexDirection:'column', alignItems: 'center', height: '40%' }}>
+						<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '40%' }}>
 							{updating ?
 								<>
 									<p>Please wait while retrieving data</p>

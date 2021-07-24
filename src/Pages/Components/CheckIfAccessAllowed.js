@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {
-	adminLogin
+	login
 } from '../../redux/actions/LoginAction';
 import { authHeader } from '../../redux/helpers/auth-header';
 import { history } from '../../redux/helpers/history';
@@ -41,7 +41,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		adminLogin: (data) => dispatch(adminLogin(data))
+		login: (data) => dispatch(login(data))
 	}
 }
 

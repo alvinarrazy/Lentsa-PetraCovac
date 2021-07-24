@@ -2,13 +2,13 @@ import {userConstants} from '../types';
 import {userService} from '../services/userService';
 import {history} from '../helpers/history';
 
-export const adminLogin = (user) => {
+export const login = (user) => {
     return dispatch => {
         dispatch({
-            type: userConstants.ADMIN_LOGIN_REQUEST,
+            type: userConstants.LOGIN_REQUEST,
             data: user
         })
-        userService.adminLogin(user)
+        userService.login(user)
         .then(
             user => { 
                 localStorage.setItem('profile', user)

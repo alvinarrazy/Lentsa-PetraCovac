@@ -3,7 +3,7 @@ export const userConstants = {
     REGISTER_SUCCESS: 'register_success',
     REGISTER_FAILURE: 'register_failed',
 
-    ADMIN_LOGIN_REQUEST: '/admin/login',
+    LOGIN_REQUEST: '/account/login',
     LOGIN_SUCCESS: 'login_success',
     LOGIN_FAILURE: 'login_failed',
     

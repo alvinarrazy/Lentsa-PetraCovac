@@ -6,7 +6,7 @@ const initialState = user ?
 
 export function authentication(state = initialState, action) {
   switch (action.type) {
-    case userConstants.ADMIN_LOGIN_REQUEST:
+    case userConstants.LOGIN_REQUEST:
       return {
         loggingIn: true,//state yang dikirim ke global, bisa diganti jg di reducer kalo dibutuhin di component lain
         user: action.data

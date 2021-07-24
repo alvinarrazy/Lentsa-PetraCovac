@@ -7,7 +7,7 @@ import {authHeader} from '../helpers/auth-header';
 export const userService = {    
     logout,
     register,
-    adminLogin
+    login
 };
 
 // axios.interceptors.request.use(
@@ -38,9 +38,9 @@ function register(newUser) {
 
 
 //Udah bisa login, tambah fitur logout
-async function adminLogin(user){
+async function login(user){
     try{
-        const data = await axios.post(`${API}/${userConstants.ADMIN_LOGIN_REQUEST}`, user)
+        const data = await axios.post(`${API}/${userConstants.LOGIN_REQUEST}`, user)
         return JSON.stringify(data.data);//kalau mau dipanggil JSONparse dulu biar bisa dipake
     }catch(err){
         console.log(err.message)

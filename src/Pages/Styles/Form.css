@@ -1,74 +1,86 @@
-.form-container {
+.container {
   color: #1b0605;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-image: url('viruz.png');
-  /* background-attachment: fixed; */
   background-position: top right;
-  height: 100vh;
+  margin-top: 20px;
+  height: auto;
   width: 100%;
   display: flex;
   /* box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2); */
   object-fit: contain;
 }
 
-.form-wrapper {
-  height: auto;
-  width: 30%;
-  padding: 3vw 7vw;
+input[type='submit'], input[type='submit']:focus{
+  background-color: #ff7f50;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 18px;
+  outline: none;
+  margin: 15px 0px;  
+  width: -webkit-fill-available;
+  border: none;
 }
 
-.form-wrapper h1 {
+input[type='submit']:hover{
+  transition: all 0.3s ease-out;
+  background: #a9a6d5;
+  color: #6568F4;
+  transition: 250ms;
+}
+
+.form-left {
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.form-left h1 {
   text-align: left;
   margin: 3px 0px;
 }
 
-.form-wrapper p {
+.form-left p {
   color: gray;
   margin-bottom: 20px;
 }
 
-.form-wrapper form {
+.form-left form {
   display: flex;
   flex-direction: column;
 }
 
-.form-wrapper input, input:focus {
+.form-left input, input:focus, select {
   background-color: #e5e5e5;
   border: none;
   padding: 12px;
   border-radius: 18px;
   outline: none;
   margin: 15px 0px;
+  width: -webkit-fill-available;
 }
 
-.form-wrapper input[type='submit'] {
+.form-left input[type='submit'] {
   background-color: #ff7f50;
   font-weight: bold;
 }
 
-.form-wrapper .col-wrap {
-  display: flex;
-  justify-content: space-between;
+.form-left .column-form {
+  margin: 10px
 }
 
-.form-wrapper .col-wrap .col30 {
+.form-right{
+  width: 50%;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
-
-.form-wrapper a {
-  color: #ff7f50;
-  font-weight: bold;
-  text-decoration: none;
-}
-
 @media screen and (max-width: 960px) {
   .form-container{
     background: none;
   }
 
-  .form-wrapper {
+  .form-left {
     width: inherit;
     padding: 10px;
   }
