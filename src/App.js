@@ -8,6 +8,7 @@ import {
   TransitionGroup,
 } from 'react-transition-group';
 import Navbar from './Pages/Components/Navbar';
+import Footer from './Pages/Components/Footer';
 
 //Pages
 import HomePage from "./Pages/HomePage";
@@ -67,6 +68,7 @@ function App() {
             </CSSTransition>
           </TransitionGroup>
         )} />
+        <Footer/>
       </>
     </Router>
   );

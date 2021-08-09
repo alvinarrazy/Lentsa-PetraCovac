@@ -7,7 +7,6 @@ import {rootReducer} from './redux/reducers/rootReducer';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import reportWebVitals from './reportWebVitals';
-import WebMap from './Maps/WebMap';
 
 const loggerMiddleware = createLogger();
 
@@ -27,7 +26,6 @@ ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementB
 // import App from './NewMap';
 // import reportWebVitals from './reportWebVitals';
 
-//ReactDOM.render(<React.StrictMode><WebMap /></React.StrictMode>,document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

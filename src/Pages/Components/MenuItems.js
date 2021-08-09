@@ -34,8 +34,8 @@ export const AdminMenuItems = [
         cName: 'nav-links'
     },
     {
-        title: 'Peta Covid',
-        url: '/covid-map',
+        title: 'Laporan',
+        url: '/admin/reports',
         cName: 'nav-links'
     },
     {
