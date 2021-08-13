@@ -22,6 +22,7 @@ h1 {
 }
 
 .cards__items {
+  display: flex;
   margin-bottom: 24px;
 }
 
@@ -113,19 +114,32 @@ h1 {
 }
 
 @media only screen and (max-width: 960px) {
- .cards__container{
-   padding-bottom: 100px;
- }
+  .cards__container {
+    padding-bottom: 100px;
+  }
+  h1 {
+    font-size: 8vw;
+  }
+  .cards__items {
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .cards__item{
+    margin-bottom: 20px;
+  }
 }
 
 @media only screen and (max-width: 720px) {
-  .cards__container{
+  .cards__container {
     padding-bottom: 80px;
   }
 }
 
 @media only screen and (max-width: 360px) {
-  .cards__container{
+  .cards__container {
     padding-bottom: 60px;
   }
 }

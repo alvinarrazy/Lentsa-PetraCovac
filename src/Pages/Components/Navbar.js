@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -15,6 +16,7 @@ class Navbar extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this)
         this.handleLogout = this.handleLogout.bind(this)
+        this.handleClose = this.handleClose.bind(this)
         this.state = { clicked: false }
     }
 
@@ -24,8 +26,12 @@ class Navbar extends Component {
     }
 
 
-    handleClick = () => {
+    handleClick(){
         this.setState({ clicked: !this.state.clicked })
+    }
+
+    handleClose(){
+        this.setState({ clicked: false })
     }
 
 
@@ -33,12 +39,12 @@ class Navbar extends Component {
         return (
             <nav className="NavbarItems">
                 <h1 className="navbar-logo">
-                    <Link to='/'>
+                    <Link onClick={() => this.handleClose()} to='/'>
                         <img src={this.props.src ? this.props.src : `${window.location.origin + "/images/lentsa.png"}`}>
                         </img>
                     </Link>
                 </h1>
-                <div className="menu-icon" onClick={this.handleClick}>
+                <div className="menu-icon" onClick={() => this.handleClick()}>
                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
                 </div>
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
@@ -48,7 +54,7 @@ class Navbar extends Component {
                                 AdminMenuItems.map((item, index) => {
                                     return (
                                         <li key={index}>
-                                            <Link className={item.cName} to={item.url}>
+                                            <Link onClick={() => this.handleClick()} className={item.cName} to={item.url}>
                                                 {item.title}
                                             </Link>
                                         </li>
@@ -62,7 +68,7 @@ class Navbar extends Component {
                                 MenuItems.map((item, index) => {
                                     return (
                                         <li key={index}>
-                                            <Link className={item.cName} to={item.url}>
+                                            <Link onClick={() => this.handleClick()} className={item.cName} to={item.url}>
                                                 {item.title}
                                             </Link>
                                         </li>

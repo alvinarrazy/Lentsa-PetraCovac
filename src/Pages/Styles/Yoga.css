@@ -1,0 +1,15 @@
+.tips-content .yoga{
+    width: 50%;
+    display: flex;    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.yoga .yoga-pic{
+    width: 250px;
+}
+.yoga .yoga-pic img{
+    width: 100%;
+}

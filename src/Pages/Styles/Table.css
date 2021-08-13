@@ -2,15 +2,17 @@
   padding: 10px;
 }
 
-.data-kecamatan {
+.table-wrap .data-kecamatan {
+  display:block;
   width: 100%;
   border-collapse: collapse;
   border-block: 1px solid #010301;
   border-top: 1px solid #d4d4d4;
+  overflow: scroll;
 }
 
 
-.data-kecamatan th {
+.table-wrap .data-kecamatan th {
   padding-top: 24px;
   padding-bottom: 24px;
   background-color: #fefaf5;
@@ -18,7 +20,7 @@
   border-bottom: 1px solid #010301;
 }
 
-.data-kecamatan td{
+.table-wrap .data-kecamatan td{
   border-bottom: 1px solid #010301;
   border-left: none;
   border-right: none;
@@ -38,6 +40,15 @@
   text-decoration: inherit;
   color: inherit;
   cursor: pointer;
+}
+
+@media screen and (max-width: 960px) {
+  .table-wrap{
+    max-width: 100%;
+    padding: 0;
+    overflow: auto;
+  }
+
 }
  
   

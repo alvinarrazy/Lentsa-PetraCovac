@@ -32,8 +32,14 @@ function logout() {
     console.log("user udah dibuang");
 }
 
-function register(newUser) {
-    axios.post(`${API}/${userConstants.REGISTER_REQUEST}`, newUser)
+async function register(newUser) {
+    try {
+        let result = axios.post(`${API}/${userConstants.REGISTERING}`, newUser)
+        return result
+    } catch (error) {
+        console.log(error.message)
+    }
+
 }
 
 

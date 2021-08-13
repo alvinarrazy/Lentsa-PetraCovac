@@ -9,6 +9,13 @@
   object-fit: contain;
 }
 
+.container form{
+  width: 60%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 input[type='submit'], input[type='submit']:focus{
   background-color: #ff7f50;
   font-weight: bold;
@@ -76,12 +83,30 @@ input[type='submit']:hover{
   justify-content: center;
 }
 @media screen and (max-width: 960px) {
+  .container{
+    flex-direction: column;
+
+  }
+
+  .container form{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
   .form-container{
     background: none;
   }
 
   .form-left {
-    width: inherit;
-    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-right{
+    width: 100%;
   }
 }

@@ -65,6 +65,9 @@
     .NavbarItems {
         position: relative;
     }
+    .navbar-logo {
+        position: absolute;
+    }
     .navbar-logo img {
         height: 33px;
         width: auto;
@@ -97,12 +100,7 @@
         background-color: #e5e07f;
         border-radius: 0;
     }
-    .navbar-logo {
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: translate(25%, 50%);
-    }
+
     .menu-icon {
         display: block;
         position: absolute;
@@ -135,5 +133,14 @@
     }
     Button {
         display: none;
+    }
+}
+@media screen and (max-width: 320px) {
+    .navbar-logo {
+        position: absolute;
+        top: 0;
+        margin-left: 0;
+        left: 0;
+        transform: translate(0%, 50%);
     }
 }

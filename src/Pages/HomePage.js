@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from './Components/Navbar';
 import WelcomeSection from './Components/WelcomeSection';
 import DescriptionSection from './Components/DescriptionSection';
 import NyepedaSection from './Components/NyepedaSection';
@@ -34,6 +33,7 @@ class HomePage extends React.Component {
 		const {isMobile} = this.state;
 		return (
 			<>
+			<div>
 			<WelcomeSection/>
 			<Cards/>
 			<NyepedaSection/>
@@ -41,6 +41,7 @@ class HomePage extends React.Component {
 
 			<DescriptionSection/>
 			<Footer/>
+			</div>
 			</>
 		)
 

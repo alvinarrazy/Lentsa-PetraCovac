@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import './Styles/Maps.css'
-
+import Footer from './Components/Footer'
 
 class MapPage extends React.Component {
 	constructor(props) {
@@ -32,7 +32,6 @@ class MapPage extends React.Component {
 	render() {
 		return (
 			<>
-
 				<div className='mappage-container'>
 					<div className='header'>
 						<div className='header-contents'>
@@ -46,6 +45,7 @@ class MapPage extends React.Component {
 						</div>
 					</div>
 				</div>
+				<Footer/>
 			</>
 		)
 

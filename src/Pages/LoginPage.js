@@ -7,7 +7,6 @@ import {
 import { API } from '../config'
 import { Link } from 'react-router-dom'
 import './Styles/LoginForm.css'
-import { authHeader } from '../redux/helpers/auth-header';
 
 class LoginPage extends React.Component {
 	constructor(props) {
@@ -59,7 +58,7 @@ class LoginPage extends React.Component {
 
 
 	render() {
-		const { user, isMobile } = this.state
+		const { user} = this.state
 		return (
 			<>
 				<div className='form-container'>
@@ -67,7 +66,7 @@ class LoginPage extends React.Component {
 						<h1>Login </h1>
 						<p>Bersama melawan Covid-19</p>
 						<form onSubmit={this.handleSubmit}>
-							<label>Username</label>
+							<label>Email</label>
 							<input type='text' onChange={this.handleChange} value={user.username} name='username' />
 							<label>Password</label>
 							<input type='password' onChange={this.handleChange} value={user.password} name='password' />
@@ -76,12 +75,12 @@ class LoginPage extends React.Component {
 									<input type='checkbox' />
 									<label style={{ marginLeft: '10px' }}>Remember me</label>
 								</div>
-								<div className='col30'>
+								{/* <div className='col30'>
 									<Link to='#forgot'>Forgot Password?</Link>
-								</div>
+								</div> */}
 							</div>
-							<input placeholder='Login' type='submit' />
-							<Link to='#create'>Create Account</Link>
+							<input value='Login' type='submit' />
+							<Link to='/register'>Create Account</Link>
 						</form>
 					</div>
 				</div>

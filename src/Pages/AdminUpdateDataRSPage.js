@@ -12,7 +12,7 @@ import { RingLoader } from './Components/RingLoader';
 import CheckIfAccessAllowed from './Components/CheckIfAccessAllowed';
 import Footer from './Components/Footer'
 
-class AdminUpdateDataPage extends React.Component {
+class AdminUpdateDataRSPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
@@ -23,19 +23,14 @@ class AdminUpdateDataPage extends React.Component {
 		this.state = {
 			desa: {},
 			kecamatan: {},
-			chosenDesa: {
-				nama_desa: '',
-				suspek: '',
-				discharded: '',
-				meninggal: '',
-				keterangan: '',
-				konfirmasi_asymptomatik: '',
-				konfirmasi_symptomatik: '',
-				konfirmasi_sembuh: '',
-				konfirmasi_meninggal: '',
-				keterangan_konfirmasi: ''
+			dataRS: {
+				nama_rs: '',
+				jumlahKamarUmum: '',
+				jumlahKamarCovid: '',
+				jumlahNakes: '',
+				kelas: ''
 			},
-			updateData: [],
+			updateDataRS: [],
 			dataLoadCount: 0,
 			updating: false
 		}
@@ -413,4 +408,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminUpdateDataPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminUpdateDataRSPage);

@@ -36,6 +36,7 @@
 @media screen and (max-width: 960px) {
     .footer-wrap {
         position: relative;
+        padding: 0;
     }
 
     .footer-logo img{

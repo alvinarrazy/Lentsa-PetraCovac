@@ -16,7 +16,7 @@ export const MenuItems = [
     },
     {
         title: 'Tips',
-        url: '#',
+        url: '/healthy-life',
         cName: 'nav-links'
     }
 
@@ -24,12 +24,7 @@ export const MenuItems = [
 
 export const AdminMenuItems = [
     {
-        title: 'Beranda',
-        url: '/home',
-        cName: 'nav-links'
-    },
-    {
-        title: 'Data Covid',
+        title: 'Data',
         url: '/stats-data',
         cName: 'nav-links'
     },
@@ -39,8 +34,13 @@ export const AdminMenuItems = [
         cName: 'nav-links'
     },
     {
-        title: 'Update Data',
-        url: '/admin/update-data',
+        title: 'Update Covid',
+        url: '/admin/update-data-covid',
+        cName: 'nav-links'
+    },
+    {
+        title: 'Update RS',
+        url: '/admin/update-data-rs',
         cName: 'nav-links'
     }
 

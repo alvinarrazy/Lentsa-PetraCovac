@@ -32,7 +32,9 @@ video {
   margin-left: 15vw;
 }
 
-.header-container>h1 {
+.header-container .title {}
+
+.header-container .title>h1 {
   color: #1b0605;
   font-size: 3.5vw;
   margin-top: -100px;
@@ -66,18 +68,24 @@ video {
     height: 100%;
     width: 100%;
     margin-left: 0;
+    margin-top: 15vh;
   }
   .hero-container {
     background-position: top;
-    height: 110vw;
+    height: 25vh;
     width: 100%;
     background-image: none;
   }
-  .header-container>h1 {
-    font-size: 40px;
-    margin-top: -150px;
+  .header-container .title {
+    text-align: center;
+  }
+  .header-container .title>h1 {
+    font-size: 10vw;
+    display: contents;
     color: #20212c;
-  }  .header-container>p {
+    text-align: center;
+  }
+  .header-container>p {
     font-size: 30px;
     color: #20212c;
   }
@@ -86,7 +94,7 @@ video {
 @media screen and (max-width: 768px) {
   .header-container>h1 {
     font-size: 30px;
-    margin-top: -100px;
+    /* margin-top: -100px; */
   }
   .header-container>p {
     font-size: 20px;
@@ -103,7 +111,7 @@ video {
 @media screen and (max-width: 360px) {
   .header-container>h1 {
     font-size: 25px;
-    margin-top: -100px;
+    /* margin-top: -100px; */
   }
   .header-container>p {
     font-size: 15px;

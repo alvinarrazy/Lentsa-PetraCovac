@@ -1,15 +1,39 @@
 import {userConstants} from '../types';
 import {userService} from '../services/userService';
 
-export const register = (newUser) => {
+
+
+export const reqRegister = (user) => {
     return dispatch => {
         dispatch({
             type: userConstants.REGISTER_REQUEST,
-            // newUser: newUser //Tes apakah kalo di komen gk bisa update database
+            data: user
         })
-
-        userService.register(newUser)
     }
+}
+
+export const register = (user) => {
+    return dispatch => {
+        dispatch({
+            type: userConstants.REGISTERING,
+            data: user
+        })
+        userService.register(user)
+            .then(
+                user => {
+                    if (user == undefined) {
+                        throw 'register failed'
+                    }
+                    dispatch(success(user));
+                }
+            )
+            .catch(error =>{
+                dispatch(failure(error))
+            })
+
+    }
+    function success(user) { return { type: userConstants.REGISTER_SUCCESS } }
+    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
 

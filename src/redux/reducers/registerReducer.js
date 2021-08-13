@@ -1,13 +1,20 @@
 import { userConstants } from '../types';
-
-export function register(state = {}, action) {
+const initialState = {
+  doneRegister: false,
+  isRegistering: false,
+  isRegisterFailed: false,
+  data: {}
+}
+export function registerReducer(state = initialState, action) {
   switch (action.type) {
     case userConstants.REGISTER_REQUEST:
-      return { registering: true};
+      return { isRegistering: true, doneRegister: false, isRegisterFailed: false, data: action.data };
+    case userConstants.REGISTERING:
+      return { ...state, isRegistering: true, data: action.data };
     case userConstants.REGISTER_SUCCESS:
-      return {};
+      return { isRegistering: false, doneRegister: true };
     case userConstants.REGISTER_FAILURE:
-      return {};
+      return { isRegistering: false, doneRegister: false, isRegisterFailed: true };
     default:
       return state
   }

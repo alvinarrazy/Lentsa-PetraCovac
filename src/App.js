@@ -8,18 +8,22 @@ import {
   TransitionGroup,
 } from 'react-transition-group';
 import Navbar from './Pages/Components/Navbar';
-import Footer from './Pages/Components/Footer';
 
 //Pages
 import HomePage from "./Pages/HomePage";
-import AdminUpdateDataPage from "./Pages/AdminUpdateDataPage";
 import MapPage from './Pages/MapPage';
 import StatsPage from "./Pages/StatsPage";
 import DesaStatsPage from './Pages/DesaStatsPage';
 import LoginPage from './Pages/LoginPage';
+import RegisterPage from './Pages/RegisterPage';
+import YogaPage from './Pages/YogaPage';
+import CaloriesCalculatorPage from './Pages/CaloriesCalculatorPage';
+import SleepSchedulerPage from './Pages/SleepSchedulerPage';
 
-//Testing
+//Admin
 import Tryout from './Pages/Tryout';
+import AdminUpdateDataPage from "./Pages/AdminUpdateDataPage";
+import AdminUpdateDataRSPage from './Pages/AdminUpdateDataRSPage';
 
 //Alerts
 import ErrorPage from './Pages/Alerts/ErrorPage';
@@ -27,6 +31,8 @@ import AuthFailedPage from './Pages/Alerts/AuthFailedPage';
 import AlreadyLoginPage from './Pages/Alerts/AlreadyLoginPage';
 import LoggingIn from './Pages/Alerts/LoggingIn';
 import LoggingOut from './Pages/Alerts/LoggingOut';
+import Registering from './Pages/Alerts/Registering'
+
 
 
 
@@ -35,7 +41,7 @@ function App() {
   return (
     <Router>
       <>
-      <Navbar/>
+        <Navbar />
         <Route render={({ location }) => (
           <TransitionGroup>
             <CSSTransition
@@ -51,10 +57,16 @@ function App() {
                 <Route path='/stats-data/data-desa/:idKecamatan' exact component={DesaStatsPage} />
                 <Route path='/covid-map' exact component={MapPage} />
                 <Route path='/login' exact component={authHeader() ? AlreadyLoginPage : LoginPage} />
+                <Route path='/register' exact component={authHeader() ? AlreadyLoginPage : RegisterPage} />
+                <Route path='/healthy-life/yoga' exact component={YogaPage} />
+                <Route path='/healthy-life' exact component={YogaPage} />
+                <Route path='/healthy-life/sleep-scheduler' exact component={SleepSchedulerPage} />
+                <Route path='/healthy-life/calories-calculator' exact component={CaloriesCalculatorPage} />
 
                 {/*Admin*/}
                 <Route path='/admin/testing' exact component={authHeader() && checkIfAdmin() === 'admin' ? Tryout : ErrorPage} />
-                <Route path='/admin/update-data' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUpdateDataPage : ErrorPage} />
+                <Route path='/admin/update-data-covid' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUpdateDataPage : ErrorPage} />
+                <Route path='/admin/update-data-rs' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUpdateDataRSPage : ErrorPage} />
 
                 {/*Alerts*/}
                 <Route path='/error-auth' exact component={AuthFailedPage} />
@@ -62,13 +74,13 @@ function App() {
                 <Route path='/logging-in' exact component={LoggingIn} />
                 <Route path='/logging-out' exact component={LoggingOut} />
                 <Route path='/error' exact component={ErrorPage} />
+                <Route path='/register/registering' exact component={Registering} />
+
                 <Redirect from="*" to="/error" />
               </Switch>
-
             </CSSTransition>
           </TransitionGroup>
         )} />
-        <Footer/>
       </>
     </Router>
   );

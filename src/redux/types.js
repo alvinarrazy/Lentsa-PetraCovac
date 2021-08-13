@@ -1,12 +1,13 @@
 export const userConstants = {
-    REGISTER_REQUEST: 'register',
+    REGISTER_REQUEST: 'REGISTER_REQUEST',
+    REGISTERING: 'account/register',
     REGISTER_SUCCESS: 'register_success',
     REGISTER_FAILURE: 'register_failed',
 
-    LOGIN_REQUEST: '/account/login',
+    LOGIN_REQUEST: 'account/login',
     LOGIN_SUCCESS: 'login_success',
     LOGIN_FAILURE: 'login_failed',
-    
+
     LOGOUT: 'logout',
 
     GETALL_REQUEST: 'USERS_GETALL_REQUEST',
@@ -15,7 +16,7 @@ export const userConstants = {
 
     DELETE_REQUEST: 'USERS_DELETE_REQUEST',
     DELETE_SUCCESS: 'USERS_DELETE_SUCCESS',
-    DELETE_FAILURE: 'USERS_DELETE_FAILURE'    
+    DELETE_FAILURE: 'USERS_DELETE_FAILURE'
 };
 
 export const postConstant = {

@@ -1,16 +1,10 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router';
-import {
-	getAllKecamatan,
-	getSumDataKecamatan
-} from '../redux/actions/CovidAction';
 import './Styles/Table.css'
-import Navbar from './Components/Navbar';
 import { API } from '../config';
 import Footer from './Components/Footer';
+import {RingLoader} from './Components/RingLoader'
 class StatsPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -81,7 +75,13 @@ class StatsPage extends React.Component {
 						</table>
 					</div>
 					<Footer />
-				</> : <></>}
+				</> : 
+				<>
+					<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '85vh', width: '100%' }}>
+						<p>Please wait while retrieving data</p>
+						<RingLoader />
+					</div>
+				</>}
 			</>
 		)
 

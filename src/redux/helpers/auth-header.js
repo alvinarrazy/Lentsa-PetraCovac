@@ -8,7 +8,6 @@ export function authHeader() {
         const { exp } = jwt.decode(user.token)
         const expirationTime = (exp * 1000) - 60000
         if (Date.now() >= expirationTime) {
-            console.log("token expired", user.token)
             return null
         }
         return user.token;
@@ -25,7 +24,6 @@ export function checkIfAdmin() {
         const { exp } = jwt.decode(user.token)
         const expirationTime = (exp * 1000) - 60000
         if (Date.now() >= expirationTime) {
-            console.log("token expired", user.token)
             return null
         }
         return user.role;

@@ -17,7 +17,7 @@ class WelcomeSection extends Component {
           {authHeader() && checkIfAdmin ?
             <><div><img src="https://img.icons8.com/ios-glyphs/90/000000/administrator-male.png" /></div>
               <div><h1>Administrator Mode</h1></div></> :
-            <><h1>Selamat Datang di Lentsa Petracovac</h1>
+            <><div className='title'><h1>Selamat Datang di Lentsa Petracovac</h1></div>
               <p>Siaga dalam satu visi, selamatkan sejuta jiwa negeri</p></>
           }
           <div className='hero-btns'>

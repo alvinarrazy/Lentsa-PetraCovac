@@ -3,8 +3,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './Styles/Table.css'
-import Navbar from './Components/Navbar';
 import { API } from '../config';
+import { RingLoader } from './Components/RingLoader';
 import Footer from './Components/Footer'
 
 class StatsPage extends React.Component {
@@ -43,7 +43,7 @@ class StatsPage extends React.Component {
 		const { kecamatan, isLoaded } = this.state
 		return (
 			<>
-				
+
 				{isLoaded ? <>
 					<div className='table-wrap'>
 						<table className="data-kecamatan">
@@ -78,7 +78,14 @@ class StatsPage extends React.Component {
 						</table>
 					</div>
 					<Footer />
-				</> : <></>}
+				</>
+					:
+					<>
+						<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '85vh', width: '100%' }}>
+							<p>Please wait while retrieving data</p>
+							<RingLoader />
+						</div>
+					</>}
 			</>
 		)
 
