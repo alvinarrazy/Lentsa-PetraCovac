@@ -48,7 +48,9 @@
     padding: 0;
     overflow: auto;
   }
-
+  .table-wrap .data-kecamatan th {
+    padding: 18px;
+  }
 }
  
   
