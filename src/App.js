@@ -53,8 +53,8 @@ function App() {
                 {/*Global*/}
                 <Route path='/' exact component={HomePage} />
                 <Route path='/home' exact component={HomePage} />
-                <Route path='/stats-data' exact component={StatsPage} />
-                <Route path='/stats-data/data-desa/:idKecamatan' exact component={DesaStatsPage} />
+                <Route path='/data-covid' exact component={StatsPage} />
+                <Route path='/data-covid/data-desa/:idKecamatan' exact component={DesaStatsPage} />
                 <Route path='/covid-map' exact component={MapPage} />
                 <Route path='/login' exact component={authHeader() ? AlreadyLoginPage : LoginPage} />
                 <Route path='/register' exact component={authHeader() ? AlreadyLoginPage : RegisterPage} />
