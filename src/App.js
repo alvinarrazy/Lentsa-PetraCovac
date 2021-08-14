@@ -58,10 +58,10 @@ function App() {
                 <Route path='/covid-map' exact component={MapPage} />
                 <Route path='/login' exact component={authHeader() ? AlreadyLoginPage : LoginPage} />
                 <Route path='/register' exact component={authHeader() ? AlreadyLoginPage : RegisterPage} />
-                <Route path='/healthy-life/yoga' exact component={YogaPage} />
-                <Route path='/healthy-life' exact component={YogaPage} />
-                <Route path='/healthy-life/sleep-scheduler' exact component={SleepSchedulerPage} />
-                <Route path='/healthy-life/calories-calculator' exact component={CaloriesCalculatorPage} />
+                <Route path='/tips/yoga' exact component={YogaPage} />
+                <Route path='/tips' exact component={YogaPage} />
+                <Route path='/tips/sleep-scheduler' exact component={SleepSchedulerPage} />
+                <Route path='/tips/calories-calculator' exact component={CaloriesCalculatorPage} />
 
                 {/*Admin*/}
                 <Route path='/admin/testing' exact component={authHeader() && checkIfAdmin() === 'admin' ? Tryout : ErrorPage} />

@@ -62,7 +62,7 @@ class StatsPage extends React.Component {
 									kecamatan.map(satuKecamatan => {
 										return (
 											<tr>
-												<td><Link to={`/stats-data/data-desa/:?${satuKecamatan.id_kecamatan}`}>{satuKecamatan.nama_kecamatan}</Link></td>
+												<td><Link to={`/data-covid/data-desa/:?${satuKecamatan.id_kecamatan}`}>{satuKecamatan.nama_kecamatan}</Link></td>
 												<td>{satuKecamatan.suspek}</td>
 												<td>{satuKecamatan.discharded}</td>
 												<td>{satuKecamatan.meninggal}</td>
