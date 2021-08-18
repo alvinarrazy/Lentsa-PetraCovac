@@ -2,10 +2,9 @@ import React, { Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {
-	editDataDesa,
-	editDataDesaURL
-} from '../redux/actions/CovidAction';
-import { Button } from './Components/Button';
+	addDataRS,
+	editDataRS
+} from '../redux/actions/DataRSAction';
 import { API } from '../config'
 import './Styles/Form.css'
 import { RingLoader } from './Components/RingLoader';
@@ -16,202 +15,93 @@ class AdminUpdateDataRSPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
-		this.handleChangeKecamatan = this.handleChangeKecamatan.bind(this);
-		this.handleChangeDesa = this.handleChangeDesa.bind(this);
+		this.handleChangeRS = this.handleChangeRS.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleLoadURL = this.handleLoadURL.bind(this);
+		this.handleCheckBox = this.handleCheckBox.bind(this)
 		this.state = {
-			desa: {},
-			kecamatan: {},
+			getData: null,
 			dataRS: {
-				nama_rs: '',
+				_id: '',
+				nama_rumahSakit: '',
 				jumlahKamarUmum: '',
 				jumlahKamarCovid: '',
 				jumlahNakes: '',
 				kelas: ''
 			},
-			updateDataRS: [],
-			dataLoadCount: 0,
-			updating: false
-		}
-	}
-
-	async handleLoadURL() {
-		try {
-			this.setState({
-				updating: true
-			})
-			for (var i = 1; i < 20; i++) {
-				var html = await axios.get(`https://corona.semarangkab.go.id/covid/data_desa?id_kecamatan=${i}`)
-				var temp = document.createElement('div');
-				temp.innerHTML = html.data;
-				var htmlObject = temp.firstChild;
-				this.setState({ dataLoadCount: this.state.dataLoadCount + 1 })
-				this.exportTableToCSV(htmlObject)
+			isAdding: false,
+			reducerState: {
+				isUpdating: false,
+				updatingSuccess: false,
+				updatingFails: false,
+				updatedData: {}
 			}
-		} catch (error) {
-			console.log(error)
-		}
-	}
-	exportTableToCSV(html) {
-		var csv = [];
-		var rows = html.querySelectorAll("table tr");
-
-		for (var i = 0; i < rows.length; i++) {
-			var row = [], cols = rows[i].querySelectorAll("td, th");
-
-			for (var j = 0; j < cols.length; j++)
-				row.push(cols[j].innerText);
-
-			csv.push(row.join(";"));
-		}
-		for (var i = 0; i < csv.length; i++) {
-			csv[i] = csv[i].replace(/\t/g, "")
-			csv[i] = csv[i].replace(/\n/g, "")
-			csv[i] += "\n"
-		}
-		console.log(csv.join(";"))
-		this.fixingHTMLandSend(csv.join(";"))
-	}
-
-	fixingHTMLandSend(data) {
-		var lines
-		lines = data.split("\n");
-		lines.splice(0, 1)//hapus Rincian data sebaran di Desa (hapus baris 1)
-
-		lines[0] = lines[0] + ";" + lines[1];//naikin baris 3 ke 2 (sekarang 2 ke 1 setelah splice pertama)
-		lines.splice(1, 1)//hapus baris 2
-
-		var firstLine = lines[0].split(";")
-
-		firstLine.splice(3, 3)
-
-		for (var i = 0; i < firstLine.length; i++) {
-			firstLine[i] = firstLine[i].replace(" ", "_")
-			firstLine[i] = firstLine[i].toLowerCase()
-		}
-		firstLine[firstLine.length - 1] = "keterangan_konfirmasi"
-
-		lines[0] = ""
-		for (var i = 0; i < firstLine.length; i++) {
-			lines[0] += firstLine[i]
-			if (i === firstLine.length - 1) {
-
-			} else lines[0] += ";"
-		}
-		for (var i = 0; i < lines.length; i++) {
-			lines[i] = lines[i].replace(";", "")
-		}
-		var result = lines.join('\n')
-		console.log(result)
-		this.setState({ updateData: [...this.state.updateData, result] })//next masukin ke csvJSON
-		if (this.state.dataLoadCount === 19) {
-			for (var i = 0; i < this.state.updateData.length; i++) {
-				var eachData = this.state.updateData[i]
-				var dataArray = this.csvJSON(eachData, ";")
-				dataArray.splice(dataArray.length - 1, 1)
-				// console.log(i, eachData)
-				console.log(dataArray)
-				dataArray.map(data => {
-					this.props.editDataDesaURL(data)
-				})
-			}
-			this.setState({
-				updateData: [],
-				dataLoadCount: 0,
-				updating: false
-			})
 		}
 	}
 
-	csvJSON(csv, splitter) {
 
-		var lines = csv.split("\n");
-
-		var result = [];
-		var headers = lines[0].split(splitter);
-
-		for (var i = 1; i < lines.length; i++) {
-
-			var obj = {};
-			var currentline = lines[i].split(splitter);
-
-			for (var j = 0; j < headers.length; j++) {
-				obj[headers[j]] = currentline[j];
-			}
-
-			result.push(obj);
-
+	componentDidUpdate(prevProps) {
+		if (prevProps.dataRSReducer !== this.props.dataRSReducer) {
+			this.setState({ reducerState: this.props.dataRSReducer });
 		}
-
-		return result; //JavaScript object
-		//return JSON.stringify(result); //JSON
 	}
-
-	handleFile = (e) => {
-		const content = e.target.result;
-		console.log(this.csvJSON(content, ";"))
-		this.props.addDesaCSV(this.csvJSON(content))
-		// You can set content in state and show it in render.
-	}
-
 
 	async componentWillMount() {
 		try {
-			let resultKecamatan = await axios.get(`${API}/covid/get-all-kecamatan`)
+			let resultRS = await axios.get(`${API}/data-rs/get-data/`)
+			console.log(resultRS)
 			this.setState({
-				kecamatan: resultKecamatan.data.semua_kecamatan,
+				getData: resultRS.data,
 			})
 		}
 		catch (error) {
 			console.log(error.message)
 		}
-
 	}
 
-	async handleChangeKecamatan(event) {
-		try {
-			const { value } = event.target;
-			let resultDesa = await axios.get(`${API}/covid/get-desa-in-kecamatan/${value}`)
-			this.setState({
-				desa: resultDesa.data.semua_desa
-			});
-		} catch (error) {
-			console.log(error.message)
-		}
+	handleCheckBox() {
+		this.setState({
+			isAdding: !this.state.isAdding,
+			dataRS: {
+				_id: '',
+				nama_rumahSakit: '',
+				jumlahKamarUmum: '',
+				jumlahKamarCovid: '',
+				jumlahNakes: '',
+				kelas: ''
+			}
+		});
 	}
 
 	searchDataDesa(nameKey, myArray) {
 		for (var i = 0; i < myArray.length; i++) {
-			if (myArray[i].nama_desa === nameKey) {
+			if (myArray[i]._id === nameKey) {
 				return myArray[i];
 			}
 		}
 	}
 
-	async handleChangeDesa(event) {
+	async handleChangeRS(event) {
 		try {
-			const { value } = event.target;
-			if (value === 'null') {
+			var index = event.nativeEvent.target.selectedIndex;
+			const { value, text } = event.nativeEvent.target[index];
+			console.log(event.nativeEvent.target[index])
+			console.log(value, text)
+			if (value === null) {
 				this.setState({
-					chosenDesa: {
-						nama_desa: '',
-						suspek: '',
-						discharded: '',
-						meninggal: '',
-						keterangan: '',
-						konfirmasi_asymptomatik: '',
-						konfirmasi_symptomatik: '',
-						konfirmasi_sembuh: '',
-						konfirmasi_meninggal: '',
-						keterangan_konfirmasi: ''
-					},
+					dataRS: {
+						_id: '',
+						nama_rumahSakit: '',
+						jumlahKamarUmum: '',
+						jumlahKamarCovid: '',
+						jumlahNakes: '',
+						kelas: ''
+					}
 				});
 			}
 			else {
-				const dataDesa = await this.searchDataDesa(value, this.state.desa)
+				const dataRS = await this.searchDataDesa(value, this.state.getData)
 				this.setState({
-					chosenDesa: dataDesa
+					dataRS: dataRS
 				});
 			}
 		} catch (error) {
@@ -220,12 +110,12 @@ class AdminUpdateDataRSPage extends React.Component {
 	}
 
 	handleChange(event) {
-		const { name, value } = event.target;
-		const { chosenDesa } = this.state
+		const { name, value} = event.target;
+		const { dataRS } = this.state
 		this.setState({
-			chosenDesa: {
-				...chosenDesa,
-				[name]: value //name dan value component dari <input> tag
+			dataRS: {
+				...dataRS,
+				[name]: value
 			}
 		});
 	}
@@ -233,155 +123,119 @@ class AdminUpdateDataRSPage extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const { chosenDesa } = this.state
-		this.props.editDataDesaURL(chosenDesa)
+		const { dataRS } = this.state
+		if(this.state.isAdding){
+			this.props.addDataRS(dataRS)
+		}else{
+			this.props.editDataRS(dataRS)
+		}
 	}
 
 
 	render() {
-		const { kecamatan, desa, chosenDesa, updating } = this.state
-		var semuaKecamatan, semuaDesa;
-		if (kecamatan.length === 19) {
-			semuaKecamatan = kecamatan
-		} else semuaKecamatan = [{ _id: "none", nama_kecamatan: "Data tidak ditemukan" }]
-		if (desa.length >= 1) {
-			semuaDesa = desa
-		} else semuaDesa = [{ _id: "none", nama_desa: "Data tidak ditemukan" }]
+		const { dataRS, reducerState, getData } = this.state
 		return (
 			<>
 				<CheckIfAccessAllowed />
 				<div className='container'>
-					<form Submit={this.handleSubmit}>
-
+					<form onSubmit={this.handleSubmit}>
+						<div className='checkbox'>
+							<input defaultChecked={this.state.isAdding} onChange={this.handleCheckBox} type='checkbox' />
+							<label style={{ marginLeft: '10px' }}>Tambah Data Baru</label>
+						</div>
 						<div className='form-left'>
 							<div className='column-form'>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Kecamatan</label>
+										<label>Nama Rumah Sakit</label>
 									</div>
 									<div className='col-row-form'>
-										<select onChange={this.handleChangeKecamatan} name='nama_kecamatan' placeholder='Kecamatan' required>
-											<option value='null'>Pilih Kecamatan</option>
-											<Fragment>
-												{
-													semuaKecamatan.map(result => {
-														return (
-															<option value={result._id}>{result.nama_kecamatan}</option>
-														)
-													})
-												}
-											</Fragment>
-										</select>
-									</div>
-								</div>
-								<div className='row-form'>
-									<div className='col-row-form'>
-										<label>Desa</label>
-									</div>
-									<div className='col-row-form'>
-										<select onChange={this.handleChangeDesa} name='nama_desa' placeholder='Desa' required>
-											<option value='null'>Pilih Desa</option>
+										{this.state.isAdding ?
+											<div className='row-form'>
+												<div className='col-row-form'>
+													<input onChange={this.handleChange} type='text' value={dataRS.nama_rumahSakit} name='nama_rumahSakit' required />
+												</div>
+											</div>
+											:
+											<select style={{ width: '200px' }} onChange={this.handleChangeRS} placeholder='Rumah Sakit' required>
+												<option value={null}>Pilih Rumah Sakit</option>
+												<Fragment>
+													{getData ?
+														getData.map(result => {
+															return (
+																<option value={result._id}>{result.nama_rumahSakit}</option>
+															)
+														})
+														:
+														<option value={null}>Data rumah sakit tidak ditemukan</option>
 
-											<Fragment>
-												{
-													semuaDesa.map(result => {
-														return (
-															<option value={result.nama_desa}>{result.nama_desa}</option>
-														)
-													})
-												}
-											</Fragment>
-										</select>
+													}
+												</Fragment>
+											</select>
+										}
 									</div>
 								</div>
 							</div>
 							<div className='column-form'>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Suspek</label>
+										<label>Jumlah Kamar Umum</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={chosenDesa.suspek} name='suspek' required />
+										<input onChange={this.handleChange} type='number' value={dataRS.jumlahKamarUmum} name='jumlahKamarUmum' required />
 									</div>
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Discharded
+										<label>Jumlah Kamar Covid-19
 										</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={chosenDesa.discharded} name='discharded' required />
+										<input onChange={this.handleChange} type='number' value={dataRS.jumlahKamarCovid} name='jumlahKamarCovid' required />
 									</div>
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Meninggal
+										<label>Jumlah Tenaga Kerja
 										</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={chosenDesa.meninggal} name='meninggal' required />
+										<input onChange={this.handleChange} type='number' value={dataRS.jumlahNakes} name='jumlahNakes' required />
 									</div>
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Konfirmasi Asymptomatik</label>
+										<label>Kelas</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_asymptomatik} name='konfirmasi_asymptomatik' required />
-
-									</div>
-								</div>
-							</div>
-							<div className='column-form'>
-								<div className='row-form'>
-									<div className='col-row-form'>
-										<label>Konfirmasi Symptomatik</label>
-									</div>
-									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_symptomatik} name='konfirmasi_symptomatik' required />
-
-									</div>
-								</div>
-								<div className='row-form'>
-									<div className='col-row-form'>
-										<label>Konfirmasi Sembuh</label>
-									</div>
-									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_sembuh} name='konfirmasi_sembuh' required />
-
-									</div>
-								</div>
-								<div className='row-form'>
-									<div className='col-row-form'>
-										<label>Konfirmasi Meninggal</label>
-									</div>
-									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_meninggal} name='konfirmasi_meninggal' required />
-									</div>
-								</div>
-								<div className='row-form'>
-									<div className='col-row-form'>
-										<label>Keterangan</label>
-									</div>
-									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='text' value={chosenDesa.keterangan} name='keterangan' />
+										<input onChange={this.handleChange} type='text' value={dataRS.kelas} name='kelas' required />
 									</div>
 								</div>
 							</div>
 						</div>
-						<div style={{width: '80%'}} className='col-80'>
-							<input type='submit' value='Submit' />
+						<div style={{ width: '80%' }} className='col-80'>
+							<input type='submit' />
 						</div>
 					</form>
 					<div className='form-right'>
-						<div>
+						{/* <div>
 							<Button buttonSize='btn--large' buttonStyle='btn--primary' onClick={this.handleLoadURL}>Update by URL</Button>
-						</div>
+						</div> */}
 						<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '40%' }}>
-							{updating ?
+							{reducerState.isUpdating ?
 								<>
-									<p>Please wait while retrieving data</p>
+									<p>Please wait while submitting data</p>
 									<RingLoader />
+
+								</> : <></>}
+							{reducerState.updatingFails ?
+								<>
+									<p style={{ color: 'red', textAlign: 'center' }}>Updating gagal, tolong pastikan Nama Rumah Sakit tidak sama atau coba lagi nanti</p>
+
+								</> : <></>}
+							{reducerState.updatingSuccess ?
+								<>
+									<p>Updating Success</p>
 
 								</> : <></>}
 						</div>
@@ -397,14 +251,14 @@ class AdminUpdateDataRSPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		authentication: state.authentication //call by this.props.user.*
+		dataRSReducer: state.dataRSReducer //call by this.props.user.*
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		editDataDesa: (data) => dispatch(editDataDesa(data)),
-		editDataDesaURL: (data) => dispatch(editDataDesaURL(data))
+		addDataRS: (data) => dispatch(addDataRS(data)),
+		editDataRS: (data) => dispatch(editDataRS(data))
 	}
 }
 

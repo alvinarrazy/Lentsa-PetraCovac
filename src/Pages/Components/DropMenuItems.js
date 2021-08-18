@@ -8,12 +8,12 @@ export const TipsMenuItems = [
         title: 'Calories Calculator',
         path: '/tips/calories-calculator',
         cName: 'dropdown-link'
-    },
-    {
-        title: 'Sleep Scheduler',
-        path: '/tips/sleep-scheduler',
-        cName: 'dropdown-link'
     }
+    // {
+    //     title: 'Sleep Scheduler',
+    //     path: '/tips/sleep-scheduler',
+    //     cName: 'dropdown-link'
+    // }
 ];
 
 export const DataMenuItems = [
@@ -31,7 +31,7 @@ export const DataMenuItems = [
 
 export const UpdateDataMenuItems = [
     {
-        title: 'Update Data Covid-19',
+        title: 'Update Data Persebaran',
         path: '/admin/update-data-covid',
         cName: 'dropdown-link'
     },

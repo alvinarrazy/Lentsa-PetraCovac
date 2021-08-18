@@ -9,11 +9,19 @@
   object-fit: contain;
 }
 
+
 .container form{
   width: 60%;
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.container input[type='checkbox']{
+  width: auto;
+  height: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 input[type='submit'], input[type='submit']:focus{
@@ -69,6 +77,9 @@ input[type='submit']:hover{
 .form-left input[type='submit'] {
   background-color: #ff7f50;
   font-weight: bold;
+}
+.col-80 input[type='checkbox']{
+  padding: 20;
 }
 
 .form-left .column-form {

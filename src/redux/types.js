@@ -37,7 +37,18 @@ export const covidConstant = {
     EDIT_DESA:"/covid/edit-desa/",
     EDIT_DESA_URL:"/covid/edit-desa-by-url",
     DELETE_KECAMATAN:"/covid/delete-kecamatan/",
-    DELETE_DESA:"/covid/delete-desa/"
+    DELETE_DESA:"/covid/delete-desa/",
+    REQ_EDIT: 'REQ_EDIT',
+    PROCESS_FAILED: 'PROCESS_FAILED'
+}
+
+export const dataRSConstants = {
+    ADD_DATA: '/data-rs/create-first',
+    GET_DATA: '/data-rs/get-data',
+    GET_ONE_DATA: '/data-rs/get-one-data/',
+    EDIT_DATA: '/data-rs/update-data/',
+    REQ_EDIT: 'REQ_EDIT',
+    PROCESS_FAILED: 'PROCESS_FAILED'
 }
 
 /*

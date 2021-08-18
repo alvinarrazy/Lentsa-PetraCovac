@@ -17,14 +17,14 @@ class RegisterPage extends React.Component {
 		this.handleRegistering = this.handleRegistering.bind(this)
 		this.state = {
 			newUser: {
-				nik: '',
-				fullname: '',
+				nomorIndukKependudukan: '',
+				namaPanjang: '',
 				email: '',
 				password: '',
-				rw: '',
-				rt: '',
-				nomor: '',
-				telpon: ''
+				noTelp: '',
+				jenisKelamin: '',
+				kotaLahir: '',
+				tanggalLahir: ''
 			},
 			confirmPassword: '',
 			register: {
@@ -121,28 +121,28 @@ class RegisterPage extends React.Component {
 							<div className='column-form'>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Nomor RW</label>
+										<label>Jenis Kelamin</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={newUser.rw} name='rw' required />
-									</div>
-								</div>
-								<div className='row-form'>
-									<div className='col-row-form'>
-										<label>Nomor RT
-										</label>
-									</div>
-									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={newUser.rt} name='rt' required />
+										<input onChange={this.handleChange} type='text' value={newUser.jenisKelamin} name='jenisKelamin' required />
 									</div>
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Nomor Rumah
+										<label>Kota Lahir
 										</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={newUser.nomor} name='nomor' required />
+										<input onChange={this.handleChange} type='text' value={newUser.kotaLahir} name='kotaLahir' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Tanggal Lahir
+										</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='date' value={newUser.tanggalLahir} name='tanggalLahir' required />
 									</div>
 								</div>
 							</div>

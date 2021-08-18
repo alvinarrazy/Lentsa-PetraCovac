@@ -214,15 +214,16 @@ export const editDataDesaURL = (data) => {
             userService.logout()
             // throw "Auth Failed"
         }
+        dispatch({
+            type: covidConstant.REQ_EDIT
+        })
         covidService.updateDataDesaURL(data, token)
             .then(
                 results => {
                     if(!results){
                         dispatch({
-                            type: userConstants.LOGOUT //Reducernya di login reducer
+                            type: covidConstant.PROCESS_FAILED //Reducernya di login reducer
                         })
-                        userService.logout()
-                        throw "Auth Failed"
                     }
                     dispatch({
                         type: covidConstant.EDIT_DESA_URL,
@@ -230,12 +231,11 @@ export const editDataDesaURL = (data) => {
                     })
                     return results
                 },
-                error => {
-                    // userService.logout(); //auto logout kalo error
-                    dispatch(failure(error.toString()));
-                    return error.message
-                }
-            );
+            ).catch(error => {
+                // userService.logout(); //auto logout kalo error
+                dispatch(failure(error.toString()));
+                return error.message
+            })
     }
     function failure(error) { return { error: error } }
 }

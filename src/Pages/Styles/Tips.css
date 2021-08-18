@@ -4,7 +4,7 @@
 }
 .tips-container .tips-header{
     width: 100%;
-    position: relative;
+    /* position: relative; */
     text-align: center;
     /*
     background-size: 100%;
@@ -75,4 +75,17 @@
 .tips-content .left-arrow img, .tips-content .right-arrow img{
     width:100%;
     height: auto;
+}
+
+@media screen and (max-width: 960px) {
+    .tips-header .header-title{
+        display: none;
+    }
+    .tips-container{
+        height: auto;
+        width: 100%;   
+    }
+    .tips-content .left-arrow a, .tips-content .right-arrow a{
+        width:45%;
+    }
 }

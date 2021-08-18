@@ -43,7 +43,6 @@ class Navbar extends Component {
         this.setState({ clicked: false })
     }
     setDropdown(dropdownIndex, condition) {
-        console.log(dropdownIndex)
         this.setState({ [dropdownIndex]: condition })
     }
 

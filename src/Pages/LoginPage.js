@@ -15,7 +15,7 @@ class LoginPage extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.state = {
 			user: {
-				username: '',
+				email: '',
 				password: ''
 			},
 			isMobile: false
@@ -67,12 +67,16 @@ class LoginPage extends React.Component {
 						<p>Bersama melawan Covid-19</p>
 						<form onSubmit={this.handleSubmit}>
 							<label>Email</label>
-							<input type='text' onChange={this.handleChange} value={user.username} name='username' />
+							<input type='text' onChange={this.handleChange} value={user.email} name='email' />
 							<label>Password</label>
 							<input type='password' onChange={this.handleChange} value={user.password} name='password' />
 							<div className='col-wrap'>
 								<div className='col30'>
-									<input type='checkbox' />
+									<input style={{
+										width: 'auto',
+										height: 'auto',
+										margin: 'auto auto'
+									}} type='checkbox' />
 									<label style={{ marginLeft: '10px' }}>Remember me</label>
 								</div>
 								{/* <div className='col30'>

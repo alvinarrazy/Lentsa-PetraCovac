@@ -197,7 +197,7 @@ class AdminUpdateDataPage extends React.Component {
 	async handleChangeDesa(event) {
 		try {
 			const { value } = event.target;
-			if (value === 'null') {
+			if (value === null) {
 				this.setState({
 					chosenDesa: {
 						nama_desa: '',
@@ -256,7 +256,7 @@ class AdminUpdateDataPage extends React.Component {
 			<>
 				<CheckIfAccessAllowed />
 				<div className='container'>
-					<form Submit={this.handleSubmit}>
+					<form onSubmit={this.handleSubmit}>
 
 						<div className='form-left'>
 							<div className='column-form'>
@@ -266,7 +266,7 @@ class AdminUpdateDataPage extends React.Component {
 									</div>
 									<div className='col-row-form'>
 										<select onChange={this.handleChangeKecamatan} name='nama_kecamatan' placeholder='Kecamatan' required>
-											<option value='null'>Pilih Kecamatan</option>
+											<option value={null}>Pilih Kecamatan</option>
 											<Fragment>
 												{
 													semuaKecamatan.map(result => {
@@ -285,7 +285,7 @@ class AdminUpdateDataPage extends React.Component {
 									</div>
 									<div className='col-row-form'>
 										<select onChange={this.handleChangeDesa} name='nama_desa' placeholder='Desa' required>
-											<option value='null'>Pilih Desa</option>
+											<option value={null}>Pilih Desa</option>
 
 											<Fragment>
 												{
@@ -374,7 +374,7 @@ class AdminUpdateDataPage extends React.Component {
 								</div>
 							</div>
 						</div>
-						<div style={{width: '80%'}} className='col-80'>
+						<div style={{ width: '80%' }} className='col-80'>
 							<input type='submit' value='Submit' />
 						</div>
 					</form>
@@ -387,6 +387,22 @@ class AdminUpdateDataPage extends React.Component {
 								<>
 									<p>Please wait while retrieving data</p>
 									<RingLoader />
+
+								</> : <></>}
+							{this.props.covidDataReducer.isUpdating ?
+								<>
+									<p>Please wait while updating data</p>
+									<RingLoader />
+
+								</> : <></>}
+							{this.props.covidDataReducer.failedUpdating ?
+								<>
+									<p style={{color: "red"}}>Updating data failed</p>
+
+								</> : <></>}
+							{this.props.covidDataReducer.doneUpdating ?
+								<>
+									<p>Updating data succeed</p>
 
 								</> : <></>}
 						</div>
@@ -402,7 +418,8 @@ class AdminUpdateDataPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		authentication: state.authentication //call by this.props.user.*
+		authentication: state.authentication,
+		covidDataReducer: state.covidDataReducer //call by this.props.user.*
 	}
 }
 

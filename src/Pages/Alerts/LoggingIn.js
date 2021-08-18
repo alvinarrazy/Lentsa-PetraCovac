@@ -12,10 +12,14 @@ class LoggingIn extends React.Component {
 	}
 
 	async componentDidUpdate() {
-		if(this.props.authentication.loggedIn === true){
+		if (this.props.authentication.loggedIn === true) {
 			const delay = ms => new Promise(res => setTimeout(res, ms));
 			await delay(3000)
 			this.props.history.push('/')
+		} else if (this.props.authentication.loginFailed === true) {
+			const delay = ms => new Promise(res => setTimeout(res, ms));
+			await delay(3000)
+			this.props.history.push('/login')
 		}
 	}
 
@@ -26,7 +30,11 @@ class LoggingIn extends React.Component {
 				<div className='error-container'>
 					<div>
 						<h1>Logging In</h1>
-						<p style={{ textAlign: 'center' }}>please wait while redirecting to homepage</p>
+						{this.props.authentication.loginFailed ?
+							<p style={{ textAlign: 'center' }}>loggin failed, make sure email and password is correct</p>
+							:
+							<p style={{ textAlign: 'center' }}>please wait while redirecting to homepage</p>
+						}
 						<div className='ring-container'>
 							<RingLoader />
 						</div>
