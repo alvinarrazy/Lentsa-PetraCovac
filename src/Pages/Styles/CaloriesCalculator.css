@@ -1,0 +1,44 @@
+.calories-calculator{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+}
+.calories-calculator .sarapan,
+.calories-calculator .makan-malam,
+.calories-calculator .makan-siang{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.calories-calculator .sarapan h3,
+.calories-calculator .makan-malam h3,
+.calories-calculator .makan-siang h3{
+    color: #3faf6c;
+    font-size: 30px;
+}
+
+.calories-calculator select{
+    background-color: #3faf6c;
+    width: 80%;
+    color: #f4f6f9;
+    text-align: center;
+}
+
+@media screen and (max-width: 960px) {
+    .calories-calculator{
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+    .calories-calculator .sarapan,
+    .calories-calculator .makan-malam,
+    .calories-calculator .makan-siang{
+        width: 95%;
+        padding: 20px 0;
+        margin: 20px 0;
+        box-shadow: 0 4px 10px -4px grey;
+    }
+}

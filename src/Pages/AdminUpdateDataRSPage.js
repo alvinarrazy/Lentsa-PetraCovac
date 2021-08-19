@@ -84,8 +84,8 @@ class AdminUpdateDataRSPage extends React.Component {
 		try {
 			var index = event.nativeEvent.target.selectedIndex;
 			const { value, text } = event.nativeEvent.target[index];
-			console.log(event.nativeEvent.target[index])
-			console.log(value, text)
+			// console.log(event.nativeEvent.target[index])
+			// console.log(value, text)
 			if (value === null) {
 				this.setState({
 					dataRS: {

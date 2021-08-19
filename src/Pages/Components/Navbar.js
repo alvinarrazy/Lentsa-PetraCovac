@@ -35,8 +35,12 @@ class Navbar extends Component {
     }
 
 
-    handleClick() {
-        this.setState({ clicked: !this.state.clicked })
+    handleClick(hasDropdown, dropdownIndex) {
+        if(hasDropdown){
+            this.setDropdown([dropdownIndex], !this.state[dropdownIndex]);
+        }else{
+            this.setState({ clicked: !this.state.clicked })
+        }
     }
 
     handleClose() {
@@ -91,17 +95,17 @@ class Navbar extends Component {
                             <li className='nav-item'
                                 onMouseEnter={() => this.onMouseEnter('dropdown1')}
                                 onMouseLeave={() => this.onMouseLeave('dropdown1')}>
-                                <Link onClick={() => this.handleClick()} className='nav-links'>
+                                <a onClick={() => this.handleClick(true, 'dropdown1')} className='nav-links'>
                                     Data <i className='fas fa-caret-down' />
-                                </Link>
+                                </a>
                                 {dropdown1 && <DataDropdown />}
                             </li>
                             <li className='nav-item'
                                 onMouseEnter={() => this.onMouseEnter('dropdown2')}
                                 onMouseLeave={() => this.onMouseLeave('dropdown2')}>
-                                <Link onClick={() => this.handleClick()} className='nav-links'>
+                                <a onClick={() => this.handleClick(true, 'dropdown2')} className='nav-links'>
                                     Update Data <i className='fas fa-caret-down' />
-                                </Link>
+                                </a>
                                 {dropdown2 && <UpdateDataDropdown />}
                             </li>
                         </Fragment>
@@ -121,18 +125,18 @@ class Navbar extends Component {
                             <li className='nav-item'
                                 onMouseEnter={() => this.onMouseEnter('dropdown3')}
                                 onMouseLeave={() => this.onMouseLeave('dropdown3')}>
-                                <Link onClick={() => this.handleClick()} className='nav-links'>
+                                <a onClick={() => this.handleClick(true, 'dropdown3')} className='nav-links'>
                                     Data <i className='fas fa-caret-down' />
-                                </Link>
-                                {dropdown3 && <DataDropdown />}
+                                </a>
+                                {dropdown3 && <DataDropdown/>}
                             </li>
                             <li className='nav-item'
                                 onMouseEnter={() => this.onMouseEnter('dropdown4')}
                                 onMouseLeave={() => this.onMouseLeave('dropdown4')}>
-                                <Link onClick={() => this.handleClick()} className='nav-links'>
+                                <a onClick={() => this.handleClick(true, 'dropdown4')} className='nav-links'>
                                     Tips <i className='fas fa-caret-down' />
-                                </Link>
-                                {dropdown4 && <TipsDropdown />}
+                                </a>
+                                {dropdown4 && <TipsDropdown/>}
                             </li>
                         </Fragment>
                     }
