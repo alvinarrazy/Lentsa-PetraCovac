@@ -7,7 +7,7 @@ import { API } from '../config';
 import { RingLoader } from './Components/RingLoader';
 import Footer from './Components/Footer'
 
-class StatsPage extends React.Component {
+class CovidStatsPage extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -104,4 +104,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StatsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CovidStatsPage);

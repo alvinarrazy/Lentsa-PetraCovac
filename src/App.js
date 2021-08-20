@@ -12,7 +12,8 @@ import Navbar from './Pages/Components/Navbar';
 //Pages
 import HomePage from "./Pages/HomePage";
 import MapPage from './Pages/MapPage';
-import StatsPage from "./Pages/StatsPage";
+import CovidStatsPage from "./Pages/CovidStatsPage";
+import RSStatsPage from "./Pages/RSStatsPage";
 import DesaStatsPage from './Pages/DesaStatsPage';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
@@ -53,7 +54,8 @@ function App() {
                 {/*Global*/}
                 <Route path='/' exact component={HomePage} />
                 <Route path='/home' exact component={HomePage} />
-                <Route path='/data-covid' exact component={StatsPage} />
+                <Route path='/data-covid' exact component={CovidStatsPage} />
+                <Route path='/data-rs' exact component={RSStatsPage} />
                 <Route path='/data-covid/data-desa/:idKecamatan' exact component={DesaStatsPage} />
                 <Route path='/covid-map' exact component={MapPage} />
                 <Route path='/login' exact component={authHeader() ? AlreadyLoginPage : LoginPage} />
