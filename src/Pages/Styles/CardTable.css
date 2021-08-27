@@ -1,0 +1,21 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 30px;
+    grid-gap: 30px;
+    justify-content: center;
+}
+
+.grid-item {
+    padding: 20px;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 0fr;
+        padding: 20px;
+        justify-content: center;
+    }    
+  }

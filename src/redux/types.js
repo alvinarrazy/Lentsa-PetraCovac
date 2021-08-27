@@ -51,6 +51,15 @@ export const dataRSConstants = {
     PROCESS_FAILED: 'PROCESS_FAILED'
 }
 
+export const reportConstants = {
+    REQUEST_FILES_REPORT: '/report/submit-report',
+    FILES_REPORT_SUCCESS: 'FILES_REPORT_SUCCESS',
+    FILES_REPORT_FAILS: 'FILES_REPORT_FAILS',
+    REQUEST_CONFIRM_REPORT: '/report/confirm-report',
+    CONFIRM_REPORT_SUCCESS: 'CONFIRM_REPORT_SUCCESS',
+    CONFIRM_REPORT_FAILS: 'CONFIRM_REPORT_FAILS',
+    RESET: 'RESET'
+}
 /*
 router.post("/covid/tambah-kecamatan", covid.tambahKecamatan); 
 router.post("/covid/tambah-kecamatan-csv", covid.tambahKecamatanCSV); 

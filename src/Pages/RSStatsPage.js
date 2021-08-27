@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { checkIfAdmin } from '../redux/helpers/auth-header';
 import './Styles/Table.css'
 import { API } from '../config';
 import { RingLoader } from './Components/RingLoader';
 import Footer from './Components/Footer'
+import { Button } from './Components/Button'
 
 class RSStatsPage extends React.Component {
 	constructor(props) {
@@ -13,14 +14,15 @@ class RSStatsPage extends React.Component {
 
 		this.state = {
 			rumahSakit: [],
-			isLoaded: false
+			isLoaded: false,
+			error: false
 		}
 	}
 
 	async componentWillMount() {
 		try {
 			let resultRS = await axios.get(`${API}/data-rs/get-data`)
-			if(resultRS){
+			if (resultRS) {
 				this.setState({
 					rumahSakit: resultRS.data,
 					isLoaded: true
@@ -31,6 +33,25 @@ class RSStatsPage extends React.Component {
 			console.log(error)
 		}
 
+	}
+
+	async handleDelete(dataId) {
+		try {
+			let deleteResult = await axios.delete(`${API}/data-rs/delete-data/${dataId}`)
+			if (deleteResult) {
+				console.log(deleteResult)
+				window.location.reload();
+			} else {
+				this.setState({
+					error: true
+				})
+			}
+		} catch (error) {
+			console.log(error.message)
+			this.setState({
+				error: true
+			})
+		}
 	}
 
 
@@ -48,6 +69,7 @@ class RSStatsPage extends React.Component {
 								<th>Jumlah Kamar Covid</th>
 								<th>Jumlah Nakes</th>
 								<th>Kelas</th>
+								{checkIfAdmin() === 'admin' && <th>Hapus Data</th>}
 							</tr>
 							<Fragment>
 								{
@@ -59,6 +81,9 @@ class RSStatsPage extends React.Component {
 												<td>{satuRS.jumlahKamarCovid}</td>
 												<td>{satuRS.jumlahNakes}</td>
 												<td>{satuRS.kelas}</td>
+												{checkIfAdmin() === 'admin' && <td><Button
+													onClick={() => this.handleDelete(satuRS._id)}>
+													Hapus</Button></td>}
 											</tr>
 										)
 									})
@@ -66,6 +91,11 @@ class RSStatsPage extends React.Component {
 							</Fragment>
 						</table>
 					</div>
+					{ this.state.error === true &&
+					<div className='ring-container' style={{marginTop:'20px', flexDirection: 'column', alignItems: 'center',width: '100%' }}>
+						<p style={{color: 'red'}}>Error deleting data, please try again later</p>
+					</div>
+					}
 					<Footer />
 				</>
 					:

@@ -98,7 +98,7 @@ class RegisterPage extends React.Component {
 										<label>NIK</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='text' value={newUser.nik} name='nik' required />
+										<input onChange={this.handleChange} type='text' value={newUser.nomorIndukKependudukan} name='nomorIndukKependudukan' required />
 									</div>
 								</div>
 								<div className='row-form'>
@@ -106,7 +106,7 @@ class RegisterPage extends React.Component {
 										<label>Nama Lengkap</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='text' value={newUser.fullname} name='fullname' required />
+										<input onChange={this.handleChange} type='text' value={newUser.namaPanjang} name='namaPanjang' required />
 									</div>
 								</div>
 								<div className='row-form'>

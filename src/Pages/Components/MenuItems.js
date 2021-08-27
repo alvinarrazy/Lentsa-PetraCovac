@@ -8,14 +8,23 @@ export const MenuItems = [
         title: 'Peta Covid',
         url: '/covid-map',
         cName: 'nav-links'
+    },
+    {
+        title: 'Lapor Covid',
+        url: '/user/files-report',
+        cName: 'nav-links'
     }
-
 ]
 
 export const AdminMenuItems = [
     {
+        title: 'Lapor Covid',
+        url: '/user/files-report',
+        cName: 'nav-links'
+    },
+    {
         title: 'Laporan',
-        url: '/admin/reports',
+        url: '/admin/covid-reports',
         cName: 'nav-links'
     }
 ]

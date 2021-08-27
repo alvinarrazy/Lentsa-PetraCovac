@@ -20,11 +20,14 @@ import RegisterPage from './Pages/RegisterPage';
 import YogaPage from './Pages/YogaPage';
 import CaloriesCalculatorPage from './Pages/CaloriesCalculatorPage';
 import SleepSchedulerPage from './Pages/SleepSchedulerPage';
+import FilesReportPage from './Pages/FilesReportPage';
 
 //Admin
 import Tryout from './Pages/Tryout';
 import AdminUpdateDataPage from "./Pages/AdminUpdateDataPage";
 import AdminUpdateDataRSPage from './Pages/AdminUpdateDataRSPage';
+import AdminCovidReportsPage from './Pages/AdminCovidReportsPage';
+import AdminReportDetailPage from './Pages/AdminReportDetailPage';
 
 //Alerts
 import ErrorPage from './Pages/Alerts/ErrorPage';
@@ -61,7 +64,6 @@ function App() {
                 <Route path='/login' exact component={authHeader() ? AlreadyLoginPage : LoginPage} />
                 <Route path='/register' exact component={authHeader() ? AlreadyLoginPage : RegisterPage} />
                 <Route path='/tips/yoga' exact component={YogaPage} />
-                <Route path='/tips' exact component={YogaPage} />
                 <Route path='/tips/sleep-scheduler' exact component={SleepSchedulerPage} />
                 <Route path='/tips/calories-calculator' exact component={CaloriesCalculatorPage} />
 
@@ -69,6 +71,11 @@ function App() {
                 <Route path='/admin/testing' exact component={authHeader() && checkIfAdmin() === 'admin' ? Tryout : ErrorPage} />
                 <Route path='/admin/update-data-covid' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUpdateDataPage : ErrorPage} />
                 <Route path='/admin/update-data-rs' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUpdateDataRSPage : ErrorPage} />
+                <Route path='/admin/covid-reports' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminCovidReportsPage : AuthFailedPage} />
+                <Route path='/admin/covid-reports/details/:reportId' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminReportDetailPage : AuthFailedPage} />
+
+                {/* User */}
+                <Route path='/user/files-report' exact component={authHeader() ? FilesReportPage : LoginPage  } />
 
                 {/*Alerts*/}
                 <Route path='/error-auth' exact component={AuthFailedPage} />
