@@ -28,6 +28,7 @@ import AdminUpdateDataPage from "./Pages/AdminUpdateDataPage";
 import AdminUpdateDataRSPage from './Pages/AdminUpdateDataRSPage';
 import AdminCovidReportsPage from './Pages/AdminCovidReportsPage';
 import AdminReportDetailPage from './Pages/AdminReportDetailPage';
+import AdminUserList from './Pages/AdminUserList';
 
 //Alerts
 import ErrorPage from './Pages/Alerts/ErrorPage';
@@ -35,7 +36,8 @@ import AuthFailedPage from './Pages/Alerts/AuthFailedPage';
 import AlreadyLoginPage from './Pages/Alerts/AlreadyLoginPage';
 import LoggingIn from './Pages/Alerts/LoggingIn';
 import LoggingOut from './Pages/Alerts/LoggingOut';
-import Registering from './Pages/Alerts/Registering'
+import Registering from './Pages/Alerts/Registering';
+import NeedToLoginPage from './Pages/Alerts/NeedToLoginPage';
 
 
 
@@ -73,9 +75,10 @@ function App() {
                 <Route path='/admin/update-data-rs' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUpdateDataRSPage : ErrorPage} />
                 <Route path='/admin/covid-reports' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminCovidReportsPage : AuthFailedPage} />
                 <Route path='/admin/covid-reports/details/:reportId' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminReportDetailPage : AuthFailedPage} />
+                <Route path='/admin/user-list/' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUserList : AuthFailedPage} />
 
                 {/* User */}
-                <Route path='/user/files-report' exact component={authHeader() ? FilesReportPage : LoginPage  } />
+                <Route path='/user/files-report' exact component={authHeader() ? FilesReportPage : NeedToLoginPage  } />
 
                 {/*Alerts*/}
                 <Route path='/error-auth' exact component={AuthFailedPage} />

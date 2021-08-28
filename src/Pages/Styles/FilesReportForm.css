@@ -1,0 +1,124 @@
+.container {
+  color: #1b0605;
+  background-position: top right;
+  margin-top: 20px;
+  height: auto;
+  width: 100%;
+  display: flex;
+  /* box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2); */
+  object-fit: contain;
+}
+
+
+.container form{
+  width: 60%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container input[type='checkbox']{
+  width: auto;
+  height: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+input[type='submit'], input[type='submit']:focus{
+  background-color: #ff7f50;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 18px;
+  outline: none;
+  margin: 15px 0px;  
+  width: -webkit-fill-available;
+  border: none;
+}
+
+input[type='submit']:hover{
+  transition: all 0.3s ease-out;
+  background: #a9a6d5;
+  color: #6568F4;
+  transition: 250ms;
+}
+
+.form-left {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
+
+.form-left h1 {
+  text-align: left;
+  margin: 3px 0px;
+}
+
+.form-left p {
+  color: gray;
+  margin-bottom: 20px;
+}
+
+.form-left form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-left input, input:focus, select {
+  background-color: #e5e5e5;
+  border: none;
+  padding: 12px;
+  border-radius: 18px;
+  outline: none;
+  margin: 15px 0px;
+  width: -webkit-fill-available;
+}
+
+.form-left input[type='submit'] {
+  background-color: #ff7f50;
+  font-weight: bold;
+}
+.col-80 input[type='checkbox']{
+  padding: 20;
+}
+
+.form-left .column-form {
+  margin: 10px
+}
+
+.form-right{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (max-width: 960px) {
+  .container{
+    flex-direction: column;
+
+  }
+
+  .container form{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-container{
+    background: none;
+  }
+
+  .form-left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-right{
+    width: 100%;
+  }
+}

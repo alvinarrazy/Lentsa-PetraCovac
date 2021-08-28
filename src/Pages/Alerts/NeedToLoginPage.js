@@ -2,7 +2,7 @@ import React from 'react';
 import { RingLoader } from '../Components/RingLoader';
 import '../Styles/Error.css';
 
-class AuthFailedPage extends React.Component {
+class NeedToLoginPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -22,8 +22,8 @@ class AuthFailedPage extends React.Component {
 			<>
 				<div className='error-container'>
 					<div>
-						<h1>Administrator Authentication Failed</h1>
-						<p style={{ textAlign: 'center' }}>redirecting to login admin</p>
+						<h1>Need to Login First</h1>
+						<p style={{ textAlign: 'center' }}>redirecting to login page</p>
 						<div className='ring-container'>
 							<RingLoader />
 						</div>
@@ -38,4 +38,4 @@ class AuthFailedPage extends React.Component {
 }
 
 
-export default (AuthFailedPage);
+export default (NeedToLoginPage);

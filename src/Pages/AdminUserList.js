@@ -5,31 +5,32 @@ import axios from 'axios';
 import CheckIfAccessAllowed from './Components/CheckIfAccessAllowed';
 import { Link } from 'react-router-dom';
 import { filesReport } from '../redux/actions/ReportAction';
-import ReportItem from './Components/ReportItem';
+import UserCard from './Components/UserCard';
 import './Styles/CardTable.css';
 import { API } from '../config';
 import { RingLoader } from './Components/RingLoader';
 
-class AdminCovidReportsPage extends React.Component {
+class AdminUserList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.state = {
-			reports: '',
-			isLoading: false,
+			users: '',
+			isLoading: true,
 		}
 	}
 
 
 	async componentWillMount() {
 		try {
-			let reports = await axios.get(`${API}/report/get-all-reports`)
-			if (reports == null) {
-				console.log(reports)
+			let users = await axios.get(`${API}/account/get-all-users`)
+			if (users == null) {
+				console.log(users)
 			}
 			this.setState({
-				reports: reports.data.posts
+				users: users.data.users,
+				isLoading: false
 			})
 		} catch (error) {
 			console.log(error.message)
@@ -45,10 +46,10 @@ class AdminCovidReportsPage extends React.Component {
 
 	handleChange(event) {
 		const { name, value } = event.target;
-		const { report } = this.state
+		const { users } = this.state
 		this.setState({
-			report: {
-				...report,
+			users: {
+				...users,
 				[name]: value //name dan value component dari <input> tag
 			}
 		});
@@ -57,32 +58,44 @@ class AdminCovidReportsPage extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const { report } = this.state
-		this.props.filesReport(report)
+		const { users } = this.state
+		this.props.filesReport(users)
 	}
 
 
 	render() {
-		const { reports } = this.state
-		if (reports && reports.length !== 0) {
-			console.log(reports)
+		const { users, isLoading } = this.state
+		if (isLoading) {
+			return (
+				<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '70vh', justifyContent: 'center' }}>
+					<p>Please wait while retrieving data</p>
+					<RingLoader />
+				</div>
+			)
+		}
+		else if (users && users.length !== 0) {
+			console.log(users)
 			return (
 				<>
 					<CheckIfAccessAllowed />
 					<div className='grid-container'>
 						<Fragment>
 							{
-								reports.map(report => {
+								users.map(user => {
 									return (
 										<div className='grid-item'>
-											<Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/admin/covid-reports/details/:?${report._id}`}>
-												<ReportItem src={report.viewPhotoURL}
-													nik={report.nik_pelapor}
-													nama={report.nama_pelapor}
-													laporan={report.laporan}
-													keterangan={report.keterangan}
+												<UserCard
+													to={`/admin/covid-reports/details/:?${user._id}`}
+													nomorIndukKependudukan={user.nomorIndukKependudukan}
+													namaPanjang={user.namaPanjang}
+													email={user.email}
+													noTelp={user.noTelp}
+													jenisKelamin={user.jenisKelamin}
+													kotaLahir={user.kotaLahir}
+													tanggalLahir={user.tanggalLahir}
+													statusVaksin={user.statusVaksin}
+													statusCovid={user.statusCovid}
 												/>
-											</Link>
 										</div>
 									)
 								})
@@ -92,22 +105,13 @@ class AdminCovidReportsPage extends React.Component {
 				</>
 			)
 		}
-		else if (reports.length === 0) {
+		else if (users.length === 0) {
 			return (
 				<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '70vh', justifyContent: 'center' }}>
 					<p>Tidak ada laporan</p>
 				</div>
 			)
 		}
-		else {
-			return (
-				<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '70vh', justifyContent: 'center' }}>
-					<p>Please wait while retrieving data</p>
-					<RingLoader />
-				</div>
-			)
-		}
-
 	}
 
 }
@@ -125,4 +129,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminCovidReportsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminUserList);

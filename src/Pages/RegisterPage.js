@@ -182,7 +182,7 @@ class RegisterPage extends React.Component {
 					<div className='form-right'>
 						<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '40%' }}>
 							{registerReducer.isRegisterFailed ?
-								<p>Register gagal, pastikan nik belum terdaftar</p>
+								<p>Register gagal, pastikan nik/email belum terdaftar</p>
 								:
 								<></>
 							}

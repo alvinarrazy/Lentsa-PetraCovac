@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import './Styles/Form.css'
+import './Styles/FilesReportForm.css'
 import { RingLoader } from './Components/RingLoader';
 import CheckIfAccessAllowed from './Components/CheckIfAccessAllowed';
 import Footer from './Components/Footer'
@@ -19,22 +19,27 @@ class FilesReportPage extends React.Component {
 				keterangan: '',
 				photo: null
 			},
-			isLoading: false
+			isLoading: true
 		}
+	}
+
+	handleDoneLoad() {
+		this.setState({
+			isLoading: false
+		})
 	}
 
 
 	componentWillMount() {
-		const { authentication } = this.props;
-		let user = authentication.user
+		let user = JSON.parse(localStorage.getItem('profile'))
 		const { report } = this.state
 		this.setState({
 			report: {
 				...report,
 				nik_pelapor: user.nomorIndukKependudukan,
-				nama_pelapor: user.namaPanjang
+				nama_pelapor: user.namaPanjang,
 			}
-		})
+		}, this.handleDoneLoad())
 	}
 
 	handleChange(event) {
@@ -72,7 +77,7 @@ class FilesReportPage extends React.Component {
 			formdata.append('laporan', report.laporan)
 			formdata.append('photo', report.photo, report.photo.name)
 			this.props.filesReport(formdata, user.token)
-		}else{
+		} else {
 			alert('isi data dengan benar!')
 		}
 		// console.log(report)
@@ -83,43 +88,45 @@ class FilesReportPage extends React.Component {
 	render() {
 		const { report, isLoading } = this.state
 		const { reportReducer } = this.props
-		if (isLoading) return null
-		return (
+		if (isLoading) {
+			return (
+				<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '70vh', justifyContent: 'center' }}>
+					<p>Please wait while retrieving data</p>
+					<RingLoader />
+				</div>
+			)
+		}
+		else return (
 			<>
 				<CheckIfAccessAllowed />
 				<div className='container'>
-					<div style={{
-						width: '60%',
-						display: 'flex',
-						alignItems: 'center',
-						flexDirection: 'column'
-					}}>
-						<div style={{ display: 'unset', width: '80%' }} className='form-left'>
-							<form onSubmit={this.handleSubmit}>
-								<div className='column-form'>
-									<div className='row-form'>
-										<div className='col-row-form'>
-											<label>NIK</label>
-										</div>
-										<div className='col-row-form'>
-											<input onChange={this.handleChange} type='text' value={report.nik_pelapor} name='nik_pelapor' readOnly />
-										</div>
+
+					<div className='form-left'>
+						<form onSubmit={this.handleSubmit}>
+							<div className='column-form'>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>NIK</label>
 									</div>
-									<div className='row-form'>
-										<div className='col-row-form'>
-											<label>Nama
-											</label>
-										</div>
-										<div className='col-row-form'>
-											<input onChange={this.handleChange} type='text' value={report.nama_pelapor} name='nama_pelapor' readOnly />
-										</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={report.nik_pelapor} name='nik_pelapor' readOnly />
 									</div>
-									<div className='row-form'>
-										<div className='col-row-form'>
-											<label>Laporan
-											</label>
-										</div>
-										<div className='col-row-form'>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Nama
+										</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={report.nama_pelapor} name='nama_pelapor' readOnly />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Laporan
+										</label>
+									</div>
+									<div className='col-row-form'>
 										<select onChange={this.handleChange} name='laporan' placeholder='Laporan' required>
 											<option value={null}>Pilih jenis laporan</option>
 											<option value='Gejala'>Gejala</option>
@@ -128,30 +135,29 @@ class FilesReportPage extends React.Component {
 											<option value='Sudah Vaksin 1 kali'>Sudah Vaksin 1 kali</option>
 											<option value='Sudah Vaksin 2 kali'>Sudah Vaksin 2 kali</option>
 										</select>
-										</div>
-									</div>
-									<div className='row-form'>
-										<div className='col-row-form'>
-											<label>Keterangan</label>
-										</div>
-										<div className='col-row-form'>
-											<input onChange={this.handleChange} type='text' value={report.keterangan} name='keterangan' required />
-										</div>
-									</div>
-									<div className='row-form'>
-										<div className='col-row-form'>
-											<label>Bukti</label>
-										</div>
-										<div className='col-row-form'>
-											<input onChange={this.onFileChange} type='file' name='photo' />
-										</div>
-									</div>
-									<div className='col-80'>
-										<input type='submit' value='Submit' />
 									</div>
 								</div>
-							</form>
-						</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Keterangan</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={report.keterangan} name='keterangan' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Bukti</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.onFileChange} type='file' name='photo' />
+									</div>
+								</div>
+								<div className='col-80'>
+									<input type='submit' value='Submit' />
+								</div>
+							</div>
+						</form>
 					</div>
 					<div className='form-right'>
 						<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '40%' }}>
@@ -170,7 +176,7 @@ class FilesReportPage extends React.Component {
 							}
 							{reportReducer.reportFails ?
 								<>
-									<p style={{color: 'red'}}>Laporan gagal diproses!</p>
+									<p style={{ color: 'red' }}>Laporan gagal diproses!</p>
 
 								</> : <></>
 							}
