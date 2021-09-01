@@ -6,6 +6,7 @@ import { registerReducer } from './registerReducer';
 import { covidDataReducer } from './covidReducer';
 import { dataRSReducer } from './dataRSReducer';
 import { reportReducer } from './reportReducer';
+import { stokDarahReducer } from './stokDarahReducer';
 
 
 export const rootReducer = combineReducers({
@@ -13,5 +14,6 @@ export const rootReducer = combineReducers({
   registerReducer,
   covidDataReducer,
   dataRSReducer,
-  reportReducer
+  reportReducer,
+  stokDarahReducer
 });

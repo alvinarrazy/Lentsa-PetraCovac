@@ -23,7 +23,7 @@ class AuthFailedPage extends React.Component {
 				<div className='error-container'>
 					<div>
 						<h1>Administrator Authentication Failed</h1>
-						<p style={{ textAlign: 'center' }}>redirecting to login admin</p>
+						<p style={{ textAlign: 'center' }}>redirecting to login</p>
 						<div className='ring-container'>
 							<RingLoader />
 						</div>

@@ -3,21 +3,24 @@ import { connect } from 'react-redux';
 import './Styles/Form.css';
 import axios from 'axios';
 import CheckIfAccessAllowed from './Components/CheckIfAccessAllowed';
-import { Link } from 'react-router-dom';
 import { filesReport } from '../redux/actions/ReportAction';
 import UserCard from './Components/UserCard';
 import './Styles/CardTable.css';
 import { API } from '../config';
 import { RingLoader } from './Components/RingLoader';
+import { checkIfAdmin, authHeader } from '../redux/helpers/auth-header';
+import { Button } from './Components/Button'
 
 class AdminUserList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleDelete = this.handleDelete.bind(this)
 		this.state = {
 			users: '',
 			isLoading: true,
+			error: false
 		}
 	}
 
@@ -55,11 +58,57 @@ class AdminUserList extends React.Component {
 		});
 	}
 
+	handleError(status) {
+		switch (status) {
+			case 401:
+				alert("Tidak dapat menghapus admin")
+				this.setState({
+					...this.state,
+					error: false
+				})
+				break
+			default:
+				alert("Terjadi sesuatu, tidak dapat menghapus user")
+				this.setState({
+					...this.state,
+					error: false
+				})
+				break
+		}
+
+	}
 
 	handleSubmit(event) {
 		event.preventDefault();
 		const { users } = this.state
 		this.props.filesReport(users)
+	}
+
+	async handleDelete(dataId) {
+		try {
+
+			let deleteResult = await axios({
+				method: 'delete', //you can set what request you want to be
+				url: `${API}/account/delete-user/${dataId}`,
+				headers: {
+					Authorization: authHeader()
+				}
+			})
+			if (deleteResult) {
+				console.log(deleteResult)
+				window.location.reload();
+			} else {
+				console.log('tes')
+				this.setState({
+					error: true
+				}, () => this.handleError)
+			}
+		} catch (error) {
+			console.log(error.message)
+			this.setState({
+				error: true
+			}, this.handleError(error.response.status))
+		}
 	}
 
 
@@ -84,18 +133,21 @@ class AdminUserList extends React.Component {
 								users.map(user => {
 									return (
 										<div className='grid-item'>
-												<UserCard
-													to={`/admin/covid-reports/details/:?${user._id}`}
-													nomorIndukKependudukan={user.nomorIndukKependudukan}
-													namaPanjang={user.namaPanjang}
-													email={user.email}
-													noTelp={user.noTelp}
-													jenisKelamin={user.jenisKelamin}
-													kotaLahir={user.kotaLahir}
-													tanggalLahir={user.tanggalLahir}
-													statusVaksin={user.statusVaksin}
-													statusCovid={user.statusCovid}
-												/>
+											<UserCard
+												to={`/admin/covid-reports/details/:?${user._id}`}
+												nomorIndukKependudukan={user.nomorIndukKependudukan}
+												namaPanjang={user.namaPanjang}
+												email={user.email}
+												noTelp={user.noTelp}
+												jenisKelamin={user.jenisKelamin}
+												kotaLahir={user.kotaLahir}
+												tanggalLahir={user.tanggalLahir}
+												statusVaksin={user.statusVaksin}
+												statusCovid={user.statusCovid}
+											/>
+											{checkIfAdmin() === 'admin' && <td><Button
+												onClick={() => this.handleDelete(user._id)}>
+												Hapus</Button></td>}
 										</div>
 									)
 								})

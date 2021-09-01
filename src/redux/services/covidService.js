@@ -2,7 +2,6 @@
 import { API } from '../../config';
 import axios from 'axios';
 import { covidConstant } from '../types';
-import { authHeader } from '../helpers/auth-header';
 
 export const covidService = {
     getAllKecamatan,

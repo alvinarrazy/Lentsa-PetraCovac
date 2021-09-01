@@ -38,7 +38,7 @@ export const covidConstant = {
     EDIT_DESA_URL:"/covid/edit-desa-by-url",
     DELETE_KECAMATAN:"/covid/delete-kecamatan/",
     DELETE_DESA:"/covid/delete-desa/",
-    REQ_EDIT: 'REQ_EDIT',
+    REQ_EDIT: 'REQ_EDIT_COVID',
     PROCESS_FAILED: 'PROCESS_FAILED'
 }
 
@@ -47,7 +47,7 @@ export const dataRSConstants = {
     GET_DATA: '/data-rs/get-data',
     GET_ONE_DATA: '/data-rs/get-one-data/',
     EDIT_DATA: '/data-rs/update-data/',
-    REQ_EDIT: 'REQ_EDIT',
+    REQ_EDIT: 'REQ_EDIT_RS',
     PROCESS_FAILED: 'PROCESS_FAILED'
 }
 
@@ -59,6 +59,13 @@ export const reportConstants = {
     CONFIRM_REPORT_SUCCESS: 'CONFIRM_REPORT_SUCCESS',
     CONFIRM_REPORT_FAILS: 'CONFIRM_REPORT_FAILS',
     RESET: 'RESET'
+}
+
+export const stokDarahConstants = {
+    REQUEST_EDIT: 'REQUEST_EDIT_STOK',
+    ADD_DATA: '/stok-darah/add-new',
+    EDIT_DATA: '/stok-darah/edit-stok',
+    PROCESS_FAILED: 'PROCESS_STOK_FAILED'
 }
 /*
 router.post("/covid/tambah-kecamatan", covid.tambahKecamatan); 
