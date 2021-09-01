@@ -6,6 +6,7 @@ import {
 	register,
 	reqRegister
 } from '../../redux/actions/RegisterAction';
+import ConsoleHelper from '../../redux/helpers/ConsoleHelper';
 
 class Registering extends React.Component {
 	constructor(props) {
@@ -32,7 +33,7 @@ class Registering extends React.Component {
 		if (prevProps.registerReducer !== this.props.registerReducer) {
 			this.setState({ reducerState: this.props.registerReducer });
 		}
-		console.log(reducerState)
+		ConsoleHelper(reducerState)
 		if (reducerState.doneRegister === true) {
 			const delay = ms => new Promise(res => setTimeout(res, ms));
 			await delay(3000)

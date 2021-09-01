@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from './Button';
 import { authHeader, checkIfAdmin } from '../../redux/helpers/auth-header';
 import '../Styles/WelcomeSection.css';
+import ConsoleHelper from '../../redux/helpers/ConsoleHelper';
 
 class WelcomeSection extends Component {
 
@@ -10,7 +11,7 @@ class WelcomeSection extends Component {
   }
 
   render() {
-    // console.log(isMobile)
+    // ConsoleHelper(isMobile)
     return (
       <div className='hero-container'>
         <div className='header-container'>

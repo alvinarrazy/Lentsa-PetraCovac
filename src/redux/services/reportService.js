@@ -2,6 +2,7 @@
 import {API} from '../../config';
 import axios from 'axios';
 import { reportConstants } from '../types';
+import ConsoleHelper from '../helpers/ConsoleHelper';
 
 export const reportService = {
     filesNewReport,
@@ -22,7 +23,8 @@ async function filesNewReport(data, token) {
          return result
     }
     catch (error) {
-        console.log(error)
+      ConsoleHelper(error.message)
+      throw error.message
     }
 }
 
@@ -38,7 +40,8 @@ async function confirmReport(data, token) {
        return result
   }
   catch (error) {
-      console.log(error)
+      ConsoleHelper(error.message)
+      throw error.message
   }
 }
 

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 import {
 	addDataStok,
 	editDataStok
@@ -53,7 +54,7 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 			})
 		}
 		catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 	}
 
@@ -83,9 +84,9 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 		try {
 			var index = event.nativeEvent.target.selectedIndex;
 			const { value, text } = event.nativeEvent.target[index];
-			// console.log(event.nativeEvent.target[index])
-			// console.log(value, text)
-			if (value === null) {
+			// ConsoleHelper(event.nativeEvent.target[index])
+			// ConsoleHelper(value, text)
+			if (value === 'null') {
 				this.setState({
 					dataStok: {
 						_id: '',
@@ -104,19 +105,21 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 				});
 			}
 		} catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 	}
 
 	handleChange(event) {
 		const { name, value } = event.target;
 		const { dataStok } = this.state
-		this.setState({
-			dataStok: {
-				...dataStok,
-				[name]: value
-			}
-		});
+		if (value !== 'null') {
+			this.setState({
+				dataStok: {
+					...dataStok,
+					[name]: value
+				}
+			});
+		}
 	}
 
 
@@ -136,6 +139,7 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 		return (
 			<>
 				<CheckIfAccessAllowed />
+				<h1 style={{marginTop: '12px'}}>Update Data Stok Darah</h1>
 				<div className='container'>
 					<form onSubmit={this.handleSubmit}>
 						<div className='checkbox'>
@@ -157,7 +161,7 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 											</div>
 											:
 											<select style={{ width: '200px' }} onChange={this.handleChangeStok} placeholder='Rumah Sakit' required>
-												<option value={null}>Pilih Jenis Stok</option>
+												<option value={'null'}>Pilih Jenis Stok</option>
 												<Fragment>
 													{getData ?
 														getData.map(result => {

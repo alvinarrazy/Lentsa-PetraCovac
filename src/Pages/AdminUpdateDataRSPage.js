@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 import {
 	addDataRS,
 	editDataRS
@@ -48,13 +49,13 @@ class AdminUpdateDataRSPage extends React.Component {
 	async componentWillMount() {
 		try {
 			let resultRS = await axios.get(`${API}/data-rs/get-data/`)
-			console.log(resultRS)
+			ConsoleHelper(resultRS)
 			this.setState({
 				getData: resultRS.data,
 			})
 		}
 		catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 	}
 
@@ -84,9 +85,9 @@ class AdminUpdateDataRSPage extends React.Component {
 		try {
 			var index = event.nativeEvent.target.selectedIndex;
 			const { value, text } = event.nativeEvent.target[index];
-			// console.log(event.nativeEvent.target[index])
-			// console.log(value, text)
-			if (value === null) {
+			// ConsoleHelper(event.nativeEvent.target[index])
+			// ConsoleHelper(value, text)
+			if (value === 'null') {
 				this.setState({
 					dataRS: {
 						_id: '',
@@ -105,28 +106,30 @@ class AdminUpdateDataRSPage extends React.Component {
 				});
 			}
 		} catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 	}
 
 	handleChange(event) {
-		const { name, value} = event.target;
+		const { name, value } = event.target;
 		const { dataRS } = this.state
-		this.setState({
-			dataRS: {
-				...dataRS,
-				[name]: value
-			}
-		});
+		if (value !== 'null') {
+			this.setState({
+				dataRS: {
+					...dataRS,
+					[name]: value
+				}
+			});
+		}
 	}
 
 
 	handleSubmit(event) {
 		event.preventDefault();
 		const { dataRS } = this.state
-		if(this.state.isAdding){
+		if (this.state.isAdding) {
 			this.props.addDataRS(dataRS)
-		}else{
+		} else {
 			this.props.editDataRS(dataRS)
 		}
 	}
@@ -137,6 +140,7 @@ class AdminUpdateDataRSPage extends React.Component {
 		return (
 			<>
 				<CheckIfAccessAllowed />
+				<h1 style={{marginTop: '12px'}}>Update Data RS Kab. Semarang</h1>
 				<div className='container'>
 					<form onSubmit={this.handleSubmit}>
 						<div className='checkbox'>
@@ -158,7 +162,7 @@ class AdminUpdateDataRSPage extends React.Component {
 											</div>
 											:
 											<select style={{ width: '200px' }} onChange={this.handleChangeRS} placeholder='Rumah Sakit' required>
-												<option value={null}>Pilih Rumah Sakit</option>
+												<option value='null'>Pilih Rumah Sakit</option>
 												<Fragment>
 													{getData ?
 														getData.map(result => {

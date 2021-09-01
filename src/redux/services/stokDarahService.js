@@ -1,6 +1,7 @@
 import { API } from '../../config';
 import axios from 'axios';
 import { stokDarahConstants } from '../types';
+import ConsoleHelper from '../helpers/ConsoleHelper';
 
 export const stokDarahService = {
     addStokDarah,
@@ -9,7 +10,7 @@ export const stokDarahService = {
 
 async function addStokDarah(data, token){
     try {
-        console.log(`${API}${stokDarahConstants.ADD_DATA}`)
+        ConsoleHelper(`${API}${stokDarahConstants.ADD_DATA}`)
         // let addedData = await axios.post(`${API}${stokDarahConstants.ADD_DATA}`, data)
         let addedData = await axios({
             method: 'post', //you can set what request you want to be
@@ -21,7 +22,7 @@ async function addStokDarah(data, token){
         })
         return addedData
     } catch (error) {
-        console.log(error.message)
+        ConsoleHelper(error.message)
     }
 }
 
@@ -37,6 +38,6 @@ async function editStokDarah(data, token){
         })
         return addedData
     } catch (error) {
-        console.log(error.message)
+        ConsoleHelper(error.message)
     }
 }

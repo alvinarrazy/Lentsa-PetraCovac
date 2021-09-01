@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 import { connect } from 'react-redux';
 import './Styles/Form.css';
 import axios from 'axios';
@@ -26,13 +27,13 @@ class AdminCovidReportsPage extends React.Component {
 		try {
 			let reports = await axios.get(`${API}/report/get-all-reports`)
 			if (reports == null) {
-				console.log(reports)
+				ConsoleHelper(reports)
 			}
 			this.setState({
 				reports: reports.data.posts
 			})
 		} catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 	}
 
@@ -65,10 +66,11 @@ class AdminCovidReportsPage extends React.Component {
 	render() {
 		const { reports } = this.state
 		if (reports && reports.length !== 0) {
-			console.log(reports)
+			ConsoleHelper(reports)
 			return (
 				<>
 					<CheckIfAccessAllowed />
+					<h1 style={{ marginTop: '12px' }}>Update Data Persebaran Kab. Semarang</h1>
 					<div className='grid-container'>
 						<Fragment>
 							{
@@ -94,9 +96,12 @@ class AdminCovidReportsPage extends React.Component {
 		}
 		else if (reports.length === 0) {
 			return (
+				<>
+				<h1 style={{ marginTop: '12px' }}>Update Data Persebaran Kab. Semarang</h1>
 				<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '70vh', justifyContent: 'center' }}>
 					<p>Tidak ada laporan</p>
 				</div>
+				</>
 			)
 		}
 		else {

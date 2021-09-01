@@ -7,6 +7,7 @@ import {
 import { API } from '../config'
 import { Link } from 'react-router-dom'
 import './Styles/LoginForm.css'
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 
 class LoginPage extends React.Component {
 	constructor(props) {
@@ -32,7 +33,7 @@ class LoginPage extends React.Component {
 			})
 		}
 		catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 
 	}

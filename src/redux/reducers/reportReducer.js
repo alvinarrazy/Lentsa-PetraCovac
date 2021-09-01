@@ -2,7 +2,10 @@ import { reportConstants } from '../types';
 
 const initialState = {
   isReporting: false,
-  isConfirming: false
+  isConfirming: false,
+  errorDetails: '',
+  reportFails: false
+
 }
 
 export function reportReducer(state = initialState, action) {
@@ -22,6 +25,7 @@ export function reportReducer(state = initialState, action) {
       return {
         isReporting: false,
         reportFails: true,
+        errorDetails: action.error
       }
     case reportConstants.REQUEST_CONFIRM_REPORT:
       return {

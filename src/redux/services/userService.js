@@ -3,6 +3,7 @@ import {API} from '../../config';
 import axios from 'axios';
 import {userConstants} from '../types';
 import {authHeader} from '../helpers/auth-header';
+import ConsoleHelper from '../helpers/ConsoleHelper';
 
 export const userService = {    
     logout,
@@ -29,7 +30,7 @@ export const userService = {
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('profile');
-    console.log("user udah dibuang");
+    ConsoleHelper("user udah dibuang");
 }
 
 async function register(newUser) {
@@ -37,7 +38,7 @@ async function register(newUser) {
         let result = axios.post(`${API}/${userConstants.REGISTERING}`, newUser)
         return result
     } catch (error) {
-        console.log(error.message)
+        ConsoleHelper(error.message)
     }
 
 }
@@ -49,7 +50,7 @@ async function login(user){
         const data = await axios.post(`${API}/${userConstants.LOGIN_REQUEST}`, user)
         return JSON.stringify(data.data);//kalau mau dipanggil JSONparse dulu biar bisa dipake
     }catch(err){
-        console.log(err.message)
+        ConsoleHelper(err.message)
     }
 }
 

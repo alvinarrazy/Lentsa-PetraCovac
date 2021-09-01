@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 import './Styles/Table.css'
 import { API } from '../config';
 import Footer from './Components/Footer';
@@ -37,7 +38,7 @@ class AdminReportDetailPage extends React.Component {
 			}
 		}
 		catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 
 	}

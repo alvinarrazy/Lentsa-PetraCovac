@@ -7,6 +7,7 @@ import { API } from '../config';
 import { RingLoader } from './Components/RingLoader';
 import Footer from './Components/Footer'
 import { Button } from './Components/Button'
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 
 class RSStatsPage extends React.Component {
 	constructor(props) {
@@ -30,7 +31,7 @@ class RSStatsPage extends React.Component {
 			}
 		}
 		catch (error) {
-			console.log(error)
+			ConsoleHelper(error)
 		}
 
 	}
@@ -39,7 +40,7 @@ class RSStatsPage extends React.Component {
 		try {
 			let deleteResult = await axios.delete(`${API}/data-rs/delete-data/${dataId}`)
 			if (deleteResult) {
-				console.log(deleteResult)
+				ConsoleHelper(deleteResult)
 				window.location.reload();
 			} else {
 				this.setState({
@@ -47,7 +48,7 @@ class RSStatsPage extends React.Component {
 				})
 			}
 		} catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 			this.setState({
 				error: true
 			})

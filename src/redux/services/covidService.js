@@ -2,6 +2,7 @@
 import { API } from '../../config';
 import axios from 'axios';
 import { covidConstant } from '../types';
+import ConsoleHelper from '../helpers/ConsoleHelper'
 
 export const covidService = {
     getAllKecamatan,
@@ -23,7 +24,8 @@ async function getAllKecamatan() {
         return resultKecamatan.data
     }
     catch (error) {
-        console.log(error)
+        ConsoleHelper(error)
+        throw error.message
     }
 }
 
@@ -33,7 +35,8 @@ async function getOneKecamatan(namaKecamatan) {
         return resultKecamatan
     }
     catch (error) {
-        console.log(error)
+        ConsoleHelper(error)
+        throw error.message
     }
 }
 
@@ -43,7 +46,8 @@ async function getDesaInKecamatan(namaKecamatan) {
         return resultDesa
     }
     catch (error) {
-        console.log(error)
+        ConsoleHelper(error)
+        throw error.message
     }
 }
 
@@ -53,7 +57,8 @@ async function getSumDataKecamatan(idKecamatan) {
         return resultDesa
     }
     catch (error) {
-        console.log(error)
+        ConsoleHelper(error)
+        throw error.message
     }
 }
 
@@ -63,7 +68,8 @@ async function addKecamatan(dataKecamatan) {
         return resultKecamatanBaru
     }
     catch (error) {
-        console.log(error)
+        ConsoleHelper(error)
+        throw error.message
     }
 }
 
@@ -73,7 +79,8 @@ async function addDesa(dataDesa) {
         return resultDesaBaru
     }
     catch (error) {
-        console.log(error)
+        ConsoleHelper(error)
+        throw error.message
     }
 }
 
@@ -83,8 +90,9 @@ async function addKecamatanCSV(dataKecamatanCSV) {
         return resultPaketKecamatanBaru
     }
     catch (error) {
-        console.log(error)
+        ConsoleHelper(error)
 
+        throw error.message
     }
 }
 
@@ -94,7 +102,8 @@ async function addDesaCSV(dataDesaCSV) {
         return resultPaketDesaBaru
     }
     catch (error){
-        console.log(error)
+        ConsoleHelper(error)
+        throw error.message
     }
 }
 
@@ -104,7 +113,8 @@ async function getDataFromURL(id_desa){
         return resultHTML
     }
     catch(error){
-        console.log(error)
+        ConsoleHelper(error)
+        throw error.message
     }
 }
 
@@ -113,14 +123,15 @@ async function updateDataDesa(data){
         let result = await axios.put(`${API}${covidConstant.EDIT_DESA}`, data)
         return result
     }catch(error){
-        console.log(error)
+        ConsoleHelper(error)
+        throw error.message
     }
 }
 
 async function updateDataDesaURL(data, token){
     try{
         // let result = await axios.put(`${API}${covidConstant.EDIT_DESA_URL}`, data)
-        // console.log(token)
+        // ConsoleHelper(token)
         let result = await axios({
             method: 'put', //you can set what request you want to be
             url: `${API}${covidConstant.EDIT_DESA_URL}`,
@@ -131,6 +142,7 @@ async function updateDataDesaURL(data, token){
           })
         return result
     }catch(error){
-        console.log(error)
+        ConsoleHelper(error)
+        throw error.message
     }
 }

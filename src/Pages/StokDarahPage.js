@@ -7,6 +7,7 @@ import { API } from '../config';
 import { RingLoader } from './Components/RingLoader';
 import Footer from './Components/Footer'
 import { Button } from './Components/Button'
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 
 class StokDarahPage extends React.Component {
 	constructor(props) {
@@ -30,7 +31,7 @@ class StokDarahPage extends React.Component {
 			}
 		}
 		catch (error) {
-			console.log(error)
+			ConsoleHelper(error)
 		}
 
 	}
@@ -45,7 +46,7 @@ class StokDarahPage extends React.Component {
 				  }	  
 			})
 			if (deleteResult) {
-				console.log(deleteResult)
+				ConsoleHelper(deleteResult)
 				window.location.reload();
 			} else {
 				this.setState({
@@ -53,7 +54,7 @@ class StokDarahPage extends React.Component {
 				})
 			}
 		} catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 			this.setState({
 				error: true
 			})

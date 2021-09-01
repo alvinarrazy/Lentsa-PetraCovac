@@ -1,3 +1,4 @@
+
 const data = [5,5,4,2,9,7,8,4]
 
 function getAvg(grades) {
@@ -96,5 +97,5 @@ function grouping(sortedData, member){
     return groups
 }
 
-console.log(grouping(sortedData, 3))
-// console.log(quickSort(data, 0, data.length - 1))
+//ConsoleHelper(grouping(sortedData, 3))
+// ConsoleHelper(quickSort(data, 0, data.length - 1))

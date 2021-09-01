@@ -5,6 +5,7 @@ import { RingLoader } from './Components/RingLoader';
 import CheckIfAccessAllowed from './Components/CheckIfAccessAllowed';
 import Footer from './Components/Footer'
 import { filesReport } from '../redux/actions/ReportAction';
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 class FilesReportPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -80,7 +81,7 @@ class FilesReportPage extends React.Component {
 		} else {
 			alert('isi data dengan benar!')
 		}
-		// console.log(report)
+		// ConsoleHelper(report)
 		// this.props.filesReport(report)
 	}
 
@@ -99,8 +100,8 @@ class FilesReportPage extends React.Component {
 		else return (
 			<>
 				<CheckIfAccessAllowed />
+				<h1 style={{marginTop: '12px'}}>Melapor terkait Covid-19</h1>
 				<div className='container'>
-
 					<div className='form-left'>
 						<form onSubmit={this.handleSubmit}>
 							<div className='column-form'>
@@ -177,6 +178,12 @@ class FilesReportPage extends React.Component {
 							{reportReducer.reportFails ?
 								<>
 									<p style={{ color: 'red' }}>Laporan gagal diproses!</p>
+
+								</> : <></>
+							}
+							{reportReducer.reportFails && reportReducer.errorDetails === 'invalid grant'?
+								<>
+									<p style={{ color: 'red' }}>Error Code: [Drive Error, invalid grant]</p>
 
 								</> : <></>
 							}

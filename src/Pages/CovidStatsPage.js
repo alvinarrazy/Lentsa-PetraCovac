@@ -6,6 +6,7 @@ import './Styles/Table.css'
 import { API } from '../config';
 import { RingLoader } from './Components/RingLoader';
 import Footer from './Components/Footer'
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 
 class CovidStatsPage extends React.Component {
 	constructor(props) {
@@ -23,17 +24,17 @@ class CovidStatsPage extends React.Component {
 			var resultSum
 			Promise.all(resultKecamatan.data.semua_kecamatan.map(async (kecamatan) => {
 				resultSum = await axios.get(`${API}/covid/get-sum-data-kecamatan/${kecamatan._id}`)
-				console.log(resultSum)
+				ConsoleHelper(resultSum)
 				this.setState({
 					kecamatan: [...this.state.kecamatan, resultSum.data]
 				})
 			})).then(() => {
 				this.setState({ isLoaded: true });
-				console.log(this.state.isLoaded)
+				ConsoleHelper(this.state.isLoaded)
 			})
 		}
 		catch (error) {
-			console.log(error)
+			ConsoleHelper(error)
 		}
 
 	}

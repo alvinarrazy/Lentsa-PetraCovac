@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import './Styles/Form.css';
 import axios from 'axios';
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 import CheckIfAccessAllowed from './Components/CheckIfAccessAllowed';
 import { filesReport } from '../redux/actions/ReportAction';
 import UserCard from './Components/UserCard';
@@ -29,14 +30,14 @@ class AdminUserList extends React.Component {
 		try {
 			let users = await axios.get(`${API}/account/get-all-users`)
 			if (users == null) {
-				console.log(users)
+				ConsoleHelper(users)
 			}
 			this.setState({
 				users: users.data.users,
 				isLoading: false
 			})
 		} catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 	}
 
@@ -95,16 +96,16 @@ class AdminUserList extends React.Component {
 				}
 			})
 			if (deleteResult) {
-				console.log(deleteResult)
+				ConsoleHelper(deleteResult)
 				window.location.reload();
 			} else {
-				console.log('tes')
+				ConsoleHelper('tes')
 				this.setState({
 					error: true
 				}, () => this.handleError)
 			}
 		} catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 			this.setState({
 				error: true
 			}, this.handleError(error.response.status))
@@ -123,7 +124,7 @@ class AdminUserList extends React.Component {
 			)
 		}
 		else if (users && users.length !== 0) {
-			console.log(users)
+			ConsoleHelper(users)
 			return (
 				<>
 					<CheckIfAccessAllowed />

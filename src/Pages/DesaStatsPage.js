@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './Styles/Table.css'
 import { API } from '../config';
 import Footer from './Components/Footer';
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 import {RingLoader} from './Components/RingLoader'
 class StatsPage extends React.Component {
 	constructor(props) {
@@ -28,7 +29,7 @@ class StatsPage extends React.Component {
 			})
 		}
 		catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 
 	}

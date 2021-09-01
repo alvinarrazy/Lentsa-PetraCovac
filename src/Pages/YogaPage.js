@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import Footer from './Components/Footer';
 import './Styles/Tips.css'
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 import './Styles/Yoga.css'
 
 
@@ -20,7 +21,7 @@ class Yoga extends React.Component {
           </div>
           <div className='tips-content'>
             <div className='left-arrow'>
-              <a onClick={() => console.log("tes")}>
+              <a onClick={() => ConsoleHelper("tes")}>
                 <img src='/images/arah.png' />
               </a>            </div>
             <div className='yoga'>
@@ -31,7 +32,7 @@ class Yoga extends React.Component {
               <p>Melakukan Yoga selama 30 menit dalam sehari akan membuat tubuh anda menjadi lebih rileks dan juga membuat tidur anda lebih berkualitas.</p>
             </div>
             <div className='right-arrow'>
-            <a onClick={() => console.log("tes")}>
+            <a onClick={() => ConsoleHelper("tes")}>
                 <img style={{ transform: 'rotateY(180deg)' }} src='/images/arah.png' />
               </a>
             </div>

@@ -13,13 +13,11 @@ function Cards() {
               src='images/trek.png'
               text='Fitur tracking distribusi vaksin Covid-19 dengan beberapa zona '
               label='Vaccine Tracking'
-              path='/services'
             />
             <CardItem
               src='images/statistik.png'
               text='Data statistik mengenai Covid-19 di Kabupaten Semarang serta daerah penyebarannya'
               label='Covid-19 Stats'
-              path='/statsdata'
             />
           </ul>
           <ul className='cards__items'>
@@ -27,13 +25,11 @@ function Cards() {
               src='images/olahraga.png'
               text='Anjuran serta panduan pola hidup sehat di era New Normal'
               label='Healthy Life'
-              path='/services'
             />
             <CardItem
               src='images/rumasakit.png'
               text='Informasi terkait lokasi dan fasilitas tenaga medis rumah sakit'
               label='Hospital Locator'
-              path='/services'
             />
           </ul>
         </div>

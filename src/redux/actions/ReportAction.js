@@ -18,7 +18,7 @@ export const filesReport = (data, token) => {
                 }
             ).catch(error => {
                     // userService.logout(); //auto logout kalo error
-                    dispatch(failure(error.toString()));
+                    dispatch(failure(error));
                 })
     }
     function success(data) {
@@ -27,7 +27,7 @@ export const filesReport = (data, token) => {
             data: data
         })
     }
-    function failure(error) { return { type: reportConstants.FILES_REPORT_FAILS } }
+    function failure(error) { return { type: reportConstants.FILES_REPORT_FAILS, error: error } }
 }
 
 export const confirmReport = (data) => {

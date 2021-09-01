@@ -3,6 +3,7 @@ import { API } from '../../config';
 import axios from 'axios';
 import { postConstant } from '../types';
 import { authHeader } from '../helpers/auth-header';
+import ConsoleHelper from '../helpers/ConsoleHelper';
 
 export const postService = {
     getAllPost,
@@ -61,7 +62,7 @@ function loadLocalCards() {
 // async function getAllPost(){
 //     // const data = await axios.get('http://localhost:3001/api/post/getcard')
 //     const data = await axios.get(`${API}/${postConstant.GET_ALL_POST}`)
-//     console.log(data.data);
+//     ConsoleHelper(data.data);
 //     localStorage.setItem('posts', JSON.stringify(data.data.posts));
 //     return data.data.posts;
 // }
@@ -69,7 +70,7 @@ function loadLocalCards() {
 async function getAllPost() {
     // const data = await axios.get('http://localhost:3001/api/post/getcard')
     // const data = await axios.get(`${API}/${postConstant.GET_ALL_POST}`)
-    // console.log(data.data);
+    // ConsoleHelper(data.data);
     // localStorage.setItem('posts', JSON.stringify(data.data.posts));
     // return data.data.posts;
     localStorage.setItem('localcards', JSON.stringify(loadLocalCards))
@@ -82,7 +83,7 @@ function postNewCard(newCard) {
 // async function getPost(id){
 //     // const data = await axios.get('http://localhost:3001/api/post/getcard')
 //     const data = await axios.get(`${API}/${postConstant.GET_POST}${id}`)
-//     console.log(data.data);
+//     ConsoleHelper(data.data);
 //     localStorage.setItem('preferredPosts', JSON.stringify(data.data.posts));
 //     return data.data.posts;
 // }

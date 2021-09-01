@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import axios from 'axios';
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 import { connect } from 'react-redux';
 import {
 	editDataDesa,
@@ -55,7 +56,7 @@ class AdminUpdateDataPage extends React.Component {
 				this.exportTableToCSV(htmlObject)
 			}
 		} catch (error) {
-			console.log(error)
+			ConsoleHelper(error)
 		}
 	}
 	exportTableToCSV(html) {
@@ -75,7 +76,7 @@ class AdminUpdateDataPage extends React.Component {
 			csv[i] = csv[i].replace(/\n/g, "")
 			csv[i] += "\n"
 		}
-		console.log(csv.join(";"))
+		ConsoleHelper(csv.join(";"))
 		this.fixingHTMLandSend(csv.join(";"))
 	}
 
@@ -108,15 +109,15 @@ class AdminUpdateDataPage extends React.Component {
 			lines[i] = lines[i].replace(";", "")
 		}
 		var result = lines.join('\n')
-		console.log(result)
+		ConsoleHelper(result)
 		this.setState({ updateData: [...this.state.updateData, result] })//next masukin ke csvJSON
 		if (this.state.dataLoadCount === 19) {
 			for (var i = 0; i < this.state.updateData.length; i++) {
 				var eachData = this.state.updateData[i]
 				var dataArray = this.csvJSON(eachData, ";")
 				dataArray.splice(dataArray.length - 1, 1)
-				// console.log(i, eachData)
-				console.log(dataArray)
+				// ConsoleHelper(i, eachData)
+				ConsoleHelper(dataArray)
 				dataArray.map(data => {
 					this.props.editDataDesaURL(data)
 				})
@@ -155,7 +156,7 @@ class AdminUpdateDataPage extends React.Component {
 
 	handleFile = (e) => {
 		const content = e.target.result;
-		console.log(this.csvJSON(content, ";"))
+		ConsoleHelper(this.csvJSON(content, ";"))
 		this.props.addDesaCSV(this.csvJSON(content))
 		// You can set content in state and show it in render.
 	}
@@ -169,7 +170,7 @@ class AdminUpdateDataPage extends React.Component {
 			})
 		}
 		catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 
 	}
@@ -177,12 +178,28 @@ class AdminUpdateDataPage extends React.Component {
 	async handleChangeKecamatan(event) {
 		try {
 			const { value } = event.target;
+			if (value === 'null') {
+				this.setState({
+					chosenDesa: {
+						nama_desa: '',
+						suspek: '',
+						discharded: '',
+						meninggal: '',
+						keterangan: '',
+						konfirmasi_asymptomatik: '',
+						konfirmasi_symptomatik: '',
+						konfirmasi_sembuh: '',
+						konfirmasi_meninggal: '',
+						keterangan_konfirmasi: ''
+					},
+				});
+			}
 			let resultDesa = await axios.get(`${API}/covid/get-desa-in-kecamatan/${value}`)
 			this.setState({
 				desa: resultDesa.data.semua_desa
 			});
 		} catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 	}
 
@@ -197,7 +214,7 @@ class AdminUpdateDataPage extends React.Component {
 	async handleChangeDesa(event) {
 		try {
 			const { value } = event.target;
-			if (value === null) {
+			if (value === 'null') {
 				this.setState({
 					chosenDesa: {
 						nama_desa: '',
@@ -220,19 +237,21 @@ class AdminUpdateDataPage extends React.Component {
 				});
 			}
 		} catch (error) {
-			console.log(error.message)
+			ConsoleHelper(error.message)
 		}
 	}
 
 	handleChange(event) {
 		const { name, value } = event.target;
 		const { chosenDesa } = this.state
-		this.setState({
-			chosenDesa: {
-				...chosenDesa,
-				[name]: value //name dan value component dari <input> tag
-			}
-		});
+		if (value !== 'null') {
+			this.setState({
+				chosenDesa: {
+					...chosenDesa,
+					[name]: value //name dan value component dari <input> tag
+				}
+			});
+		}
 	}
 
 
@@ -255,9 +274,9 @@ class AdminUpdateDataPage extends React.Component {
 		return (
 			<>
 				<CheckIfAccessAllowed />
+				<h1 style={{marginTop: '12px'}}>Update Data Persebaran Kab. Semarang</h1>
 				<div className='container'>
 					<form onSubmit={this.handleSubmit}>
-
 						<div className='form-left'>
 							<div className='column-form'>
 								<div className='row-form'>
@@ -266,7 +285,7 @@ class AdminUpdateDataPage extends React.Component {
 									</div>
 									<div className='col-row-form'>
 										<select onChange={this.handleChangeKecamatan} name='nama_kecamatan' placeholder='Kecamatan' required>
-											<option value={null}>Pilih Kecamatan</option>
+											<option value='null'>Pilih Kecamatan</option>
 											<Fragment>
 												{
 													semuaKecamatan.map(result => {
@@ -285,7 +304,7 @@ class AdminUpdateDataPage extends React.Component {
 									</div>
 									<div className='col-row-form'>
 										<select onChange={this.handleChangeDesa} name='nama_desa' placeholder='Desa' required>
-											<option value={null}>Pilih Desa</option>
+											<option value='null'>Pilih Desa</option>
 
 											<Fragment>
 												{
@@ -329,7 +348,7 @@ class AdminUpdateDataPage extends React.Component {
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Konfirmasi Asymptomatik</label>
+										<label style={{ fontSize: 'small' }}>Konfirmasi Asymptomatik</label>
 									</div>
 									<div className='col-row-form'>
 										<input onChange={this.handleChange} type='number' value={chosenDesa.konfirmasi_asymptomatik} name='konfirmasi_asymptomatik' required />
@@ -397,7 +416,7 @@ class AdminUpdateDataPage extends React.Component {
 								</> : <></>}
 							{this.props.covidDataReducer.failedUpdating ?
 								<>
-									<p style={{color: "red"}}>Updating data failed</p>
+									<p style={{ color: "red" }}>Updating data failed</p>
 
 								</> : <></>}
 							{this.props.covidDataReducer.doneUpdating ?

@@ -9,6 +9,7 @@ import {
 } from '../redux/actions/CovidAction';
 import { Button } from './Components/Button';
 import Navbar from './Components/Navbar';
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 
 class Tryout extends React.Component {
 	constructor(props) {
@@ -36,7 +37,7 @@ class Tryout extends React.Component {
 				[name]: value //name dan value component dari <input> tag
 			}
 		});
-		console.log(desas)
+		ConsoleHelper(desas)
 	}
 
 	async handleLoadURL() {
@@ -50,7 +51,7 @@ class Tryout extends React.Component {
 				this.exportTableToCSV(htmlObject)
 			}
 		} catch (error) {
-			console.log(error)
+			ConsoleHelper(error)
 		}
 	}
 	exportTableToCSV(html) {
@@ -70,7 +71,7 @@ class Tryout extends React.Component {
 			csv[i] = csv[i].replace(/\n/g, "")
 			csv[i] += "\n"
 		}
-		console.log(csv.join(";"))
+		ConsoleHelper(csv.join(";"))
 		this.fixingHTMLandSend(csv.join(";"))
 	}
 
@@ -103,15 +104,15 @@ class Tryout extends React.Component {
 			lines[i] = lines[i].replace(";", "")
 		}
 		var result = lines.join('\n')
-		console.log(result)
+		ConsoleHelper(result)
 		this.setState({ updateData: [...this.state.updateData, result] })//next masukin ke csvJSON
 		if (this.state.dataLoadCount === 19) {
 			for(var i = 0; i<this.state.updateData.length;i++){
 				var eachData = this.state.updateData[i]
 				var dataArray = this.csvJSON(eachData,";")
 				dataArray.splice(dataArray.length-1, 1)
-				// console.log(i, eachData)
-				console.log(dataArray)
+				// ConsoleHelper(i, eachData)
+				ConsoleHelper(dataArray)
 				dataArray.map(data => {
 					this.props.editDataDesaURL(data)
 				})
@@ -149,7 +150,7 @@ class Tryout extends React.Component {
 
 	handleFile = (e) => {
 		const content = e.target.result;
-		console.log(this.csvJSON(content, ";"))
+		ConsoleHelper(this.csvJSON(content, ";"))
 		this.props.addDesaCSV(this.csvJSON(content))
 		// You can set content in state and show it in render.
 	}

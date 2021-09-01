@@ -9,7 +9,8 @@ const initialState = {
   editedData: {},
   isUpdating: false,
   doneUpdating: false,
-  failedUpdating: false
+  failedUpdating: false,
+  errorDetails: ''
 }
 
 export function covidDataReducer(state = initialState, action) {
@@ -46,6 +47,7 @@ export function covidDataReducer(state = initialState, action) {
       }
     case covidConstant.EDIT_DESA_URL:
       return {
+        ...state,
         editedData: action.data,
         failedUpdating: false,
         doneUpdating: true,
@@ -53,15 +55,18 @@ export function covidDataReducer(state = initialState, action) {
       }
     case covidConstant.REQ_EDIT:
       return {
+        ...state,
         isUpdating: true,
         doneUpdating: false,
         failedUpdating: false
       }
     case covidConstant.PROCESS_FAILED:
       return {
+        ...state,
         isUpdating: false,
         doneUpdating: false,
-        failedUpdating: true
+        failedUpdating: true,
+        errorDetails: action.error
       }
     default:
       return state
