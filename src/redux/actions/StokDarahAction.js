@@ -51,9 +51,9 @@ export const editDataStok = (data) => {
             // throw "Auth Failed"
         }
         dispatch({
-            type: stokDarahConstants.REQ_EDIT
+            type: stokDarahConstants.REQUEST_EDIT
         })
-        stokDarahService.addStokDarah(data, token)
+        stokDarahService.editStokDarah(data, token)
             .then(
                 results => {
                     if(!results){

@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {
-	addDataRS,
-	editDataRS
-} from '../redux/actions/DataRSAction';
+	addDataStok,
+	editDataStok
+} from '../redux/actions/StokDarahAction';
 import { API } from '../config'
 import './Styles/Form.css'
 import { RingLoader } from './Components/RingLoader';
@@ -15,18 +15,18 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
-		this.handleChangeRS = this.handleChangeRS.bind(this);
+		this.handleChangeStok = this.handleChangeStok.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleCheckBox = this.handleCheckBox.bind(this)
 		this.state = {
 			getData: null,
-			dataRS: {
+			dataStok: {
 				_id: '',
-				nama_rumahSakit: '',
-				jumlahKamarUmum: '',
-				jumlahKamarCovid: '',
-				jumlahNakes: '',
-				kelas: ''
+				stokDarah: '',
+				golonganA: '',
+				golonganB: '',
+				golonganO: '',
+				golonganAB: ''
 			},
 			isAdding: false,
 			reducerState: {
@@ -40,17 +40,16 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.dataRSReducer !== this.props.dataRSReducer) {
-			this.setState({ reducerState: this.props.dataRSReducer });
+		if (prevProps.stokDarahReducer !== this.props.stokDarahReducer) {
+			this.setState({ reducerState: this.props.stokDarahReducer });
 		}
 	}
 
 	async componentWillMount() {
 		try {
-			let resultRS = await axios.get(`${API}/data-rs/get-data/`)
-			console.log(resultRS)
+			let resultStok = await axios.get(`${API}/stok-darah/get-all`)
 			this.setState({
-				getData: resultRS.data,
+				getData: resultStok.data,
 			})
 		}
 		catch (error) {
@@ -61,13 +60,13 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 	handleCheckBox() {
 		this.setState({
 			isAdding: !this.state.isAdding,
-			dataRS: {
+			dataStok: {
 				_id: '',
-				nama_rumahSakit: '',
-				jumlahKamarUmum: '',
-				jumlahKamarCovid: '',
-				jumlahNakes: '',
-				kelas: ''
+				stokDarah: '',
+				golonganA: '',
+				golonganB: '',
+				golonganO: '',
+				golonganAB: ''
 			}
 		});
 	}
@@ -80,7 +79,7 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 		}
 	}
 
-	async handleChangeRS(event) {
+	async handleChangeStok(event) {
 		try {
 			var index = event.nativeEvent.target.selectedIndex;
 			const { value, text } = event.nativeEvent.target[index];
@@ -88,20 +87,20 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 			// console.log(value, text)
 			if (value === null) {
 				this.setState({
-					dataRS: {
+					dataStok: {
 						_id: '',
-						nama_rumahSakit: '',
-						jumlahKamarUmum: '',
-						jumlahKamarCovid: '',
-						jumlahNakes: '',
-						kelas: ''
+						stokDarah: '',
+						golonganA: '',
+						golonganB: '',
+						golonganO: '',
+						golonganAB: ''
 					}
 				});
 			}
 			else {
-				const dataRS = await this.searchDataDesa(value, this.state.getData)
+				const dataStok = await this.searchDataDesa(value, this.state.getData)
 				this.setState({
-					dataRS: dataRS
+					dataStok: dataStok
 				});
 			}
 		} catch (error) {
@@ -110,11 +109,11 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 	}
 
 	handleChange(event) {
-		const { name, value} = event.target;
-		const { dataRS } = this.state
+		const { name, value } = event.target;
+		const { dataStok } = this.state
 		this.setState({
-			dataRS: {
-				...dataRS,
+			dataStok: {
+				...dataStok,
 				[name]: value
 			}
 		});
@@ -123,17 +122,17 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		const { dataRS } = this.state
-		if(this.state.isAdding){
-			this.props.addDataRS(dataRS)
-		}else{
-			this.props.editDataRS(dataRS)
+		const { dataStok } = this.state
+		if (this.state.isAdding) {
+			this.props.addDataStok(dataStok)
+		} else {
+			this.props.editDataStok(dataStok)
 		}
 	}
 
 
 	render() {
-		const { dataRS, reducerState, getData } = this.state
+		const { dataStok, reducerState, getData } = this.state
 		return (
 			<>
 				<CheckIfAccessAllowed />
@@ -147,27 +146,27 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 							<div className='column-form'>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Nama Rumah Sakit</label>
+										<label>Jenis Stok Darah</label>
 									</div>
 									<div className='col-row-form'>
 										{this.state.isAdding ?
 											<div className='row-form'>
 												<div className='col-row-form'>
-													<input onChange={this.handleChange} type='text' value={dataRS.nama_rumahSakit} name='nama_rumahSakit' required />
+													<input onChange={this.handleChange} type='text' value={dataStok.stokDarah} name='stokDarah' required />
 												</div>
 											</div>
 											:
-											<select style={{ width: '200px' }} onChange={this.handleChangeRS} placeholder='Rumah Sakit' required>
-												<option value={null}>Pilih Rumah Sakit</option>
+											<select style={{ width: '200px' }} onChange={this.handleChangeStok} placeholder='Rumah Sakit' required>
+												<option value={null}>Pilih Jenis Stok</option>
 												<Fragment>
 													{getData ?
 														getData.map(result => {
 															return (
-																<option value={result._id}>{result.nama_rumahSakit}</option>
+																<option value={result._id}>{result.stokDarah}</option>
 															)
 														})
 														:
-														<option value={null}>Data rumah sakit tidak ditemukan</option>
+														<option value={null}>Data stok darah tidak ditemukan</option>
 
 													}
 												</Fragment>
@@ -179,36 +178,36 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 							<div className='column-form'>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Jumlah Kamar Umum</label>
+										<label>Golongan A</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={dataRS.jumlahKamarUmum} name='jumlahKamarUmum' required />
+										<input onChange={this.handleChange} type='number' value={dataStok.golonganA} name='golonganA' required />
 									</div>
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Jumlah Kamar Covid-19
+										<label>Golongan B
 										</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={dataRS.jumlahKamarCovid} name='jumlahKamarCovid' required />
+										<input onChange={this.handleChange} type='number' value={dataStok.golonganB} name='golonganB' required />
 									</div>
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Jumlah Tenaga Kerja
+										<label>Golongan O
 										</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='number' value={dataRS.jumlahNakes} name='jumlahNakes' required />
+										<input onChange={this.handleChange} type='number' value={dataStok.golonganO} name='golonganO' required />
 									</div>
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Kelas</label>
+										<label>Golongan AB</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='text' value={dataRS.kelas} name='kelas' required />
+										<input onChange={this.handleChange} type='number' value={dataStok.golonganAB} name='golonganAB' required />
 									</div>
 								</div>
 							</div>
@@ -251,14 +250,14 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		dataRSReducer: state.dataRSReducer //call by this.props.user.*
+		stokDarahReducer: state.stokDarahReducer //call by this.props.user.*
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		addDataRS: (data) => dispatch(addDataRS(data)),
-		editDataRS: (data) => dispatch(editDataRS(data))
+		addDataStok: (data) => dispatch(addDataStok(data)),
+		editDataStok: (data) => dispatch(editDataStok(data))
 	}
 }
 

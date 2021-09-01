@@ -9,7 +9,9 @@ export const stokDarahService = {
 
 async function addStokDarah(data, token){
     try {
-        let addedData = await axios.create({
+        console.log(`${API}${stokDarahConstants.ADD_DATA}`)
+        // let addedData = await axios.post(`${API}${stokDarahConstants.ADD_DATA}`, data)
+        let addedData = await axios({
             method: 'post', //you can set what request you want to be
             url: `${API}${stokDarahConstants.ADD_DATA}`,
             data: data,
@@ -25,7 +27,7 @@ async function addStokDarah(data, token){
 
 async function editStokDarah(data, token){
     try {
-        let addedData = await axios.create({
+        let addedData = await axios({
             method: 'put', //you can set what request you want to be
             url: `${API}${stokDarahConstants.EDIT_DATA}`,
             data: data,

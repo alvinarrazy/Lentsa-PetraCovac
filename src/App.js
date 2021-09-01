@@ -21,6 +21,7 @@ import YogaPage from './Pages/YogaPage';
 import CaloriesCalculatorPage from './Pages/CaloriesCalculatorPage';
 import SleepSchedulerPage from './Pages/SleepSchedulerPage';
 import FilesReportPage from './Pages/FilesReportPage';
+import StokDarahPage from './Pages/StokDarahPage';
 
 //Admin
 import Tryout from './Pages/Tryout';
@@ -29,6 +30,7 @@ import AdminUpdateDataRSPage from './Pages/AdminUpdateDataRSPage';
 import AdminCovidReportsPage from './Pages/AdminCovidReportsPage';
 import AdminReportDetailPage from './Pages/AdminReportDetailPage';
 import AdminUserList from './Pages/AdminUserList';
+import AdminUpdateDataStokDarahPage from './Pages/AdminUpdateDataStokDarahPage';
 
 //Alerts
 import ErrorPage from './Pages/Alerts/ErrorPage';
@@ -61,6 +63,7 @@ function App() {
                 <Route path='/home' exact component={HomePage} />
                 <Route path='/data-covid' exact component={CovidStatsPage} />
                 <Route path='/data-rs' exact component={RSStatsPage} />
+                <Route path='/stok-darah' exact component={StokDarahPage} />
                 <Route path='/data-covid/data-desa/:idKecamatan' exact component={DesaStatsPage} />
                 <Route path='/covid-map' exact component={MapPage} />
                 <Route path='/login' exact component={authHeader() ? AlreadyLoginPage : LoginPage} />
@@ -68,7 +71,7 @@ function App() {
                 <Route path='/tips/yoga' exact component={YogaPage} />
                 <Route path='/tips/sleep-scheduler' exact component={SleepSchedulerPage} />
                 <Route path='/tips/calories-calculator' exact component={CaloriesCalculatorPage} />
-
+                
                 {/*Admin*/}
                 <Route path='/admin/testing' exact component={authHeader() && checkIfAdmin() === 'admin' ? Tryout : ErrorPage} />
                 <Route path='/admin/update-data-covid' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUpdateDataPage : ErrorPage} />
@@ -76,7 +79,8 @@ function App() {
                 <Route path='/admin/covid-reports' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminCovidReportsPage : AuthFailedPage} />
                 <Route path='/admin/covid-reports/details/:reportId' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminReportDetailPage : AuthFailedPage} />
                 <Route path='/admin/user-list/' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUserList : AuthFailedPage} />
-
+                <Route path='/admin/update-stok-darah' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUpdateDataStokDarahPage : AuthFailedPage} />
+                
                 {/* User */}
                 <Route path='/user/files-report' exact component={authHeader() ? FilesReportPage : NeedToLoginPage  } />
 

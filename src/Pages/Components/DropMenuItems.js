@@ -26,6 +26,11 @@ export const DataMenuItems = [
         title: 'Data Rumah Sakit',
         path: '/data-rs',
         cName: 'dropdown-link'
+    },
+    {
+        title: 'Data Stok Darah',
+        path: '/stok-darah',
+        cName: 'dropdown-link'
     }
 ];
 
@@ -38,6 +43,11 @@ export const UpdateDataMenuItems = [
     {
         title: 'Update Data Rumah Sakit',
         path: '/admin/update-data-rs',
+        cName: 'dropdown-link'
+    },
+    {
+        title: 'Update Stok Darah',
+        path: '/admin/update-stok-darah',
         cName: 'dropdown-link'
     }
 ];
