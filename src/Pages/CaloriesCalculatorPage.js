@@ -10,14 +10,19 @@ class Yoga extends React.Component {
     this.handleChangeAsupan = this.handleChangeAsupan.bind(this)
     this.state = {
       asupan: [
-        ['Nasi Uduk', 10],
-        ['Nasi Goreng', 22],
-        ['Nasi Goreng', 22],
-        ['Nasi Goreng', 22],
-        ['Nasi Goreng', 22],
-        ['Nasi Goreng', 22],
-        ['Nasi Goreng', 22],
-        ['Nasi Goreng', 22]
+        ['Asinan', 208],
+        ['Toge Goreng', 243],
+        ['Gado-gado', 295],
+        ['Ketoprak', 153],
+        ['Pempek', 384],
+        ['Rawon', 331],
+        ['Soto Ayam', 101],
+        ['Soto Padang', 127],
+        ['Tongseng', 331],
+        ['Hamburger', 257],
+        ['Kerupuk Palembang', 72],
+        ['Mie Bakso', 302]
+
       ],
       menu: {
         sarapan1: 0,
@@ -94,7 +99,7 @@ class Yoga extends React.Component {
       caloriesTotalMalam,
       caloriesTotal
     } = this.state
-    
+
     return (
       <>
         <div className='tips-container'>
