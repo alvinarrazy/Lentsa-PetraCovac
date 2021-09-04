@@ -9,7 +9,8 @@
 
 .yoga .yoga-pic{
     width: 250px;
+    height: 255px;
 }
 .yoga .yoga-pic img{
-    width: 100%;
+    height: 100%;
 }

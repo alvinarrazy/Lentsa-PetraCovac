@@ -10,181 +10,34 @@ import {
 import { Button } from './Components/Button';
 import Navbar from './Components/Navbar';
 import ConsoleHelper from '../redux/helpers/ConsoleHelper';
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import './Styles/Transition.css'
 
 class Tryout extends React.Component {
 	constructor(props) {
 		super(props);
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleSubmitFile = this.handleSubmitFile.bind(this);
-		this.handleLoadURL = this.handleLoadURL.bind(this)
 		this.state = {
-			updateData: [],
-			dataLoadCount: 0,
-			desas: {nama_desa: ''}
-		}
+			number: 0
+		};
 	}
 
-	async componentWillMount() {
-	}
-
-	handleChange(event) {
-		const { name, value } = event.target;
-		const { desas } = this.state;
-		this.setState({
-			desas: {
-				...desas,
-				[name]: value //name dan value component dari <input> tag
-			}
-		});
-		ConsoleHelper(desas)
-	}
-
-	async handleLoadURL() {
-		try {
-			for (var i = 1; i < 20; i++) {
-				var html = await axios.get(`https://corona.semarangkab.go.id/covid/data_desa?id_kecamatan=${i}`)
-				var temp = document.createElement('div');
-				temp.innerHTML = html.data;
-				var htmlObject = temp.firstChild;
-				this.setState({ dataLoadCount: this.state.dataLoadCount + 1 })
-				this.exportTableToCSV(htmlObject)
-			}
-		} catch (error) {
-			ConsoleHelper(error)
-		}
-	}
-	exportTableToCSV(html) {
-		var csv = [];
-		var rows = html.querySelectorAll("table tr");
-
-		for (var i = 0; i < rows.length; i++) {
-			var row = [], cols = rows[i].querySelectorAll("td, th");
-
-			for (var j = 0; j < cols.length; j++)
-				row.push(cols[j].innerText);
-
-			csv.push(row.join(";"));
-		}
-		for (var i = 0; i < csv.length; i++) {
-			csv[i] = csv[i].replace(/\t/g, "")
-			csv[i] = csv[i].replace(/\n/g, "")
-			csv[i] += "\n"
-		}
-		ConsoleHelper(csv.join(";"))
-		this.fixingHTMLandSend(csv.join(";"))
-	}
-
-	fixingHTMLandSend(data) {
-		var lines
-		lines = data.split("\n");
-		lines.splice(0, 1)//hapus Rincian data sebaran di Desa (hapus baris 1)
-		
-		lines[0] = lines[0] + ";" + lines[1];//naikin baris 3 ke 2 (sekarang 2 ke 1 setelah splice pertama)
-		lines.splice(1,1)//hapus baris 2
-		
-		var firstLine = lines[0].split(";")
-		
-		firstLine.splice(3,3)
-		
-		for(var i=0; i<firstLine.length; i++){
-			firstLine[i] = firstLine[i].replace(" ", "_")
-			firstLine[i] = firstLine[i].toLowerCase()
-		}
-		firstLine[firstLine.length-1] = "keterangan_konfirmasi"
-		
-		lines[0]=""
-		for (var i = 0; i<firstLine.length; i++){
-			lines[0] += firstLine[i]
-			if(i===firstLine.length - 1){
-		
-			}else lines[0] += ";"
-		}
-		for(var i = 0; i<lines.length; i++){
-			lines[i] = lines[i].replace(";", "")
-		}
-		var result = lines.join('\n')
-		ConsoleHelper(result)
-		this.setState({ updateData: [...this.state.updateData, result] })//next masukin ke csvJSON
-		if (this.state.dataLoadCount === 19) {
-			for(var i = 0; i<this.state.updateData.length;i++){
-				var eachData = this.state.updateData[i]
-				var dataArray = this.csvJSON(eachData,";")
-				dataArray.splice(dataArray.length-1, 1)
-				// ConsoleHelper(i, eachData)
-				ConsoleHelper(dataArray)
-				dataArray.map(data => {
-					this.props.editDataDesaURL(data)
-				})
-			}
-			this.setState({
-				updateData: [],
-				dataLoadCount: 0
-			})
-		}
-	}
-
-	csvJSON(csv, splitter) {
-
-		var lines = csv.split("\n");
-
-		var result = [];
-		var headers = lines[0].split(splitter);
-
-		for (var i = 1; i < lines.length; i++) {
-
-			var obj = {};
-			var currentline = lines[i].split(splitter);
-
-			for (var j = 0; j < headers.length; j++) {
-				obj[headers[j]] = currentline[j];
-			}
-
-			result.push(obj);
-
-		}
-
-		return result; //JavaScript object
-		//return JSON.stringify(result); //JSON
-	}
-
-	handleFile = (e) => {
-		const content = e.target.result;
-		ConsoleHelper(this.csvJSON(content, ";"))
-		this.props.addDesaCSV(this.csvJSON(content))
-		// You can set content in state and show it in render.
-	}
-
-	handleSubmitFile = (file) => {
-		let fileData = new FileReader();
-		fileData.onloadend = this.handleFile;
-		fileData.readAsText(file);
-	}
-
-
-	handleSubmit(event) {
-		event.preventDefault();
-		const { desa } = this.state
-		this.props.editDataDesa(desa)
+	handleClick(e) {
+		this.setState({ number: this.state.number + 1 });
 	}
 
 	render() {
-		const { desas } = this.state
+
 		return (
-			<>
-				
-
-				<Button onClick={this.handleLoadURL}>Update by URL</Button>
-				<form onSubmit={this.handleSubmit}>
-						<input type="text" onChange={this.handleChange} name="nama_desa" value={desas.nama_desa} placeholder="nama_desa" required />
-						<input type="submit" value="Log in" />
-					</form>
-
-			</>
+			<div className='container'>
+				<TransitionGroup>
+					<CSSTransition transitionName="example" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+						<div className="number" key={this.state.number}>{this.state.number}</div>
+					</CSSTransition>
+				</TransitionGroup>
+				<button onClick={this.handleClick.bind(this)}>Click Me!</button>
+			</div>
 		)
-
 	}
-
 }
 
 const mapStateToProps = (state) => {

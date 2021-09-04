@@ -4,7 +4,7 @@ import './Styles/Tips.css'
 import './Styles/CaloriesCalculator.css'
 
 
-class Yoga extends React.Component {
+class CaloriesCalculator extends React.Component {
   constructor(props) {
     super(props)
     this.handleChangeAsupan = this.handleChangeAsupan.bind(this)
@@ -255,4 +255,4 @@ class Yoga extends React.Component {
   }
 }
 
-export default Yoga;
+export default CaloriesCalculator;
