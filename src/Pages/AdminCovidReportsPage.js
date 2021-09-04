@@ -82,6 +82,14 @@ class AdminCovidReportsPage extends React.Component {
 													nik={report.nik_pelapor}
 													nama={report.nama_pelapor}
 													laporan={report.laporan}
+													noTelp={report.noTelp}
+													email={report.email_pelapor}
+													jenisKelamin={report.jenisKelamin}
+													provinsiDomisili={report.provinsiDomisili}
+													kotaDomisili={report.kotaDomisili}
+													kecamatanDomisili={report.kecamatanDomisili}
+													kelurahanDomisili={report.kelurahanDomisili}
+													alamatDomisili={report.alamatDomisili}
 													keterangan={report.keterangan}
 												/>
 											</Link>

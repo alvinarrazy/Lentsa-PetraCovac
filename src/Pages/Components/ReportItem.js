@@ -21,6 +21,32 @@ function ReportItem(props) {
               <p>{props.nama}</p>
               <label>Laporan:</label>
               <p>{props.laporan}</p>
+              <label>No Telpon:</label>
+              <p>{props.noTelp}</p>
+              <label>Email:</label>
+              <p>{props.email}</p>
+              <label>Jenis Kelamin:</label>
+              <p>{props.jenisKelamin}</p>
+              <label>Provinsi di KTP:</label>
+              <p>{props.provinsiDiKTP}</p>
+              <label>Kota di KTP:</label>
+              <p>{props.kotaDiKTP}</p>
+              <label>Kecamatan di KTP:</label>
+              <p>{props.kecamatanDiKTP}</p>
+              <label>Kelurahan di KTP:</label>
+              <p>{props.kelurahanDiKTP}</p>
+              <label>Alamat di KTP:</label>
+              <p>{props.alamatDiKTP}</p>
+              <label>Provinsi saat ini:</label>
+              <p>{props.provinsiDomisili}</p>
+              <label>Kota/Kabupaten saat ini:</label>
+              <p>{props.kotaDomisili}</p>
+              <label>Kecamatan saat ini:</label>
+              <p>{props.kecamatanDomisili}</p>
+              <label>Kelurahan/Desa saat ini:</label>
+              <p>{props.kelurahanDomisili}</p>
+              <label>Alamat saat ini:</label>
+              <p>{props.alamatDomisili}</p>
               <label>Keterangan:</label>
               <p style={{ overflow: 'overlay' }}>{props.keterangan}</p>
             </div>
@@ -34,7 +60,7 @@ function ReportItem(props) {
     return (
       <>
         <div className='card-wrapper'>
-          <div style={{width: '50%'}} className='description'>
+          <div style={{ width: '50%' }} className='description'>
             <label>NIK:</label>
             <p>{props.nik}</p>
             <label>Nama:</label>
@@ -42,7 +68,7 @@ function ReportItem(props) {
             <label>Role:</label>
             <p>{props.role}</p>
           </div>
-          <div style={{width: '50%'}} className='description'>
+          <div style={{ width: '50%' }} className='description'>
             <label>Status Covid:</label>
             <p>{props.statuscovid}</p>
             <label>Status Vaksin:</label>
@@ -71,8 +97,16 @@ function ReportItem(props) {
             <p>{props.nama}</p>
             <label>Laporan:</label>
             <p>{props.laporan}</p>
-            <label>Keterangan:</label>
-            <p style={{ overflow: 'overlay' }}>{props.keterangan}</p>
+            <label>Provinsi saat ini:</label>
+            <p>{props.provinsiDomisili}</p>
+            <label>Kota/Kabupaten saat ini:</label>
+            <p>{props.kotaDomisili}</p>
+            <label>Kecamatan saat ini:</label>
+            <p>{props.kecamatanDomisili}</p>
+            <label>Kelurahan/Desa saat ini:</label>
+            <p>{props.kelurahanDomisili}</p>
+            <label>Alamat saat ini:</label>
+            <p>{props.alamatDomisili}</p>
           </div>
         </div>
       </>

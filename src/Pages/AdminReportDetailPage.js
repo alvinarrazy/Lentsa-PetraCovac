@@ -23,7 +23,7 @@ class AdminReportDetailPage extends React.Component {
 	handleConfirm(id) {
 		this.props.confirmReport(id)
 	}
-	
+
 
 	async componentWillMount() {
 		try {
@@ -50,15 +50,27 @@ class AdminReportDetailPage extends React.Component {
 			return (
 				<>
 					<div className='detail-container' style={{ flexDirection: 'column', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '15px' }}>
-						<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+						<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
 							<ReportItem
 								isDetail={true}
 								src={reportDetails.viewPhotoURL}
-								href={reportDetails.downloadPhotoURL}
 								nik={reportDetails.nik_pelapor}
 								nama={reportDetails.nama_pelapor}
 								laporan={reportDetails.laporan}
+								noTelp={reportDetails.noTelp}
+								email={reportDetails.email_pelapor}
+								jenisKelamin={reportDetails.jenisKelamin}
+								provinsiDiKTP={reportDetails.provinsiDiKTP}
+								kotaDiKTP={reportDetails.kotaDiKTP}
+								kecamatanDiKTP={reportDetails.kecamatanDiKTP}
+								kelurahanDiKTP={reportDetails.kelurahanDiKTP}
+								alamatDiKTP={reportDetails.alamatDiKTP}
 								keterangan={reportDetails.keterangan}
+								provinsiDomisili={reportDetails.provinsiDomisili}
+								kotaDomisili={reportDetails.kotaDomisili}
+								kecamatanDomisili={reportDetails.kecamatanDomisili}
+								kelurahanDomisili={reportDetails.kelurahanDomisili}
+								alamatDomisili={reportDetails.alamatDomisili}
 							/>
 							<br />
 							<br />
