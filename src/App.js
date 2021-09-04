@@ -54,7 +54,7 @@ function App() {
           <TransitionGroup>
             <CSSTransition
               key={location.key}
-              timeout={450}
+              timeout={500}
               classNames="fade"
             >
               <Switch location={location} history={history}>
@@ -73,7 +73,7 @@ function App() {
                 <Route path='/tips/calories-calculator' exact component={CaloriesCalculatorPage} />
                 
                 {/*Admin*/}
-                <Route path='/admin/testing' exact component={authHeader() && checkIfAdmin() === 'admin' ? Tryout : ErrorPage} />
+                <Route path='/admin/testing' exact component={Tryout} />
                 <Route path='/admin/update-data-covid' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUpdateDataPage : ErrorPage} />
                 <Route path='/admin/update-data-rs' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminUpdateDataRSPage : ErrorPage} />
                 <Route path='/admin/covid-reports' exact component={authHeader() && checkIfAdmin() === 'admin' ? AdminCovidReportsPage : AuthFailedPage} />

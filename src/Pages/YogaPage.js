@@ -5,6 +5,7 @@ import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 import './Styles/Yoga.css'
 import Yoga from './Components/HealthyComp/Yoga';
 import './Styles/Transition.css'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 
 class YogaPage extends React.Component {
@@ -48,21 +49,29 @@ class YogaPage extends React.Component {
         },
       ],
       tipsIndex: 0,
+      transitionTrigger: true,
       tipsDisplay: 'shown'
     }
   }
 
+  handleTransition = () =>{
+    this.setState({
+      transitionTrigger: true
+    })
+  }
 
   handleIncrementIndex = () => {
     const { tipsIndex, healthyTips } = this.state
     if (tipsIndex === healthyTips.length - 1) {
       this.setState({
+        transitionTrigger: false,
         tipsIndex: 0
-      })
+      }, this.handleTransition)
     } else {
       this.setState({
+        transitionTrigger: false,
         tipsIndex: tipsIndex + 1
-      })
+      }, this.handleTransition)
     }
   }
 
@@ -70,17 +79,19 @@ class YogaPage extends React.Component {
     const { tipsIndex, healthyTips } = this.state
     if (tipsIndex === 0) {
       this.setState({
+        transitionTrigger: false,
         tipsIndex: healthyTips.length - 1
-      })
+      }, this.handleTransition)
     } else {
       this.setState({
+        transitionTrigger: false,
         tipsIndex: tipsIndex - 1
-      })
+      }, this.handleTransition)
     }
   }
 
   render() {
-    const { healthyTips, tipsIndex } = this.state
+    const { healthyTips, tipsIndex, transitionTrigger } = this.state
     return (
       <>
         <div className='tips-container'>
@@ -97,13 +108,20 @@ class YogaPage extends React.Component {
                 <img src='/images/arah.png' />
               </a>
             </div>
-            <Yoga
-              key={tipsIndex}
-              header={healthyTips[tipsIndex].header}
-              src={healthyTips[tipsIndex].src}
-              alt={healthyTips[tipsIndex].alt}
-              paragraph={healthyTips[tipsIndex].paragraph}
-            />
+
+              <CSSTransition
+                in={transitionTrigger}
+                classNames="alert"
+                timeout={500}
+              >
+                <Yoga
+                  key={tipsIndex}
+                  header={healthyTips[tipsIndex].header}
+                  src={healthyTips[tipsIndex].src}
+                  alt={healthyTips[tipsIndex].alt}
+                  paragraph={healthyTips[tipsIndex].paragraph}
+                />
+              </CSSTransition>
             <div className='right-arrow'>
               <a onClick={this.handleIncrementIndex}>
                 <img style={{ transform: 'rotateY(180deg)' }} src='/images/arah.png' />

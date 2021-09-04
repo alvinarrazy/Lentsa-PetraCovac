@@ -30,7 +30,10 @@ class Tryout extends React.Component {
 		return (
 			<div className='container'>
 				<TransitionGroup>
-					<CSSTransition transitionName="example" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+					<CSSTransition
+						key={this.state.number}
+						timeout={450}
+						classNames="pageSlider">
 						<div className="number" key={this.state.number}>{this.state.number}</div>
 					</CSSTransition>
 				</TransitionGroup>
