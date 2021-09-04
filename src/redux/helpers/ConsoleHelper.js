@@ -1,6 +1,6 @@
 const ConsoleHelper = (data) => {
     if (process.env.NODE_ENV === 'production') return;
-    ConsoleHelper(data);
+    else console.log(data);
   }
   
   export default ConsoleHelper;

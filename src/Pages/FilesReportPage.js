@@ -115,8 +115,7 @@ class FilesReportPage extends React.Component {
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Nama
-										</label>
+										<label>Nama</label>
 									</div>
 									<div className='col-row-form'>
 										<input onChange={this.handleChange} type='text' value={report.nama_pelapor} name='nama_pelapor' readOnly />
@@ -124,8 +123,7 @@ class FilesReportPage extends React.Component {
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Laporan
-										</label>
+										<label>Laporan</label>
 									</div>
 									<div className='col-row-form'>
 										<select onChange={this.handleChange} name='laporan' placeholder='Laporan' required>

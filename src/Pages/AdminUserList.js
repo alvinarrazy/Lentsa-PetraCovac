@@ -29,15 +29,12 @@ class AdminUserList extends React.Component {
 	async componentWillMount() {
 		try {
 			let users = await axios.get(`${API}/account/get-all-users`)
-			if (users == null) {
-				ConsoleHelper(users)
-			}
+
 			this.setState({
 				users: users.data.users,
 				isLoading: false
 			})
 		} catch (error) {
-			ConsoleHelper(error.message)
 		}
 	}
 
@@ -96,16 +93,13 @@ class AdminUserList extends React.Component {
 				}
 			})
 			if (deleteResult) {
-				ConsoleHelper(deleteResult)
 				window.location.reload();
 			} else {
-				ConsoleHelper('tes')
 				this.setState({
 					error: true
 				}, () => this.handleError)
 			}
 		} catch (error) {
-			ConsoleHelper(error.message)
 			this.setState({
 				error: true
 			}, this.handleError(error.response.status))

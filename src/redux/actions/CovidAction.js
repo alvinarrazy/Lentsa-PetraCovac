@@ -237,6 +237,6 @@ export const editDataDesaURL = (data) => {
                 return error.message
             })
     }
-    function failure(error) { return { error: error } }
+    function failure(error) { return { error: error.response.data } }
 }
 

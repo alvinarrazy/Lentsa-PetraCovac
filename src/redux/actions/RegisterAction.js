@@ -33,7 +33,7 @@ export const register = (user) => {
 
     }
     function success(user) { return { type: userConstants.REGISTER_SUCCESS } }
-    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error: error.response.data } }
 }
 
 

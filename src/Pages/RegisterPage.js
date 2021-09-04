@@ -15,6 +15,7 @@ class RegisterPage extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChangeConfPass = this.handleChangeConfPass.bind(this)
 		this.handleRegistering = this.handleRegistering.bind(this)
+		this.handleError = this.handleError.bind(this)
 		this.state = {
 			newUser: {
 				nomorIndukKependudukan: '',
@@ -24,7 +25,17 @@ class RegisterPage extends React.Component {
 				noTelp: '',
 				jenisKelamin: '',
 				kotaLahir: '',
-				tanggalLahir: ''
+				tanggalLahir: '',
+				provinsiDiKTP: '',
+				kotaDiKTP: '',
+				kecamatanDiKTP: '',
+				kelurahanDiKTP: '',
+				alamatDiKTP: '',
+				provinsiDomisili: '',
+				kotaDomisili: '',
+				kecamatanDomisili: '',
+				kelurahanDomisili: '',
+				alamatDomisili: ''
 			},
 			confirmPassword: '',
 			register: {
@@ -47,7 +58,7 @@ class RegisterPage extends React.Component {
 		this.setState({
 			newUser: {
 				...newUser,
-				[name]: value //name dan value component dari <input> tag
+				[name]: value
 			}
 		});
 	}
@@ -66,31 +77,58 @@ class RegisterPage extends React.Component {
 			this.props.reqRegister(newUser)
 			this.props.history.push('/register/registering')
 		} else {
-			alert('Password not match!')
+			alert('Password does not match!')
 		}
 	}
 
 	handleRegistering() {
-		if (register.isRegistering) {
+		if (this.state.register.isRegistering) {
 			this.props.history.push('/register/registering')
 		}
 	}
 
+	handleError() {
+		const { registerReducer } = this.props
+		switch (registerReducer.errorDetails.message) {
+			case 'NIK telah terdaftar':
+				return (
+					<p>Register gagal, pastikan nik belum terdaftar</p>
+				)
+			case 'Email telah terdaftar':
+				return (
+					<p>Register gagal, pastikan email belum terdaftar</p>
+				)
+			default:
+				return (
+					<p>Register gagal, coba lagi nanti atau hubungi administrasi</p>
+				)
+		}
+	}
 
 	render() {
-		const { newUser, confirmPassword, register } = this.state
+		const { newUser, confirmPassword } = this.state
 		const { registerReducer } = this.props
 		return (
 			<>
 				<CheckIfAccessAllowed />
-				<div className='container'>
+				<div style={{ flexDirection: 'column' }} className='container'>
+					<div style={{ width: '100%', height: '24px' }} className='form-right'>
+						<div className='ring-container' style={{ color: 'red', flexDirection: 'column', alignItems: 'center', height: '40%' }}>
+							{registerReducer.isRegisterFailed ?
+								this.handleError()
+								:
+								<></>
+							}
+
+						</div>
+					</div>
+
 					<form style={{
-						width: '60%',
+						width: '100%',
 						display: 'flex',
 						alignItems: 'center',
 						flexDirection: 'column'
 					}} onSubmit={this.handleSubmit}>
-
 						<div className='form-left'>
 							<div className='column-form'>
 								<div className='row-form'>
@@ -124,13 +162,15 @@ class RegisterPage extends React.Component {
 										<label>Jenis Kelamin</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='text' value={newUser.jenisKelamin} name='jenisKelamin' required />
+										<select onChange={this.handleChange} name='laporan' placeholder='Laporan' required>
+											<option value='Laki-laki'>Laki-laki</option>
+											<option value='Perempuan'>Perempuan</option>
+										</select>
 									</div>
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Kota Lahir
-										</label>
+										<label>Kota Lahir</label>
 									</div>
 									<div className='col-row-form'>
 										<input onChange={this.handleChange} type='text' value={newUser.kotaLahir} name='kotaLahir' required />
@@ -138,8 +178,7 @@ class RegisterPage extends React.Component {
 								</div>
 								<div className='row-form'>
 									<div className='col-row-form'>
-										<label>Tanggal Lahir
-										</label>
+										<label>Tanggal Lahir</label>
 									</div>
 									<div className='col-row-form'>
 										<input onChange={this.handleChange} type='date' value={newUser.tanggalLahir} name='tanggalLahir' required />
@@ -149,11 +188,94 @@ class RegisterPage extends React.Component {
 							<div className='column-form'>
 								<div className='row-form'>
 									<div className='col-row-form'>
+										<label>Provinsi di KTP</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={newUser.provinsiDiKTP} name='provinsiDiKTP' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Kota di KTP</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={newUser.kotaDiKTP} name='kotaDiKTP' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Kecamatan di KTP</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={newUser.kecamatanDiKTP} name='kecamatanDiKTP' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Kelurahan di KTP</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={newUser.kelurahanDiKTP} name='kelurahanDiKTP' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Alamat di KTP</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={newUser.alamatDiKTP} name='alamatDiKTP' required />
+									</div>
+								</div>
+							</div>
+							<div className='column-form'>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Provinsi saat ini</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={newUser.provinsiDomisili} name='provinsiDomisili' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Kota/Kabupaten saat ini</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={newUser.kotaDomisili} name='kotaDomisili' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Kecamatan saat ini</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={newUser.kecamatanDomisili} name='kecamatanDomisili' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Kelurahan/Desa saat ini</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={newUser.kelurahanDomisili} name='kelurahanDomisili' required />
+									</div>
+								</div>
+								<div className='row-form'>
+									<div className='col-row-form'>
+										<label>Alamat saat ini</label>
+									</div>
+									<div className='col-row-form'>
+										<input onChange={this.handleChange} type='text' value={newUser.alamatDomisili} name='alamatDomisili' required />
+									</div>
+								</div>
+							</div>
+							<div className='column-form'>
+								<div className='row-form'>
+									<div className='col-row-form'>
 										<label>No Telepon</label>
 									</div>
 									<div className='col-row-form'>
-										<input onChange={this.handleChange} type='text' value={newUser.telpon} name='telpon' required />
-
+										<input onChange={this.handleChange} type='text' value={newUser.noTelp} name='noTelp' required />
 									</div>
 								</div>
 								<div className='row-form'>
@@ -179,15 +301,6 @@ class RegisterPage extends React.Component {
 							<input type='submit' value='Submit' />
 						</div>
 					</form>
-					<div className='form-right'>
-						<div className='ring-container' style={{ flexDirection: 'column', alignItems: 'center', height: '40%' }}>
-							{registerReducer.isRegisterFailed ?
-								<p>Register gagal, pastikan nik/email belum terdaftar</p>
-								:
-								<></>
-							}
-						</div>
-					</div>
 				</div>
 				<Footer />
 			</>
