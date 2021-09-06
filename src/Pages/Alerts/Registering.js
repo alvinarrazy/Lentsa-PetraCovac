@@ -52,7 +52,9 @@ class Registering extends React.Component {
 				<div className='error-container'>
 					<div>
 						<h1>Registering</h1>
-						<p style={{ textAlign: 'center' }}>redirecting to login page</p>
+						<p style={{ textAlign: 'center' }}>
+							{this.state.reducerState.doneRegister ? 'registrasi berhasil, kembali ke login page' : 'sedang melakukan registrasi, jangan close/reload tab ini'}
+						</p>
 						<div className='ring-container'>
 							<RingLoader />
 						</div>

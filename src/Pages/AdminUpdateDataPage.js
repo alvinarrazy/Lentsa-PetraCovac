@@ -285,7 +285,7 @@ class AdminUpdateDataPage extends React.Component {
 									</div>
 									<div className='col-row-form'>
 										<select onChange={this.handleChangeKecamatan} name='nama_kecamatan' placeholder='Kecamatan' required>
-											<option value='null'>Pilih Kecamatan</option>
+											<option disabled selected value>Pilih Kecamatan</option>
 											<Fragment>
 												{
 													semuaKecamatan.map(result => {
@@ -304,7 +304,7 @@ class AdminUpdateDataPage extends React.Component {
 									</div>
 									<div className='col-row-form'>
 										<select onChange={this.handleChangeDesa} name='nama_desa' placeholder='Desa' required>
-											<option value='null'>Pilih Desa</option>
+											<option disabled selected value>Pilih Desa</option>
 
 											<Fragment>
 												{

@@ -161,7 +161,7 @@ class AdminUpdateDataStokDarahPage extends React.Component {
 											</div>
 											:
 											<select style={{ width: '200px' }} onChange={this.handleChangeStok} placeholder='Rumah Sakit' required>
-												<option value={'null'}>Pilih Jenis Stok</option>
+												<option disabled selected value>Pilih Jenis Stok</option>
 												<Fragment>
 													{getData ?
 														getData.map(result => {

@@ -17,6 +17,7 @@ class RegisterPage extends React.Component {
 		this.handleChangeConfPass = this.handleChangeConfPass.bind(this)
 		this.handleRegistering = this.handleRegistering.bind(this)
 		this.handleError = this.handleError.bind(this)
+		this.handleChangeSelect = this.handleChangeSelect.bind(this)
 		this.state = {
 			newUser: {
 				nomorIndukKependudukan: '',
@@ -61,7 +62,20 @@ class RegisterPage extends React.Component {
 				...newUser,
 				[name]: value
 			}
-		},() => ConsoleHelper(newUser));
+		});
+	}
+
+	handleChangeSelect(e) {
+		const { name } = e.target
+		var index = e.nativeEvent.target.selectedIndex;
+		const { value } = e.nativeEvent.target[index];
+		const { newUser } = this.state
+		this.setState({
+			newUser: {
+				...newUser,
+				[name]: value
+			}
+		})
 	}
 
 	handleChangeConfPass(event) {
@@ -74,6 +88,7 @@ class RegisterPage extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		const { newUser, confirmPassword } = this.state
+		console.log(newUser)
 		if (confirmPassword === newUser.password) {
 			this.props.reqRegister(newUser)
 			this.props.history.push('/register/registering')
@@ -163,7 +178,8 @@ class RegisterPage extends React.Component {
 										<label>Jenis Kelamin</label>
 									</div>
 									<div className='col-row-form'>
-										<select onChange={this.handleChange} name='laporan' placeholder='Laporan' value={newUser.jenisKelamin} required>
+										<select onChange={this.handleChangeSelect} name='jenisKelamin' placeholder='jenisKelamin' required>
+											<option disabled selected value>Pilih Jenis Kelamin</option>
 											<option value='Laki-laki'>Laki-laki</option>
 											<option value='Perempuan'>Perempuan</option>
 										</select>

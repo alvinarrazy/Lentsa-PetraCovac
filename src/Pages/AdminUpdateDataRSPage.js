@@ -162,7 +162,7 @@ class AdminUpdateDataRSPage extends React.Component {
 											</div>
 											:
 											<select style={{ width: '200px' }} onChange={this.handleChangeRS} placeholder='Rumah Sakit' required>
-												<option value='null'>Pilih Rumah Sakit</option>
+												<option disabled selected value>Pilih Rumah Sakit</option>
 												<Fragment>
 													{getData ?
 														getData.map(result => {
