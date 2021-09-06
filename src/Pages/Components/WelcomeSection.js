@@ -8,6 +8,11 @@ class WelcomeSection extends Component {
 
   constructor(props) {
     super(props)
+    this.handleYoutubeLink = this.handleYoutubeLink.bind(this)
+  }
+
+  handleYoutubeLink() {
+    window.location.assign('https://youtu.be/7c7J5pvtU1M')
   }
 
   render() {
@@ -26,8 +31,9 @@ class WelcomeSection extends Component {
               className='btns'
               buttonStyle='btn--primary'
               buttonSize='btn--large'
+              onClick={() => this.handleYoutubeLink()}
             >
-              LEARN MORE <i className='far fa-play-circle' />
+            ABOUT OUR TEAM <i className='far fa-play-circle' />
             </Button>
           </div>
         </div>

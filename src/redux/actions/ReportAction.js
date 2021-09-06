@@ -59,3 +59,33 @@ export const confirmReport = (data) => {
     }
     function failure(error) { return { type: reportConstants.CONFIRM_REPORT_FAILS } }
 }
+
+export const deleteReport = (data) => {
+    let token = authHeader()
+    return dispatch => {
+        dispatch({
+            type: reportConstants.REQUEST_DELETE_REPORT,
+            data: data
+        })
+        reportService.confirmReport(data, token)
+            .then(
+                results => {
+                    if (results === undefined) {
+                        throw 'failed'
+                    }
+                    dispatch(success(results))
+                },
+                error => {
+                    // userService.logout(); //auto logout kalo error
+                    dispatch(failure(error.toString()));
+                }
+            );
+    }
+    function success(data) {
+        return ({
+            type: reportConstants.DELETE_REPORT_SUCCESS,
+            data: data
+        })
+    }
+    function failure(error) { return { type: reportConstants.DELETE_REPORT_FAILS } }
+}

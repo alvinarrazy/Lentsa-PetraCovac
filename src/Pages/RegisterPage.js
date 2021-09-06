@@ -7,6 +7,7 @@ import {
 import './Styles/Form.css'
 import CheckIfAccessAllowed from './Components/CheckIfAccessAllowed';
 import Footer from './Components/Footer'
+import ConsoleHelper from '../redux/helpers/ConsoleHelper';
 
 class RegisterPage extends React.Component {
 	constructor(props) {
@@ -60,7 +61,7 @@ class RegisterPage extends React.Component {
 				...newUser,
 				[name]: value
 			}
-		});
+		},() => ConsoleHelper(newUser));
 	}
 
 	handleChangeConfPass(event) {
@@ -162,7 +163,7 @@ class RegisterPage extends React.Component {
 										<label>Jenis Kelamin</label>
 									</div>
 									<div className='col-row-form'>
-										<select onChange={this.handleChange} name='laporan' placeholder='Laporan' required>
+										<select onChange={this.handleChange} name='laporan' placeholder='Laporan' value={newUser.jenisKelamin} required>
 											<option value='Laki-laki'>Laki-laki</option>
 											<option value='Perempuan'>Perempuan</option>
 										</select>

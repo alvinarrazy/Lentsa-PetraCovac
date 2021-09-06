@@ -7,13 +7,15 @@ import { API } from '../config';
 import Footer from './Components/Footer';
 import { RingLoader } from './Components/RingLoader';
 import ReportItem from './Components/ReportItem';
-import { confirmReport } from '../redux/actions/ReportAction';
+import { confirmReport, deleteReport } from '../redux/actions/ReportAction';
 import { Button } from './Components/Button';
+import { data } from 'cheerio/lib/api/attributes';
 
 class AdminReportDetailPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleConfirm = this.handleConfirm.bind(this)
+		this.handleDelete = this.handleDelete.bind(this)
 		this.state = {
 			reportDetails: {},
 			isLoaded: false
@@ -22,6 +24,10 @@ class AdminReportDetailPage extends React.Component {
 
 	handleConfirm(id) {
 		this.props.confirmReport(id)
+	}
+
+	handleDelete(id) {
+		this.props.deleteReport(id)
 	}
 
 
@@ -77,6 +83,9 @@ class AdminReportDetailPage extends React.Component {
 							<Button onClick={() => {
 								this.handleConfirm(reportDetails._id);
 							}}>Konfirmasi</Button>
+							<Button onClick={() => {
+								this.handleDelete(reportDetails._id);
+							}}>Hapus</Button>
 						</div>
 						<div className='dummy-right-window' style={{ width: '50%' }}>
 							{this.props.reportReducer.isConfirming ?
@@ -134,7 +143,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		confirmReport: (data) => dispatch(confirmReport(data))
+		confirmReport: (data) => dispatch(confirmReport(data)),
+		deleteReport: (data) => dispatch(deleteReport(data))
 	}
 }
 

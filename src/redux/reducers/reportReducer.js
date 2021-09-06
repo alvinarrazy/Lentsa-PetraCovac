@@ -4,8 +4,12 @@ const initialState = {
   isReporting: false,
   isConfirming: false,
   errorDetails: '',
-  reportFails: false
-
+  reportFails: false,
+  isDeleting: false,
+  deleteSuccess: false,
+  confirmSuccess: false,
+  deletingFails: false,
+  confirmFails: false
 }
 
 export function reportReducer(state = initialState, action) {
@@ -32,6 +36,11 @@ export function reportReducer(state = initialState, action) {
         isConfirming: true,
         confirmSuccess: false
       }
+    case reportConstants.REQUEST_DELETE_REPORT:
+      return {
+        isDeleting: true,
+        deleteSuccess: false
+      }
     case reportConstants.CONFIRM_REPORT_SUCCESS:
       return {
         isConfirming: false,
@@ -41,6 +50,16 @@ export function reportReducer(state = initialState, action) {
       return {
         isConfirming: false,
         confirmFails: true
+      }
+    case reportConstants.DELETE_REPORT_SUCCESS:
+      return {
+        isDeleting: false,
+        deleteSuccess: true
+      }
+    case reportConstants.DELETE_REPORT_FAILS:
+      return {
+        isDeleting: false,
+        deletingFails: true
       }
     case reportConstants.RESET:
       return {
