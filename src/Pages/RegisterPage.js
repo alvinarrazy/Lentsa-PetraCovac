@@ -88,7 +88,6 @@ class RegisterPage extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		const { newUser, confirmPassword } = this.state
-		console.log(newUser)
 		if (confirmPassword === newUser.password) {
 			this.props.reqRegister(newUser)
 			this.props.history.push('/register/registering')
