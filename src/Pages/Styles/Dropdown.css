@@ -28,6 +28,24 @@
     color: #fff;
     padding: 16px;
   }
+
+  .dropmenu-enter {
+    max-height: 0px;
+    -webkit-transition: max-height 1s ease;
+    overflow: hidden; }
+  
+  .dropmenu-enter.dropmenu-enter-active {
+    height: auto;
+    max-height: 300px; }
+  
+  .dropmenu-leave {
+    max-height: 300px;
+    -webkit-transition: max-height 1s ease; }
+  
+  .dropmenu-leave.dropmenu-leave-active {
+    overflow: hidden;
+    max-height: 0px; }
+  
   
   @media screen and (max-width: 960px) {
     .dropdown-menu {

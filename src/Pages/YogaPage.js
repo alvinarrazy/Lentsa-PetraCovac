@@ -21,31 +21,41 @@ class YogaPage extends React.Component {
           header: 'Lompat Tali',
           src: '/images/skipping.png',
           alt: 'Lompat Tali',
-          paragraph: 'Lompat tali membantu menurunan berat badan anda, membuat berkeringat, meningkatkan sistem imun, melancarkan metabolism.'
+          kalori: '420',
+          waktu: '30 menit',
+          paragraph: 'Lompat tali membantu menurunan berat badan anda, meningkatkan sistem imun, melancarkan metabolism.'
         },
         {
           header: 'Jogging',
           src: '/images/jogging.png',
           alt: 'Jogging',
+          kalori: '216',
+          waktu: '30 menit',
           paragraph: 'Dengan jogging minimal 4 jam dalam 1 minggu, tubuh akan membakar kalori lebih banyak, bahkan ketika kita sudah tidak jogging. '
         },
         {
           header: 'Zumba',
           src: '/images/zumba.png',
           alt: 'Zumba',
-          paragraph: 'Zumba tidak membutuhkan waktu yang lama. Anda cukup melakukan zumba selama 30 menit dalam sehari. Zumba dapat dilakukan di pagi ataupun sore hari.'
+          waktu: '60 menit',
+          kalori: '450',
+          paragraph: 'Zumba tidak membutuhkan waktu yang lama. Anda cukup melakukan zumba selama 30 menit dalam sehari.'
         },
         {
           header: 'Hula Hoop',
           src: '/images/hula-hoop.png',
           alt: 'Hula Hoop',
+          waktu: '60 menit',
+          kalori: '200',
           paragraph: 'Bagi Wanita, Hula Hoop dapat membantu membentuk panggul. Bagi Pria, Hula Hoop dapat melatih stamina bagian bawah tubuh.'
         },
         {
           header: 'Yoga',
           src: '/images/yoga.png',
           alt: 'Yoga',
-          paragraph: 'Melakukan Yoga selama 30 menit dalam sehari akan membuat tubuh anda menjadi lebih rileks dan juga membuat tidur anda lebih berkualitas.'
+          waktu: '60 menit',
+          kalori: '288',
+          paragraph: 'Melakukan Yoga setiap hari akan membuat tubuh anda menjadi lebih rileks dan juga membuat tidur anda lebih berkualitas.'
         },
       ],
       tipsIndex: 0,
@@ -120,6 +130,8 @@ class YogaPage extends React.Component {
                   src={healthyTips[tipsIndex].src}
                   alt={healthyTips[tipsIndex].alt}
                   paragraph={healthyTips[tipsIndex].paragraph}
+                  kalori={healthyTips[tipsIndex].kalori}
+                  waktu={healthyTips[tipsIndex].waktu}
                 />
               </CSSTransition>
             <div className='right-arrow'>

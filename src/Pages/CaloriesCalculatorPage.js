@@ -154,7 +154,7 @@ class CaloriesCalculator extends React.Component {
                   </Fragment>
                 </select>
                 <h3>=</h3>
-                <h2>Calories: {caloriesTotalPagi}</h2>
+                <h2>Kalori: {caloriesTotalPagi} kal</h2>
               </div>
               <div className='makan-siang'>
                 <h2>Makan Siang</h2>
@@ -197,7 +197,7 @@ class CaloriesCalculator extends React.Component {
                   </Fragment>
                 </select>
                 <h3>=</h3>
-                <h2>Calories: {caloriesTotalSiang} </h2>
+                <h2>Kalori: {caloriesTotalSiang} kal </h2>
               </div>
               <div className='makan-malam'>
                 <h2>Makan Malam</h2>
@@ -240,9 +240,9 @@ class CaloriesCalculator extends React.Component {
                   </Fragment>
                 </select>
                 <h3>=</h3>
-                <h2>Calories: {caloriesTotalMalam} </h2>
+                <h2>Kalori: {caloriesTotalMalam} kal </h2>
               </div>
-              <h2 style={{ color: '#3faf6c', textAlign: 'center', flex: '1 0 100%', margin: '10px 0' }}>Total Calories: {caloriesTotal} </h2>
+              <h2 style={{ color: '#3faf6c', textAlign: 'center', flex: '1 0 100%', margin: '10px 0' }}>Total Kalori: {caloriesTotal} kal </h2>
             </div>
           </div>
 

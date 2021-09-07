@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 import { Button } from "./Button"
 import '../Styles/Navbar.css'
 import { authHeader, checkIfAdmin } from '../../redux/helpers/auth-header';
-
 import { logout } from '../../redux/actions/LogoutAction';
+import { CSSTransition } from 'react-transition-group';
 
 class Navbar extends Component {
     constructor(props) {
@@ -20,8 +20,8 @@ class Navbar extends Component {
         this.handleClose = this.handleClose.bind(this)
         this.onMouseEnter = this.onMouseEnter.bind(this)
         this.onMouseLeave = this.onMouseLeave.bind(this)
-        this.state = { 
-            clicked: false, 
+        this.state = {
+            clicked: false,
             dropdown1: false,
             dropdown2: false,
             dropdown3: false,
@@ -36,9 +36,9 @@ class Navbar extends Component {
 
 
     handleClick(hasDropdown, dropdownIndex) {
-        if(hasDropdown){
+        if (hasDropdown) {
             this.setDropdown([dropdownIndex], !this.state[dropdownIndex]);
-        }else{
+        } else {
             this.setState({ clicked: !this.state.clicked })
         }
     }
@@ -98,7 +98,15 @@ class Navbar extends Component {
                                 <a onClick={() => this.handleClick(true, 'dropdown1')} className='nav-links'>
                                     Data <i className='fas fa-caret-down' />
                                 </a>
-                                {dropdown1 && <DataDropdown />}
+                                <CSSTransition
+                                    in={dropdown1}
+                                    classNames="dropmenu"
+                                    timeout={500}
+                                >
+                                    <>
+                                        {dropdown1 && <DataDropdown />}
+                                    </>
+                                </CSSTransition>
                             </li>
                             <li className='nav-item'
                                 onMouseEnter={() => this.onMouseEnter('dropdown2')}
@@ -106,7 +114,15 @@ class Navbar extends Component {
                                 <a onClick={() => this.handleClick(true, 'dropdown2')} className='nav-links'>
                                     Update Data <i className='fas fa-caret-down' />
                                 </a>
-                                {dropdown2 && <UpdateDataDropdown />}
+                                <CSSTransition
+                                    in={dropdown2}
+                                    classNames="dropmenu"
+                                    timeout={500}
+                                >
+                                    <>
+                                        {dropdown2 && <UpdateDataDropdown />}
+                                    </>
+                                </CSSTransition>
                             </li>
                         </Fragment>
                         :
@@ -128,7 +144,15 @@ class Navbar extends Component {
                                 <a onClick={() => this.handleClick(true, 'dropdown3')} className='nav-links'>
                                     Data <i className='fas fa-caret-down' />
                                 </a>
-                                {dropdown3 && <DataDropdown/>}
+                                <CSSTransition
+                                    in={dropdown3}
+                                    classNames="dropmenu"
+                                    timeout={500}
+                                >
+                                    <>
+                                        {dropdown3 && <DataDropdown />}
+                                    </>
+                                </CSSTransition>
                             </li>
                             <li className='nav-item'
                                 onMouseEnter={() => this.onMouseEnter('dropdown4')}
@@ -136,7 +160,15 @@ class Navbar extends Component {
                                 <a onClick={() => this.handleClick(true, 'dropdown4')} className='nav-links'>
                                     Tips <i className='fas fa-caret-down' />
                                 </a>
-                                {dropdown4 && <TipsDropdown/>}
+                                <CSSTransition
+                                    in={dropdown4}
+                                    classNames="dropmenu"
+                                    timeout={500}
+                                >
+                                    <>
+                                        {dropdown4 && <TipsDropdown />}
+                                    </>
+                                </CSSTransition>
                             </li>
                         </Fragment>
                     }

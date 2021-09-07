@@ -43,7 +43,7 @@ class StokDarahPage extends React.Component {
 				url: `${API}/stok-darah/delete/${dataId}`,
 				headers: {
 					Authorization: authHeader()
-				  }	  
+				}
 			})
 			if (deleteResult) {
 				ConsoleHelper(deleteResult)
@@ -68,40 +68,50 @@ class StokDarahPage extends React.Component {
 			<>
 
 				{isLoaded ? <>
-					<div className='table-wrap'>
-						<table className="data-kecamatan">
-							<tr>
-								<th>Jenis Sampel</th>
-								<th>Golongan A</th>
-								<th>Golongan B</th>
-								<th>Golongan O</th>
-								<th>Golongan AB</th>
-								{checkIfAdmin() === 'admin' && <th>Hapus Data</th>}
-							</tr>
-							<Fragment>
-								{
-									sampel.map(satuSampel => {
-										return (
-											<tr>
-												<td>{satuSampel.stokDarah}</td>
-												<td>{satuSampel.golonganA}</td>
-												<td>{satuSampel.golonganB}</td>
-												<td>{satuSampel.golonganO}</td>
-												<td>{satuSampel.golonganAB}</td>
-												{checkIfAdmin() === 'admin' && <td><Button
-													onClick={() => this.handleDelete(satuSampel._id)}>
-													Hapus</Button></td>}
-											</tr>
-										)
-									})
-								}
-							</Fragment>
-						</table>
+					<div style={{ display: 'flex', flexDirection: 'column' }}>
+						<div className='table-wrap'>
+							<table className="data-kecamatan">
+								<tr>
+									<th>Jenis Sampel</th>
+									<th>Golongan A</th>
+									<th>Golongan B</th>
+									<th>Golongan O</th>
+									<th>Golongan AB</th>
+									{checkIfAdmin() === 'admin' && <th>Hapus Data</th>}
+								</tr>
+								<Fragment>
+									{
+										sampel.map(satuSampel => {
+											return (
+												<tr>
+													<td>{satuSampel.stokDarah}</td>
+													<td>{satuSampel.golonganA}</td>
+													<td>{satuSampel.golonganB}</td>
+													<td>{satuSampel.golonganO}</td>
+													<td>{satuSampel.golonganAB}</td>
+													{checkIfAdmin() === 'admin' && <td><Button
+														onClick={() => this.handleDelete(satuSampel._id)}>
+														Hapus</Button></td>}
+												</tr>
+											)
+										})
+									}
+								</Fragment>
+							</table>
+						</div>
+						<div style={{margin: '10px 24px'}}>
+							<p style={{whiteSpace: 'break-spaces'}}>
+								Segera donorkan darah anda untuk sesama!{"\n"}
+								Hubungi (024)76902477{"\n"}
+								PMI Kabupaten Semarang{"\n"}
+								Jl. Gatot Subroto no. 96, Ungaran, Kab. Semarang
+							</p>
+						</div>
 					</div>
-					{ this.state.error === true &&
-					<div className='ring-container' style={{marginTop:'20px', flexDirection: 'column', alignItems: 'center',width: '100%' }}>
-						<p style={{color: 'red'}}>Error deleting data, please try again later</p>
-					</div>
+					{this.state.error === true &&
+						<div className='ring-container' style={{ marginTop: '20px', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+							<p style={{ color: 'red' }}>Error deleting data, please try again later</p>
+						</div>
 					}
 					<Footer />
 				</>

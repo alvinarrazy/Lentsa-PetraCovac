@@ -7,7 +7,7 @@ function Yoga(props) {
             <div className='yoga-pic'>
                 <img src={props.src} alt={props.alt} />
             </div>
-            <p>{props.paragraph}</p>
+            <p>{props.paragraph} (membakar {props.kalori} kalori setiap {props.waktu}) </p>
         </div>
     )
 }
